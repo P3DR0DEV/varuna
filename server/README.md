@@ -22,3 +22,8 @@
 - [ ] A autenticação será via código de acesso e/ou magic link;
 - [ ] O usuário deve ser identificado por um JWT (Json Web Token);
 - [ ] Os dados da aplicação precisam estar persistidos em um banco PostgresSQL;
+
+
+### Diagrama Relacional
+
+<img src="../.github/Conceitual_1.png" alt="diagrama relacional" />
