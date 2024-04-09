@@ -1,5 +1,4 @@
 import { Entity } from './entity'
-import { UniqueEntityID } from './unique-entity-id'
 
 export interface DeviceProps {
   serialNumber: string
@@ -12,9 +11,7 @@ export interface DeviceProps {
   updatedAt?: Date | null
 }
 
-export abstract class Device<T extends DeviceProps> extends Entity<DeviceProps> {
-  protected props: T
-
+export abstract class Device<Props extends DeviceProps> extends Entity<Props> {
   get serialNumber(): string {
     return this.props.serialNumber
   }
@@ -37,10 +34,5 @@ export abstract class Device<T extends DeviceProps> extends Entity<DeviceProps> 
 
   get contractId(): string | null | undefined {
     return this.props.contractId
-  }
-
-  constructor(props: T, id?: UniqueEntityID) {
-    super(props, id)
-    this.props = props
   }
 }
