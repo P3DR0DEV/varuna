@@ -1,0 +1,21 @@
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+app.md
+
+# Dev
+node_modules
+
+# Database
+*.db
+
+# Env
+.env
+
+# Build
+build
+
+# Files
+archive

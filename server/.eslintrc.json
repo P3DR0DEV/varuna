@@ -1,0 +1,8 @@
+{
+  "extends": [
+    "@rotrenanoliveira/eslint-config/node"
+  ],
+  "rules": {
+    "no-useless-constructor": "off"
+  }
+}
