@@ -2,8 +2,8 @@ import { Device, DeviceProps } from '@/core/entities/device'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
 
-type PrinterTypes = 'laser' | 'thermal' | 'inkjet' | 'dotmatrix'
-type PrintingOptions = 'colorful' | 'monochrome'
+export type PrinterTypes = 'laser' | 'thermal' | 'inkjet' | 'dotmatrix'
+export type PrintingOptions = 'colorful' | 'monochrome'
 interface PrinterProps extends DeviceProps {
   name: string
   type: PrinterTypes

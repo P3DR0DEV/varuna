@@ -2,14 +2,14 @@ import { Entity } from '@/core/entities/entity'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
 
-type serviceTypes = 'application' | 'database' | 'infra'
+export type ServiceTypes = 'application' | 'database' | 'infra'
 
 export interface ServiceProps {
   name: string
   ipAddress: string
   port: number
   description: string
-  type: serviceTypes
+  type: ServiceTypes
   createdAt: Date
   updatedAt?: Date | null
 }
@@ -51,11 +51,11 @@ export class Service extends Entity<ServiceProps> {
     this.touch()
   }
 
-  get type(): serviceTypes {
+  get type(): ServiceTypes {
     return this.props.type
   }
 
-  set type(_type: serviceTypes) {
+  set type(_type: ServiceTypes) {
     this.props.type = _type
     this.touch()
   }

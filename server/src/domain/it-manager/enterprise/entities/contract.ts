@@ -2,7 +2,7 @@ import { Entity } from '@/core/entities/entity'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
 
-type ContractTypes = 'renting' | 'borrowing'
+export type ContractTypes = 'renting' | 'borrowing'
 
 export interface ContractProps {
   description: string
@@ -10,6 +10,7 @@ export interface ContractProps {
   userEmail: string
   createdAt: Date
   fileName: string
+  status: 'active' | 'inactive'
   endsAt?: Date | null
   updatedAt?: Date | null
 }

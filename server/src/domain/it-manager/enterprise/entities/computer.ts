@@ -1,12 +1,13 @@
 import { Device, DeviceProps } from '@/core/entities/device'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
+import { Slug } from './value-objects/slug'
 
 type ComputerTypes = 'notebook' | 'desktop' | 'server'
 
 interface ComputerProps extends DeviceProps {
   hostname: string
-  operatingSystem: string
+  operatingSystem: Slug
   type: ComputerTypes
   ipAddress: string
   description: string
@@ -21,11 +22,11 @@ export class Computer extends Device<ComputerProps> {
     this.touch()
   }
 
-  get operatingSystem(): string {
+  get operatingSystem(): Slug {
     return this.props.operatingSystem
   }
 
-  set operatingSystem(_operatingSystem: string) {
+  set operatingSystem(_operatingSystem: Slug) {
     this.props.operatingSystem = _operatingSystem
     this.touch()
   }
@@ -63,6 +64,7 @@ export class Computer extends Device<ComputerProps> {
       {
         ...props,
         createdAt: props.createdAt ?? new Date(),
+        operatingSystem: props.operatingSystem ?? Slug.createFromText(props.operatingSystem),
       },
       id,
     )

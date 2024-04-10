@@ -8,6 +8,7 @@ export interface LicenseProps {
   enterpriseName: string
   price: number
   createdAt: Date
+  status: 'active' | 'inactive'
   expirationDate?: Date | null
   updatedAt?: Date | null
 }

@@ -7,6 +7,14 @@ interface UserLicenseProps {
 }
 
 export class UserLicense extends Entity<UserLicenseProps> {
+  get userId(): UniqueEntityID {
+    return this.props.userId
+  }
+
+  get licenseId(): UniqueEntityID {
+    return this.props.licenseId
+  }
+
   static create(props: UserLicenseProps, id?: UniqueEntityID) {
     const userLicense = new UserLicense(
       {
