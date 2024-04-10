@@ -41,6 +41,14 @@ export class Department extends Entity<DepartmentProps> {
     this.touch()
   }
 
+  get slug(): Slug {
+    return this.props.slug
+  }
+
+  set slug(slug: Slug) {
+    this.props.slug = slug
+  }
+
   private touch(): void {
     this.props.updatedAt = new Date()
   }

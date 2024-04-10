@@ -8,6 +8,7 @@ export interface UserProps {
   email: string
   phone?: Phone | null
   badge: string
+  departmentId: UniqueEntityID
   createdAt: Date
   updatedAt?: Date | null
 }
@@ -47,6 +48,14 @@ export class User extends Entity<UserProps> {
   set badge(badge: string) {
     this.props.badge = badge
     this.touch()
+  }
+
+  get departmentId(): UniqueEntityID {
+    return this.props.departmentId
+  }
+
+  set departmentId(departmentId: UniqueEntityID) {
+    this.props.departmentId = departmentId
   }
 
   private touch(): void {

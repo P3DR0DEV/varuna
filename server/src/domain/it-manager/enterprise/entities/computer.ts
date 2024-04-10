@@ -12,6 +12,7 @@ interface ComputerProps extends DeviceProps {
   ipAddress: string
   description: string
 }
+
 export class Computer extends Device<ComputerProps> {
   get hostname(): string {
     return this.props.hostname
