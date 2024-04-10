@@ -61,6 +61,10 @@ export class Mobile extends Device<MobileProps> {
     this.props.updatedAt = new Date()
   }
 
+  get departmentId(): UniqueEntityID {
+    return this.props.departmentId
+  }
+
   static create(props: MobileProps, id?: UniqueEntityID) {
     const mobile = new Mobile(
       {

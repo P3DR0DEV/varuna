@@ -4,8 +4,8 @@ export interface MobileRepository {
   findMany(): Promise<Mobile[]>
   findById(id: string): Promise<Mobile | null>
   findByName(name: string): Promise<Mobile | null>
-  findByType(type: MobileTypes): Promise<Mobile | null>
-  findByOperatingSystem(operatingSystem: string): Promise<Mobile | null>
+  findByType(type: MobileTypes): Promise<Mobile[]>
+  findByOperatingSystem(operatingSystem: string): Promise<Mobile[]>
   findByDepartmentId(departmentId: string): Promise<Mobile[]>
 
   create(mobile: Mobile): Promise<void>

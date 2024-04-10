@@ -4,7 +4,7 @@ export interface ServiceRepository {
   findMany(): Promise<Service[]>
   findByName(serviceName: string): Promise<Service | null>
   findById(id: string): Promise<Service | null>
-  findByType(type: ServiceTypes): Promise<Service | null>
+  findByType(type: ServiceTypes): Promise<Service[]>
   findByIpAddress(ipAddress: string): Promise<Service | null>
 
   create(service: Service): Promise<void>
