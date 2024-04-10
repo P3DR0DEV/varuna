@@ -1,4 +1,3 @@
-import { test, expect } from 'vitest'
 import { Phone } from './phone'
 
 test('Should be able to format a phone, removing non-numeric characters', () => {
