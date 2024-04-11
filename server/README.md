@@ -1,6 +1,6 @@
 ### RF Requisitos Funcionais
 
-- [ ] O sistema deve permitir o cadastro de departamentos
+- [X] O sistema deve permitir o cadastro de departamentos
 - [ ] O sistema deve permitir o cadastro de usuários
 - [ ] O sistema deve permitir o cadastro de licenças (licença, usuários de licença)
 - [ ] O sistema deve permitir o cadastro de contratos
