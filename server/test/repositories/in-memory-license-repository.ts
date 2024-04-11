@@ -1,7 +1,7 @@
 import { LicenseRepository } from '@/domain/it-manager/application/repositories/license-repository'
 import { License } from '@/domain/it-manager/enterprise/entities/license'
 
-export class InMemomryLicenseRepository implements LicenseRepository {
+export class InMemoryLicenseRepository implements LicenseRepository {
   public items: License[] = []
   async findById(id: string): Promise<License | null> {
     const license = this.items.find((item) => item.id.toString() === id)
