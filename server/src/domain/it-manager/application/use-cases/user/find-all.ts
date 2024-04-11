@@ -1,16 +1,16 @@
 import { User } from '@/domain/it-manager/enterprise/entities/user'
 import { UsersRepository } from '../../repositories/users-repository'
+import { Either, success } from '@/core/types/either'
+import { UseCase } from '@/core/use-cases/use-case'
 
-type FindAllUseCaseResponse = {
-  users: User[]
-}
+type FindAllUseCaseResponse = Either<unknown, { users: User[] }>
 
-export class FindAllUseCase {
+export class FindAllUseCase implements UseCase {
   constructor(private userRepository: UsersRepository) {}
 
   async execute(): Promise<FindAllUseCaseResponse> {
     const users = await this.userRepository.findMany()
 
-    return { users }
+    return success({ users })
   }
 }

@@ -2,10 +2,11 @@ import { User } from '@/domain/it-manager/enterprise/entities/user'
 import { UsersRepository } from '../../repositories/users-repository'
 import { Phone } from '@/domain/it-manager/enterprise/entities/value-objects/phone'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Either, failure, success } from '@/core/types/either'
+import { UseCase } from '@/core/use-cases/use-case'
+import { BadRequest, BadRequestError } from '@/core/errors/bad-request'
 
-type RegisterUserUseCaseResponse = {
-  user: User
-}
+type RegisterUserUseCaseResponse = Either<BadRequestError, { user: User }>
 
 type RegisterUserUseCaseRequest = {
   name: string
@@ -15,19 +16,20 @@ type RegisterUserUseCaseRequest = {
   departmentId: string
 }
 
-export class RegisterUserUseCase {
+export class RegisterUserUseCase implements UseCase {
   constructor(private userRepository: UsersRepository) {}
+
   async execute(user: RegisterUserUseCaseRequest): Promise<RegisterUserUseCaseResponse> {
     const registeredUser = await this.userRepository.findByBadge(user.badge)
 
     if (registeredUser) {
-      throw new Error('A user with this badge already exists')
+      return failure(BadRequest('A user with this badge already exists'))
     }
 
     const registeredEmail = await this.userRepository.findByEmail(user.email)
 
     if (registeredEmail) {
-      throw new Error('A user with this email already exists')
+      return failure(BadRequest('A user with this email already exists'))
     }
 
     const userCreated = User.create({
@@ -40,6 +42,6 @@ export class RegisterUserUseCase {
 
     await this.userRepository.create(userCreated)
 
-    return { user: userCreated }
+    return success({ user: userCreated })
   }
 }

@@ -1,14 +1,21 @@
+import { Either, failure, success } from '@/core/types/either'
 import { UsersRepository } from '../../repositories/users-repository'
+import { NotFound, NotFoundError } from '@/core/errors/not-found'
+import { User } from '@/domain/it-manager/enterprise/entities/user'
+import { UseCase } from '@/core/use-cases/use-case'
 
-export class FindByIdUseCase {
+type FindByIdUseCaseResponse = Either<NotFoundError, { user: User }>
+
+export class FindByIdUseCase implements UseCase {
   constructor(private readonly usersRepository: UsersRepository) {}
-  async execute(id: string) {
+
+  async execute(id: string): Promise<FindByIdUseCaseResponse> {
     const user = await this.usersRepository.findById(id)
 
     if (!user) {
-      throw new Error('User not found')
+      return failure(NotFound('User not found.'))
     }
 
-    return { user }
+    return success({ user })
   }
 }

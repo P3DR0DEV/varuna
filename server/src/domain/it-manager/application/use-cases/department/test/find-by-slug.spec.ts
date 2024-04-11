@@ -24,15 +24,21 @@ describe('Find a department by slug use case', () => {
       })
     }
 
-    const { department } = await sut.execute(Slug.createFromText('department description 0').value)
+    const result = await sut.execute(Slug.createFromText('department description 0').value)
 
-    expect(department).toEqual(
-      expect.objectContaining({
-        description: 'department description 0',
-        slug: Slug.createFromText('department description 0'),
-        email: 'any_email@example.com',
-        chiefId: new UniqueEntityID('any_chief_id 0'),
-      }),
-    )
+    expect(result.isSuccess()).toBeTruthy()
+
+    if (result.isSuccess()) {
+      const { department } = result.value
+
+      expect(department).toEqual(
+        expect.objectContaining({
+          description: 'department description 0',
+          slug: Slug.createFromText('department description 0'),
+          email: 'any_email@example.com',
+          chiefId: new UniqueEntityID('any_chief_id 0'),
+        }),
+      )
+    }
   })
 })

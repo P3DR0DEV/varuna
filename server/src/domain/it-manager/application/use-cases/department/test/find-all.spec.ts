@@ -20,7 +20,13 @@ describe('Find all departments use case', () => {
         email: 'any_email@example.com',
       })
     }
-    const { departments } = await sut.execute()
-    expect(departments).toHaveLength(5)
+    const result = await sut.execute()
+
+    expect(result.isSuccess()).toBeTruthy()
+    if (result.isSuccess()) {
+      const { departments } = result.value
+
+      expect(departments).toHaveLength(5)
+    }
   })
 })

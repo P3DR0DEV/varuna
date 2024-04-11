@@ -13,7 +13,7 @@ describe('Delete Department Use Case', () => {
 
   it('should delete a department', async () => {
     const register = new RegisterDepartmentUseCase(departmentsRepository)
-    const { department } = await register.execute({
+    const result = await register.execute({
       chiefId: 'any_chief_id',
       description: 'department description',
       email: 'any_email@example.com',
@@ -21,7 +21,14 @@ describe('Delete Department Use Case', () => {
 
     expect(departmentsRepository.items).toHaveLength(1)
 
-    sut.execute(department.id.toString())
+    if (result.isSuccess()) {
+      const { department } = result.value
+      const result2 = await sut.execute(department.id.toString())
+
+      expect(result2.isSuccess()).toBeTruthy()
+
+      result2.isSuccess() && expect(result2.value.departmentId === department.id.toString()).toBeTruthy()
+    }
 
     expect(departmentsRepository.items).toHaveLength(0)
   })

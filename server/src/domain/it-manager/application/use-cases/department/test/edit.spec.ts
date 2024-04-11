@@ -15,6 +15,7 @@ describe('Edit department use case', () => {
   it('should edit a department', async () => {
     const register = new RegisterDepartmentUseCase(departmentsRepository)
     const departmentToFind = new FindBySlugUseCase(departmentsRepository)
+
     for (let i = 0; i < 5; i++) {
       await register.execute({
         chiefId: `any_chief_id ${i}`,
@@ -23,17 +24,28 @@ describe('Edit department use case', () => {
       })
     }
 
-    const { department } = await departmentToFind.execute(Slug.createFromText('department description 0').value)
+    const result = await departmentToFind.execute(Slug.createFromText('department description 0').value)
 
-    if (department) {
-      const { department: edited } = await sut.execute({
+    expect(result.isSuccess()).toBeTruthy()
+
+    if (result.isSuccess()) {
+      const { department } = result.value
+
+      const result2 = await sut.execute({
         id: department.id.toString(),
         chiefId: 'any_chief_id',
         description: 'new department description',
         email: 'any_email@example.com',
       })
-      expect(edited.description).toEqual('new department description')
-      expect(edited.updatedAt).toBeInstanceOf(Date)
+
+      expect(result2.isSuccess()).toBeTruthy()
+
+      if (result2.isSuccess()) {
+        const { department } = result2.value
+
+        expect(department.description).toEqual('new department description')
+        expect(department.updatedAt).toBeInstanceOf(Date)
+      }
     }
   })
 })

@@ -18,26 +18,32 @@ describe('Find departments by id use case', () => {
 
     let departmentId
     for (let i = 0; i < 5; i++) {
-      const { department } = await register.execute({
+      const result = await register.execute({
         chiefId: `any_chief_id ${i}`,
         description: 'department description',
         email: 'any_email@example.com',
       })
-      departmentId = department.id
+      departmentId = result.isSuccess() && result.value.department.id
     }
-    const { department } = await sut.execute('1')
-    expect(department).toBeNull()
+    const result = await sut.execute('1')
+    expect(result.isFailure).toBeTruthy()
 
     if (departmentId) {
-      const { department } = await sut.execute(departmentId.toString())
-      expect(department).toEqual(
-        expect.objectContaining({
-          description: 'department description',
-          slug: Slug.createFromText('department description'),
-          email: 'any_email@example.com',
-          chiefId: new UniqueEntityID('any_chief_id 4'),
-        }),
-      )
+      const result = await sut.execute(departmentId.toString())
+
+      expect(result.isSuccess()).toBeTruthy()
+      if (result.isSuccess()) {
+        const { department } = result.value
+
+        expect(department).toEqual(
+          expect.objectContaining({
+            description: 'department description',
+            slug: Slug.createFromText('department description'),
+            email: 'any_email@example.com',
+            chiefId: new UniqueEntityID('any_chief_id 4'),
+          }),
+        )
+      }
     }
   })
 })
