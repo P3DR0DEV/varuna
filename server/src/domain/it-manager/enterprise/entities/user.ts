@@ -6,7 +6,7 @@ import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 export interface UserProps {
   name: string
   email: string
-  phone?: Phone | null
+  phone: Phone | null
   badge: string
   departmentId: UniqueEntityID
   createdAt: Date
@@ -32,7 +32,7 @@ export class User extends Entity<UserProps> {
     this.touch()
   }
 
-  get phone(): Phone | null | undefined {
+  get phone(): Phone | null {
     return this.props.phone
   }
 

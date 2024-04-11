@@ -10,6 +10,10 @@ export class FindBySlugUseCase {
   async execute(slug: string): Promise<FindBySlugUseCaseResponse> {
     const department = await this.departmentRepository.findBySlug(slug)
 
+    if (!department) {
+      throw new Error('Department not found')
+    }
+
     return { department }
   }
 }

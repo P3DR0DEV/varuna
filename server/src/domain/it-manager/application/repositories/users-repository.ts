@@ -1,10 +1,10 @@
 import { User } from '@/domain/it-manager/enterprise/entities/user'
 
 export interface UsersRepository {
-  findByEmail(email: string): Promise<User | null>
-  findByBadge(badge: string): Promise<User | null>
   findMany(): Promise<User[]>
   findById(id: string): Promise<User | null>
+  findByEmail(email: string): Promise<User | null>
+  findByBadge(badge: string): Promise<User | null>
   findManyByDepartment(departmentId: string): Promise<User[]>
 
   create(user: User): Promise<void>

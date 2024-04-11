@@ -10,6 +10,10 @@ export class FindByIdUseCase {
   async execute(id: string): Promise<FindByIdUseCaseResponse> {
     const department = await this.departmentRepository.findById(id)
 
+    if (!department) {
+      throw new Error('Department not found')
+    }
+
     return { department }
   }
 }
