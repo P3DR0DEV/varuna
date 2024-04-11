@@ -12,12 +12,24 @@ export class Workstation extends Entity<WorkstationProps> {
     return this.props.userId
   }
 
+  set userId(userId: UniqueEntityID) {
+    this.props.userId = userId
+  }
+
   get deviceId(): UniqueEntityID {
     return this.props.deviceId
   }
 
+  set deviceId(deviceId: UniqueEntityID) {
+    this.props.deviceId = deviceId
+  }
+
   get departmentId(): UniqueEntityID {
     return this.props.departmentId
+  }
+
+  set departmentId(departmentId: UniqueEntityID) {
+    this.props.departmentId = departmentId
   }
 
   static create(props: WorkstationProps, id?: UniqueEntityID) {
