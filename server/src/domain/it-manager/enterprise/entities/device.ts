@@ -1,4 +1,6 @@
-import { Entity } from './entity'
+import { Optional } from '../../../../core/types/optional'
+import { Entity } from '../../../../core/entities/entity'
+import { UniqueEntityID } from '../../../../core/entities/unique-entity-id'
 
 export interface DeviceProps {
   serialNumber: string
@@ -11,7 +13,7 @@ export interface DeviceProps {
   updatedAt?: Date | null
 }
 
-export abstract class Device<Props extends DeviceProps> extends Entity<Props> {
+export class Device<Props extends DeviceProps> extends Entity<Props> {
   get serialNumber(): string {
     return this.props.serialNumber
   }
@@ -34,5 +36,16 @@ export abstract class Device<Props extends DeviceProps> extends Entity<Props> {
 
   get contractId(): string | null | undefined {
     return this.props.contractId
+  }
+
+  static create(props: Optional<DeviceProps, 'createdAt'>, id?: UniqueEntityID) {
+    const device = new Device(
+      {
+        ...props,
+        createdAt: props.createdAt ?? new Date(),
+      },
+      id,
+    )
+    return device
   }
 }

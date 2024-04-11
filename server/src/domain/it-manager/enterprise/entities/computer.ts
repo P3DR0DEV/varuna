@@ -1,7 +1,7 @@
-import { Device, DeviceProps } from '@/core/entities/device'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
 import { Slug } from './value-objects/slug'
+import { DeviceProps, Device } from './device'
 
 type ComputerTypes = 'notebook' | 'desktop' | 'server'
 

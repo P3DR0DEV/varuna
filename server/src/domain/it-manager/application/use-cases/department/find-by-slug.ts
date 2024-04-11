@@ -4,7 +4,7 @@ import { DepartmentRepository } from '../../repositories/department-repository'
 type FindBySlugUseCaseResponse = {
   department: Department | null
 }
-export class FindBySlugUseCasse {
+export class FindBySlugUseCase {
   constructor(private departmentRepository: DepartmentRepository) {}
 
   async execute(slug: string): Promise<FindBySlugUseCaseResponse> {
