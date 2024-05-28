@@ -1,4 +1,4 @@
-import { Device, DeviceProps } from '@/core/entities/device'
+import { Device, DeviceProps } from './device'
 import { Phone } from './value-objects/phone'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 

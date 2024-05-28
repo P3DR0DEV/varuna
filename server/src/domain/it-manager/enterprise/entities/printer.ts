@@ -1,6 +1,6 @@
-import { Device, DeviceProps } from '@/core/entities/device'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
+import { Device, DeviceProps } from './device'
 
 export type PrinterTypes = 'laser' | 'thermal' | 'inkjet' | 'dotmatrix'
 export type PrintingOptions = 'colorful' | 'monochrome'

@@ -23,8 +23,8 @@ export class Computer extends Device<ComputerProps> {
     this.touch()
   }
 
-  get operatingSystem(): Slug {
-    return this.props.operatingSystem
+  get operatingSystem(): string {
+    return this.props.operatingSystem.value
   }
 
   set operatingSystem(_operatingSystem: Slug) {
@@ -65,7 +65,6 @@ export class Computer extends Device<ComputerProps> {
       {
         ...props,
         createdAt: props.createdAt ?? new Date(),
-        operatingSystem: props.operatingSystem ?? Slug.createFromText(props.operatingSystem),
       },
       id,
     )

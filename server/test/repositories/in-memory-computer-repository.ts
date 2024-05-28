@@ -1,5 +1,6 @@
 import { ComputerRepository } from '@/domain/it-manager/application/repositories/computer-repository'
 import { Computer } from '@/domain/it-manager/enterprise/entities/computer'
+import { Slug } from '@/domain/it-manager/enterprise/entities/value-objects/slug'
 
 export class InMemoryComputerRepository implements ComputerRepository {
   public items: Computer[] = []
@@ -13,7 +14,11 @@ export class InMemoryComputerRepository implements ComputerRepository {
     return computer
   }
 
-  async findMany(): Promise<Computer[]> {
+  async findMany(operatingSystem?: string): Promise<Computer[]> {
+    if (operatingSystem) {
+      return this.items.filter((item) => item.operatingSystem === Slug.createFromText(operatingSystem).value)
+    }
+
     return this.items
   }
 
@@ -28,15 +33,6 @@ export class InMemoryComputerRepository implements ComputerRepository {
 
   async findByIpAddress(ipAddress: string): Promise<Computer | null> {
     const computer = this.items.find((item) => item.ipAddress === ipAddress)
-
-    if (!computer) {
-      return null
-    }
-    return computer
-  }
-
-  async findByOperatingSystem(operatingSystem: string): Promise<Computer | null> {
-    const computer = this.items.find((item) => item.operatingSystem.value === operatingSystem)
 
     if (!computer) {
       return null
