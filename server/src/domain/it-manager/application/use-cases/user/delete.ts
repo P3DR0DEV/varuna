@@ -1,9 +1,9 @@
 import { UseCase } from '@/core/use-cases/use-case'
 import { UsersRepository } from '../../repositories/users-repository'
 import { Either, failure, success } from '@/core/types/either'
-import { NotFound } from '@/core/errors/not-found'
+import { NotFound, NotFoundError } from '@/core/errors/not-found'
 
-export type DeleteUseCaseResponse = Either<Error, { userId: string }>
+type DeleteUseCaseResponse = Either<NotFoundError, { userId: string }>
 
 export class DeleteUseCase implements UseCase {
   constructor(private readonly usersRepository: UsersRepository) {}
