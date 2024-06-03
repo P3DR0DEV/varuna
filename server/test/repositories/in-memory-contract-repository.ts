@@ -12,19 +12,15 @@ export class InMemoryContractRepository implements ContractRepository {
     return contract
   }
 
-  async findByType(type: ContractTypes): Promise<Contract | null> {
-    const contract = this.items.find((item) => item.type === type)
-    if (!contract) {
-      return null
-    }
+  async findByType(type: ContractTypes): Promise<Contract[]> {
+    const contract = this.items.filter((item) => item.type === type)
+
     return contract
   }
 
-  async findByUserEmail(userEmail: string): Promise<Contract | null> {
-    const contract = this.items.find((item) => item.userEmail === userEmail)
-    if (!contract) {
-      return null
-    }
+  async findByUserEmail(userEmail: string): Promise<Contract[]> {
+    const contract = this.items.filter((item) => item.userEmail === userEmail)
+
     return contract
   }
 

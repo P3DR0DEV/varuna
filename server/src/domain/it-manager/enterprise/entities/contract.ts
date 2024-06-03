@@ -25,6 +25,15 @@ export class Contract extends Entity<ContractProps> {
     this.touch()
   }
 
+  get status(): 'active' | 'inactive' {
+    return this.props.status
+  }
+
+  set status(_status: 'active' | 'inactive') {
+    this.props.status = _status
+    this.touch()
+  }
+
   get type(): ContractTypes {
     return this.props.type
   }
@@ -65,11 +74,12 @@ export class Contract extends Entity<ContractProps> {
     this.props.updatedAt = new Date()
   }
 
-  static create(props: Optional<ContractProps, 'createdAt'>, id?: UniqueEntityID): Contract {
+  static create(props: Optional<ContractProps, 'createdAt' | 'status'>, id?: UniqueEntityID): Contract {
     const contract = new Contract(
       {
         ...props,
         createdAt: props.createdAt ?? new Date(),
+        status: props.status ?? 'active',
       },
       id,
     )
