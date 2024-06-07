@@ -6,24 +6,25 @@ import { Slug } from '@/domain/it-manager/enterprise/entities/value-objects/slug
 
 let departmentsRepository: InMemoryDepartmentRepository
 let sut: EditDepartmentUseCase
+let register: RegisterDepartmentUseCase
+let departmentToFind: FindBySlugUseCase
+
 describe('Edit department use case', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     departmentsRepository = new InMemoryDepartmentRepository()
     sut = new EditDepartmentUseCase(departmentsRepository)
-  })
-
-  it('should edit a department', async () => {
-    const register = new RegisterDepartmentUseCase(departmentsRepository)
-    const departmentToFind = new FindBySlugUseCase(departmentsRepository)
+    register = new RegisterDepartmentUseCase(departmentsRepository)
+    departmentToFind = new FindBySlugUseCase(departmentsRepository)
 
     for (let i = 0; i < 5; i++) {
       await register.execute({
-        chiefId: `any_chief_id ${i}`,
         description: 'department description ' + i,
         email: 'any_email@example.com',
       })
     }
+  })
 
+  it('should edit a department', async () => {
     const result = await departmentToFind.execute(Slug.createFromText('department description 0').value)
 
     expect(result.isSuccess()).toBeTruthy()
@@ -46,6 +47,22 @@ describe('Edit department use case', () => {
         expect(department.description).toEqual('new department description')
         expect(department.updatedAt).toBeInstanceOf(Date)
       }
+    }
+  })
+
+  it('should return a NotFoundError', async () => {
+    const result = await sut.execute({
+      id: 'invalid_id',
+      chiefId: 'any_chief_id',
+      description: 'new department description',
+      email: 'any_email@example.com',
+    })
+
+    expect(result.isFailure()).toBeTruthy()
+
+    if (result.isFailure()) {
+      const { name } = result.reason
+      expect(name).toEqual('NotFoundError')
     }
   })
 })

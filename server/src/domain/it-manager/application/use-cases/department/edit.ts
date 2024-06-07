@@ -3,16 +3,16 @@ import { DepartmentRepository } from '../../repositories/department-repository'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Either, failure, success } from '@/core/types/either'
 import { UseCase } from '@/core/use-cases/use-case'
-import { NotFound } from '@/core/errors/not-found'
+import { NotFound, NotFoundError } from '@/core/errors/not-found'
 
 interface EditDepartmentProps {
   id: string
   description: string
   email: string | null
-  chiefId: string
+  chiefId: string | null
 }
 
-type EditDepartmentUseCaseResponse = Either<Error, { department: Department }>
+type EditDepartmentUseCaseResponse = Either<NotFoundError, { department: Department }>
 
 export class EditDepartmentUseCase implements UseCase {
   constructor(private departmentRepository: DepartmentRepository) {}
@@ -25,7 +25,7 @@ export class EditDepartmentUseCase implements UseCase {
     }
 
     department.description = props.description
-    department.chiefId = new UniqueEntityID(props.chiefId)
+    department.chiefId = props.chiefId ? new UniqueEntityID(props.chiefId) : department.chiefId
     department.email = props.email
 
     await this.departmentRepository.save(department)

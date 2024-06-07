@@ -62,12 +62,13 @@ export class Department extends Entity<DepartmentProps> {
     this.props.updatedAt = new Date()
   }
 
-  static create(props: Optional<DepartmentProps, 'slug' | 'createdAt'>, id?: UniqueEntityID): Department {
+  static create(props: Optional<DepartmentProps, 'slug' | 'createdAt' | 'chiefId'>, id?: UniqueEntityID): Department {
     const department = new Department(
       {
         ...props,
         slug: props.slug ?? Slug.createFromText(props.description),
         createdAt: props.createdAt ?? new Date(),
+        chiefId: props.chiefId ?? null,
       },
       id,
     )

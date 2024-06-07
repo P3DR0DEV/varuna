@@ -4,32 +4,56 @@ import { RegisterDepartmentUseCase } from '../register'
 
 let departmentsRepository: InMemoryDepartmentRepository
 let sut: DeleteDepartmentUseCase
+let register: RegisterDepartmentUseCase
 
 describe('Delete Department Use Case', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     departmentsRepository = new InMemoryDepartmentRepository()
     sut = new DeleteDepartmentUseCase(departmentsRepository)
-  })
+    register = new RegisterDepartmentUseCase(departmentsRepository)
 
-  it('should delete a department', async () => {
-    const register = new RegisterDepartmentUseCase(departmentsRepository)
-    const result = await register.execute({
-      chiefId: 'any_chief_id',
+    await register.execute({
       description: 'department description',
       email: 'any_email@example.com',
     })
+  })
 
-    expect(departmentsRepository.items).toHaveLength(1)
+  it('should delete a department', async () => {
+    const result = await sut.execute(departmentsRepository.items[0].id.toString())
+
+    expect(result.isSuccess()).toBeTruthy()
 
     if (result.isSuccess()) {
-      const { department } = result.value
-      const result2 = await sut.execute(department.id.toString())
-
-      expect(result2.isSuccess()).toBeTruthy()
-
-      result2.isSuccess() && expect(result2.value.departmentId === department.id.toString()).toBeTruthy()
+      const { message } = result.value
+      expect(message).toEqual('Department deleted successfully')
     }
+  })
 
-    expect(departmentsRepository.items).toHaveLength(0)
+  it('should return a NotFoundError', async () => {
+    const id = departmentsRepository.items[0].id.toString()
+    // delete the department for the first time
+    await sut.execute(id)
+
+    // tries to delete it again
+    const result = await sut.execute(id)
+
+    expect(result.isFailure()).toBeTruthy()
+
+    if (result.isFailure()) {
+      const { name } = result.reason
+      expect(name).toEqual('NotFoundError')
+    }
+  })
+
+  it('should return a BadRequestError', async () => {
+    // tries to delete an empty id
+    const result = await sut.execute('')
+
+    expect(result.isFailure()).toBeTruthy()
+
+    if (result.isFailure()) {
+      const { name } = result.reason
+      expect(name).toEqual('BadRequestError')
+    }
   })
 })
