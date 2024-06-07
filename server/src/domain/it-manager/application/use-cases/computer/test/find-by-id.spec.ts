@@ -4,15 +4,13 @@ import { FindByIdUseCase } from '../find-by-id'
 
 let computerRepository: InMemoryComputerRepository
 let sut: FindByIdUseCase
+let register: RegisterUseCase
 
 describe('Find computer by id use case', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     computerRepository = new InMemoryComputerRepository()
     sut = new FindByIdUseCase(computerRepository)
-  })
-
-  it('should find one computer', async () => {
-    const register = new RegisterUseCase(computerRepository)
+    register = new RegisterUseCase(computerRepository)
 
     for (let i = 0; i < 5; i++) {
       await register.execute({
@@ -29,6 +27,9 @@ describe('Find computer by id use case', () => {
         invoiceNumber: 'any_invoice_number',
       })
     }
+  })
+
+  it('should find one computer', async () => {
     const result = await sut.execute(computerRepository.items[0].id.toString())
 
     expect(result.isSuccess()).toBeTruthy()
@@ -37,6 +38,28 @@ describe('Find computer by id use case', () => {
       const { computer } = result.value
 
       expect(computer.hostname).toEqual('BHO0102010')
+    }
+  })
+
+  it('should return a NotFoundError', async () => {
+    const result = await sut.execute('invalid_id')
+
+    expect(result.isFailure()).toBeTruthy()
+
+    if (result.isFailure()) {
+      const { name } = result.reason
+      expect(name).toBe('NotFoundError')
+    }
+  })
+
+  it('should return a BadRequestError', async () => {
+    const result = await sut.execute('')
+
+    expect(result.isFailure()).toBeTruthy()
+
+    if (result.isFailure()) {
+      const { name } = result.reason
+      expect(name).toEqual('BadRequestError')
     }
   })
 })

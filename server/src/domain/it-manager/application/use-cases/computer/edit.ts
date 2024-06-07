@@ -5,6 +5,7 @@ import { UseCase } from '@/core/use-cases/use-case'
 import { Computer } from '@/domain/it-manager/enterprise/entities/computer'
 import { ComputerRepository } from '../../repositories/computer-repository'
 import { Slug } from '@/domain/it-manager/enterprise/entities/value-objects/slug'
+import { DeviceProps } from '@/domain/it-manager/enterprise/entities/device'
 
 type EditComputerUseCaseRequest = {
   id: string
@@ -13,7 +14,7 @@ type EditComputerUseCaseRequest = {
   type: 'notebook' | 'desktop' | 'server'
   description: string
   operatingSystem: string
-}
+} & Omit<DeviceProps, 'id' | 'createdAt'>
 
 type EditComputerUseCaseResponse = Either<BadRequestError | NotFoundError, { computer: Computer }>
 
@@ -27,6 +28,7 @@ export class EditComputerUseCase implements UseCase {
     type,
     description,
     operatingSystem,
+    ...device
   }: EditComputerUseCaseRequest): Promise<EditComputerUseCaseResponse> {
     if (!id) {
       return failure(BadRequest('Id is required'))
@@ -45,6 +47,11 @@ export class EditComputerUseCase implements UseCase {
     computer.ipAddress = ipAddress
     computer.description = description
     computer.operatingSystem = slug
+    computer.acquisitionDate = device.acquisitionDate
+    computer.serialNumber = device.serialNumber
+    computer.invoiceNumber = device.invoiceNumber
+    computer.model = device.model
+    computer.endWarrantyDate = device.endWarrantyDate
 
     await this.computerRepository.save(computer)
 

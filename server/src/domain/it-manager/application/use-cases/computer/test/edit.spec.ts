@@ -6,11 +6,9 @@ let computerRepository: InMemoryComputerRepository
 let sut: EditComputerUseCase
 
 describe('Edit computer use case', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     computerRepository = new InMemoryComputerRepository()
     sut = new EditComputerUseCase(computerRepository)
-  })
-  it('should edit a computer', async () => {
     const register = new RegisterUseCase(computerRepository)
 
     for (let i = 0; i < 5; i++) {
@@ -28,22 +26,9 @@ describe('Edit computer use case', () => {
         invoiceNumber: 'any_invoice_number',
       })
     }
+  })
 
-    const result = await sut.execute({
-      id: 'any_id',
-      type: 'notebook',
-      description: 'any_description',
-      hostname: 'BHO010201',
-      ipAddress: '237.84.2.178',
-      operatingSystem: 'Windows 11 Pro',
-    })
-
-    expect(result.isSuccess()).toBeFalsy()
-    if (result.isFailure()) {
-      const { name } = result.reason
-      expect(name).toBe('NotFoundError')
-    }
-
+  it('should edit a computer', async () => {
     const result2 = await sut.execute({
       id: computerRepository.items[0].id.toString(),
       type: 'notebook',
@@ -51,7 +36,37 @@ describe('Edit computer use case', () => {
       hostname: 'BHO010201',
       ipAddress: '237.84.2.178',
       operatingSystem: 'Windows 11 Pro',
+      serialNumber: 'any_serial_number',
+      contractId: 'any_contract_id',
+      endWarrantyDate: new Date('2028-01-01'),
+      invoiceNumber: 'any_invoice_number',
+      acquisitionDate: new Date('2022-01-01'),
+      model: 'any_model',
     })
+
     expect(result2.isSuccess()).toBeTruthy()
+  })
+
+  it('should return a error', async () => {
+    const result = await sut.execute({
+      id: 'any_id',
+      type: 'notebook',
+      description: 'any_description',
+      hostname: 'BHO010201',
+      ipAddress: '237.84.2.178',
+      operatingSystem: 'Windows 11 Pro',
+      serialNumber: 'any_serial_number',
+      contractId: 'any_contract_id',
+      endWarrantyDate: new Date('2028-01-01'),
+      invoiceNumber: 'any_invoice_number',
+      acquisitionDate: new Date('2022-01-01'),
+      model: 'any_model',
+    })
+
+    expect(result.isSuccess()).toBeFalsy()
+    if (result.isFailure()) {
+      const { name } = result.reason
+      expect(name).toBe('NotFoundError')
+    }
   })
 })

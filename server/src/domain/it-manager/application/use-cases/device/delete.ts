@@ -4,7 +4,7 @@ import { Either, failure, success } from '@/core/types/either'
 import { UseCase } from '@/core/use-cases/use-case'
 import { DeviceRepository } from '../../repositories/device-repository'
 
-type DeleteDeviceUseCaseResponse = Either<NotFoundError | BadRequestError, { deviceId: string }>
+type DeleteDeviceUseCaseResponse = Either<NotFoundError | BadRequestError, { message: string }>
 
 export class DeleteDeviceUseCase implements UseCase {
   constructor(private readonly deviceRepository: DeviceRepository) {}
@@ -22,6 +22,6 @@ export class DeleteDeviceUseCase implements UseCase {
 
     await this.deviceRepository.delete(id)
 
-    return success({ deviceId: id })
+    return success({ message: 'Device deleted successfully' })
   }
 }

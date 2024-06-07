@@ -45,6 +45,8 @@ describe('Register new Computer', async () => {
   })
 
   it('Should return an error if computer already exists', async () => {
+    // computers cannot be registered with the same hostname or ipaddress
+
     const result = await sut.execute({
       type: 'desktop',
       model: 'any_model',

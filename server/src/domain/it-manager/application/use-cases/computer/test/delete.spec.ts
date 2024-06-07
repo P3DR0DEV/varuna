@@ -4,15 +4,13 @@ import { DeleteUseCase } from '../delete'
 
 let computerRepository: InMemoryComputerRepository
 let sut: DeleteUseCase
+let register: RegisterUseCase
 
 describe('Find computer by id use case', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     computerRepository = new InMemoryComputerRepository()
     sut = new DeleteUseCase(computerRepository)
-  })
-
-  it('should find one computer', async () => {
-    const register = new RegisterUseCase(computerRepository)
+    register = new RegisterUseCase(computerRepository)
 
     for (let i = 0; i < 5; i++) {
       await register.execute({
@@ -29,6 +27,9 @@ describe('Find computer by id use case', () => {
         invoiceNumber: 'any_invoice_number',
       })
     }
+  })
+
+  it('should find one computer', async () => {
     const result = await sut.execute(computerRepository.items[0].id.toString())
 
     expect(result.isSuccess()).toBeTruthy()
@@ -37,6 +38,35 @@ describe('Find computer by id use case', () => {
       const { message } = result.value
 
       expect(message).toEqual('Computer deleted successfully')
+    }
+  })
+
+  it('should return a NotFoundError', async () => {
+    const id = computerRepository.items[0].id.toString()
+
+    // delete the computer for the first time
+    await sut.execute(id)
+
+    // tries to delete it again
+    const result = await sut.execute(id)
+
+    expect(result.isFailure()).toBeTruthy()
+
+    if (result.isFailure()) {
+      const { name } = result.reason
+      expect(name).toEqual('NotFoundError')
+    }
+  })
+
+  it('should return a BadRequestError', async () => {
+    // tries to delete an empty id
+    const result = await sut.execute('')
+
+    expect(result.isFailure()).toBeTruthy()
+
+    if (result.isFailure()) {
+      const { name } = result.reason
+      expect(name).toEqual('BadRequestError')
     }
   })
 })

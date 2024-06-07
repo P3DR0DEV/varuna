@@ -21,19 +21,24 @@ describe('Delete device use case', () => {
 
   it('should be able to delete a device', async () => {
     const id = deviceRepository.items[0].id.toString()
+
+    // delete the device
     const result = await sut.execute(id)
 
     expect(result.isSuccess()).toBeTruthy()
     if (result.isSuccess()) {
-      const { deviceId } = result.value
-      expect(deviceId).toEqual(id)
+      const { message } = result.value
+      expect(message).toEqual('Device deleted successfully')
     }
   })
 
   it('should return a NotFoundError', async () => {
     const id = deviceRepository.items[0].id.toString()
+
+    // delete the device for the first time
     await sut.execute(id)
 
+    // tries to delete it again
     const result = await sut.execute(id)
     expect(result.isFailure()).toBeTruthy()
 
