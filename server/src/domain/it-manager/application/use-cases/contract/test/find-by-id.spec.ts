@@ -13,7 +13,7 @@ describe('Find all contracts use case', () => {
     register = new RegisterContractUseCase(contractsRepository)
   })
 
-  it('should find all contracts', async () => {
+  it('should find a contract by id', async () => {
     for (let i = 0; i < 5; i++) {
       await register.execute({
         description: 'any_description',
