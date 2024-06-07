@@ -18,24 +18,61 @@ export class Device<Props extends DeviceProps> extends Entity<Props> {
     return this.props.serialNumber
   }
 
+  set serialNumber(serialNumber: string) {
+    this.props.serialNumber = serialNumber
+    this.touch()
+  }
+
   get model(): string {
     return this.props.model
+  }
+
+  set model(model: string) {
+    this.props.model = model
+    this.touch()
   }
 
   get acquisitionDate(): Date {
     return this.props.acquisitionDate
   }
 
+  set acquisitionDate(acquisitionDate: Date) {
+    this.props.acquisitionDate = acquisitionDate
+    this.touch()
+  }
+
   get endWarrantyDate(): Date | null | undefined {
     return this.props.endWarrantyDate
+  }
+
+  set endWarrantyDate(endWarrantyDate: Date | null | undefined) {
+    this.props.endWarrantyDate = endWarrantyDate
+    this.touch()
   }
 
   get invoiceNumber(): string | null | undefined {
     return this.props.invoiceNumber
   }
 
+  set invoiceNumber(invoiceNumber: string | null | undefined) {
+    this.props.invoiceNumber = invoiceNumber
+    this.touch()
+  }
+
   get contractId(): string | null | undefined {
     return this.props.contractId
+  }
+
+  get createdAt(): Date {
+    return this.props.createdAt
+  }
+
+  get updatedAt(): Date | null | undefined {
+    return this.props.updatedAt
+  }
+
+  private touch(): void {
+    this.props.updatedAt = new Date()
   }
 
   static create(props: Optional<DeviceProps, 'createdAt'>, id?: UniqueEntityID) {
