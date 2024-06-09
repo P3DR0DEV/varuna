@@ -42,7 +42,7 @@ describe('Find departments by id use case', () => {
     expect(result.isFailure()).toBeTruthy()
 
     if (result.isFailure()) {
-      expect(result.reason.name).toBeInstanceOf('NotFoundError')
+      expect(result.reason.name).toEqual('NotFoundError')
     }
   })
 
@@ -52,7 +52,7 @@ describe('Find departments by id use case', () => {
     expect(result.isFailure()).toBeTruthy()
 
     if (result.isFailure()) {
-      expect(result.reason.name).toBeInstanceOf('BadRequestError')
+      expect(result.reason.name).toEqual('BadRequestError')
     }
   })
 })

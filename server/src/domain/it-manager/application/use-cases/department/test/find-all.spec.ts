@@ -15,7 +15,6 @@ describe('Find all departments use case', () => {
 
     for (let i = 0; i < 5; i++) {
       await register.execute({
-        chiefId: `any_chief_id ${i}`,
         description: 'department description',
         email: 'any_email@example.com',
       })

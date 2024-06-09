@@ -11,9 +11,9 @@ type RegisterUserUseCaseResponse = Either<BadRequestError, { user: User }>
 type RegisterUserUseCaseRequest = {
   name: string
   email: string
-  phone: string
+  phone?: string
   badge: string
-  departmentId: string
+  departmentId?: string
 }
 
 export class RegisterUserUseCase implements UseCase {
@@ -35,7 +35,7 @@ export class RegisterUserUseCase implements UseCase {
     const userCreated = User.create({
       name: user.name,
       email: user.email,
-      phone: Phone.format(user.phone, 'pt-BR'),
+      phone: user.phone ? Phone.format(user.phone, 'pt-BR') : null,
       badge: user.badge,
       departmentId: new UniqueEntityID(user.departmentId),
     })

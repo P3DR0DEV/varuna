@@ -18,7 +18,6 @@ describe('Find a department by slug use case', () => {
 
     for (let i = 0; i < 5; i++) {
       await register.execute({
-        chiefId: `any_chief_id ${i}`,
         description: 'department description ' + i,
         email: 'any_email@example.com',
       })
@@ -36,7 +35,6 @@ describe('Find a department by slug use case', () => {
           description: 'department description 0',
           slug: Slug.createFromText('department description 0'),
           email: 'any_email@example.com',
-          chiefId: new UniqueEntityID('any_chief_id 0'),
         }),
       )
     }
