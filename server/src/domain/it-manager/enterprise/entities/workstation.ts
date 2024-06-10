@@ -1,27 +1,20 @@
 import { Entity } from '@/core/entities/entity'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Optional } from '@/core/types/optional'
 
-interface WorkstationProps {
-  userId: UniqueEntityID
-  deviceId: UniqueEntityID
+export interface WorkstationProps {
+  computerId: UniqueEntityID
   departmentId: UniqueEntityID
+  createdAt: Date
 }
 
 export class Workstation extends Entity<WorkstationProps> {
-  get userId(): UniqueEntityID {
-    return this.props.userId
+  get computerId(): UniqueEntityID {
+    return this.props.computerId
   }
 
-  set userId(userId: UniqueEntityID) {
-    this.props.userId = userId
-  }
-
-  get deviceId(): UniqueEntityID {
-    return this.props.deviceId
-  }
-
-  set deviceId(deviceId: UniqueEntityID) {
-    this.props.deviceId = deviceId
+  set computerId(computerId: UniqueEntityID) {
+    this.props.computerId = computerId
   }
 
   get departmentId(): UniqueEntityID {
@@ -32,10 +25,11 @@ export class Workstation extends Entity<WorkstationProps> {
     this.props.departmentId = departmentId
   }
 
-  static create(props: WorkstationProps, id?: UniqueEntityID) {
+  static create(props: Optional<WorkstationProps, 'createdAt'>, id?: UniqueEntityID) {
     const workstation = new Workstation(
       {
         ...props,
+        createdAt: props.createdAt ?? new Date(),
       },
       id,
     )
