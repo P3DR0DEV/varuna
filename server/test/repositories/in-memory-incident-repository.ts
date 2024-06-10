@@ -18,20 +18,15 @@ export class InMemoryIncidentRepository implements IncidentRepository {
     return incident
   }
 
-  async findByWorkstationId(workstationId: string): Promise<Incident | null> {
-    const incident = this.items.find((item) => item.workstationId === workstationId)
-    if (!incident) {
-      return null
-    }
+  async findByWorkstationId(workstationId: string): Promise<Incident[]> {
+    const incident = this.items.filter((item) => item.workstationId.toString() === workstationId)
+
     return incident
   }
 
-  async findByDeviceId(deviceId: string): Promise<Incident | null> {
-    const incident = this.items.find((item) => item.deviceId === deviceId)
+  async findByDeviceId(deviceId: string): Promise<Incident[]> {
+    const incident = this.items.filter((item) => item.deviceId?.toString() === deviceId)
 
-    if (!incident) {
-      return null
-    }
     return incident
   }
 

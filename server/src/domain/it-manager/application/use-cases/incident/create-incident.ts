@@ -5,6 +5,8 @@ import { IncidentRepository } from '../../repositories/incident-repository'
 import { NotFound, NotFoundError } from '@/core/errors/not-found'
 import { BadRequest, BadRequestError } from '@/core/errors/bad-request'
 import { DeviceRepository } from '../../repositories/device-repository'
+import { WorkstationRepository } from '../../repositories/workstation-repository'
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 
 type CreateIncidentUseCaseProps = {
   description: string
@@ -17,7 +19,7 @@ export class CreateIncidentUseCase implements UseCase {
   constructor(
     private readonly incidentRepository: IncidentRepository,
     private readonly deviceRepository: DeviceRepository,
-    private readonly workstationRepository: DeviceRepository,
+    private readonly workstationRepository: WorkstationRepository,
   ) {}
 
   async execute({
@@ -45,8 +47,8 @@ export class CreateIncidentUseCase implements UseCase {
 
     const incident = Incident.create({
       description,
-      workstationId,
-      deviceId,
+      workstationId: new UniqueEntityID(workstationId),
+      deviceId: deviceId ? new UniqueEntityID(deviceId) : null,
     })
 
     await this.incidentRepository.create(incident)
