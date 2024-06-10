@@ -16,14 +16,8 @@ export class InMemoryWorkstationRepository implements WorkstationRepository {
     return workstation
   }
 
-  async findByUserId(userId: string): Promise<Workstation[]> {
-    const workstations = this.items.filter((item) => item.userId.toString() === userId)
-
-    return workstations
-  }
-
-  async findByDeviceId(deviceId: string): Promise<Workstation | null> {
-    const workstation = this.items.find((item) => item.deviceId.toString() === deviceId)
+  async findByComputerId(computerId: string): Promise<Workstation | null> {
+    const workstation = this.items.find((item) => item.computerId.toString() === computerId)
     if (!workstation) {
       return null
     }
@@ -34,16 +28,6 @@ export class InMemoryWorkstationRepository implements WorkstationRepository {
     const workstations = this.items.filter((item) => item.departmentId.toString() === departmentId)
 
     return workstations
-  }
-
-  async findByUserIdAndDeviceId(userId: string, deviceId: string): Promise<Workstation | null> {
-    const workstation = this.items.find(
-      (item) => item.userId.toString() === userId && item.deviceId.toString() === deviceId,
-    )
-    if (!workstation) {
-      return null
-    }
-    return workstation
   }
 
   async create(workstation: Workstation): Promise<void> {
