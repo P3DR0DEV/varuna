@@ -36,6 +36,10 @@ export class Incident extends Entity<IncidentProps> {
     this.props.fixedAt = _fixedAt
   }
 
+  setIncidentAsFixed(): void {
+    this.props.fixedAt = new Date()
+  }
+
   static create(props: Optional<IncidentProps, 'createdAt'>, id?: UniqueEntityID): Incident {
     const incident = new Incident(
       {

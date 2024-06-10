@@ -5,6 +5,7 @@ export interface IncidentRepository {
   findByWorkstationId(workstationId: string): Promise<Incident | null>
   findByDeviceId(deviceId: string): Promise<Incident | null>
 
+  setIncidentAsFixed(id: string): Promise<void>
   create(incident: Incident): Promise<void>
   save(incident: Incident): Promise<void>
   delete(id: string): Promise<void>

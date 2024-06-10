@@ -4,6 +4,12 @@ import { Incident } from '@/domain/it-manager/enterprise/entities/incident'
 export class InMemoryIncidentRepository implements IncidentRepository {
   public items: Incident[] = []
 
+  async setIncidentAsFixed(id: string): Promise<void> {
+    const index = this.items.findIndex((item) => item.id.toString() === id)
+
+    this.items[index].setIncidentAsFixed()
+  }
+
   async findById(id: string): Promise<Incident | null> {
     const incident = this.items.find((item) => item.id.toString() === id)
     if (!incident) {
