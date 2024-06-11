@@ -1,15 +1,16 @@
-import { UseCase } from '@/core/use-cases/use-case'
-import { ComputerRepository } from '../../repositories/computer-repository'
-import { Either, failure, success } from '@/core/types/either'
 import { BadRequest, BadRequestError } from '@/core/errors/bad-request'
 import { NotFound, NotFoundError } from '@/core/errors/not-found'
+import { Either, failure, success } from '@/core/types/either'
+import { UseCase } from '@/core/use-cases/use-case'
 
-type DeleteUseCaseResponse = Either<BadRequestError | NotFoundError, { message: string }>
+import { ComputerRepository } from '../../repositories/computer-repository'
 
-export class DeleteUseCase implements UseCase {
-  constructor(private computerRepository: ComputerRepository) {}
+type DeleteComputerUseCaseResponse = Either<BadRequestError | NotFoundError, { message: string }>
 
-  async execute(id: string): Promise<DeleteUseCaseResponse> {
+export class DeleteComputerUseCase implements UseCase {
+  constructor(private readonly computerRepository: ComputerRepository) {}
+
+  async execute(id: string): Promise<DeleteComputerUseCaseResponse> {
     if (!id) {
       return failure(BadRequest('Id is required'))
     }

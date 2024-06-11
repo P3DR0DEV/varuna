@@ -1,32 +1,19 @@
+import { makeComputer } from 'test/factories/make-computer'
 import { InMemoryComputerRepository } from 'test/repositories/in-memory-computer-repository'
-import { RegisterUseCase } from '../register'
-import { DeleteUseCase } from '../delete'
+
+import { DeleteComputerUseCase } from '../delete-computer'
 
 let computerRepository: InMemoryComputerRepository
-let sut: DeleteUseCase
-let register: RegisterUseCase
+let sut: DeleteComputerUseCase
 
 describe('Find computer by id use case', () => {
   beforeEach(async () => {
     computerRepository = new InMemoryComputerRepository()
-    sut = new DeleteUseCase(computerRepository)
-    register = new RegisterUseCase(computerRepository)
+    sut = new DeleteComputerUseCase(computerRepository)
 
-    for (let i = 0; i < 5; i++) {
-      await register.execute({
-        type: 'desktop',
-        model: 'any_model',
-        acquisitionDate: new Date('2022-01-01'),
-        description: 'any_description',
-        hostname: 'BHO010201' + i,
-        ipAddress: '237.84.2.17' + i,
-        operatingSystem: 'Windows 11 Pro',
-        serialNumber: 'any_serial_number' + i,
-        contractId: 'any_contract_id',
-        endWarrantyDate: new Date('2028-01-01'),
-        invoiceNumber: 'any_invoice_number',
-      })
-    }
+    const computer = makeComputer()
+
+    await computerRepository.create(computer)
   })
 
   it('should find one computer', async () => {

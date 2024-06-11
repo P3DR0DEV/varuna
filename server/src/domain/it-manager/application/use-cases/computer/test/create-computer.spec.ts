@@ -1,12 +1,13 @@
 import { InMemoryComputerRepository } from 'test/repositories/in-memory-computer-repository'
-import { RegisterUseCase } from '../register'
+
+import { CreateComputerUseCase } from '../create-computer'
 
 let computerRepository: InMemoryComputerRepository
-let sut: RegisterUseCase
+let sut: CreateComputerUseCase
 describe('Register new Computer', async () => {
   beforeAll(async () => {
     computerRepository = new InMemoryComputerRepository()
-    sut = new RegisterUseCase(computerRepository)
+    sut = new CreateComputerUseCase(computerRepository)
   })
 
   it('Should be able to register new computer', async () => {
@@ -65,7 +66,6 @@ describe('Register new Computer', async () => {
 
     if (result.isFailure()) {
       const { name } = result.reason
-
       expect(name).toBe('BadRequestError')
     }
   })

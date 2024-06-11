@@ -1,11 +1,12 @@
-import { UseCase } from '@/core/use-cases/use-case'
-import { ComputerRepository } from '../../repositories/computer-repository'
-import { Computer } from '@/domain/it-manager/enterprise/entities/computer'
-import { Either, failure, success } from '@/core/types/either'
-import { Slug } from '@/domain/it-manager/enterprise/entities/value-objects/slug'
 import { BadRequest, BadRequestError } from '@/core/errors/bad-request'
+import { Either, failure, success } from '@/core/types/either'
+import { UseCase } from '@/core/use-cases/use-case'
+import { Computer } from '@/domain/it-manager/enterprise/entities/computer'
+import { Slug } from '@/domain/it-manager/enterprise/entities/value-objects/slug'
 
-type RegisterUseCaseRequest = {
+import { ComputerRepository } from '../../repositories/computer-repository'
+
+type CreateComputerUseCaseProps = {
   hostname: string
   operatingSystem: string
   type: 'notebook' | 'desktop' | 'server'
@@ -18,12 +19,13 @@ type RegisterUseCaseRequest = {
   invoiceNumber?: string | null
   contractId?: string | null
 }
-type RegisterUseCaseResponse = Either<BadRequestError, { computer: Computer }>
 
-export class RegisterUseCase implements UseCase {
-  constructor(private computerRepository: ComputerRepository) {}
+type CreateComputerUseCaseResponse = Either<BadRequestError, { computer: Computer }>
 
-  async execute(props: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
+export class CreateComputerUseCase implements UseCase {
+  constructor(private readonly computerRepository: ComputerRepository) {}
+
+  async execute(props: CreateComputerUseCaseProps): Promise<CreateComputerUseCaseResponse> {
     const findIp = await this.computerRepository.findByIpAddress(props.ipAddress)
     const findHostname = await this.computerRepository.findByHostname(props.hostname)
 

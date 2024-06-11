@@ -3,9 +3,10 @@ import { NotFound, NotFoundError } from '@/core/errors/not-found'
 import { Either, failure, success } from '@/core/types/either'
 import { UseCase } from '@/core/use-cases/use-case'
 import { Computer } from '@/domain/it-manager/enterprise/entities/computer'
-import { ComputerRepository } from '../../repositories/computer-repository'
-import { Slug } from '@/domain/it-manager/enterprise/entities/value-objects/slug'
 import { DeviceProps } from '@/domain/it-manager/enterprise/entities/device'
+import { Slug } from '@/domain/it-manager/enterprise/entities/value-objects/slug'
+
+import { ComputerRepository } from '../../repositories/computer-repository'
 
 type EditComputerUseCaseRequest = {
   id: string
@@ -19,7 +20,7 @@ type EditComputerUseCaseRequest = {
 type EditComputerUseCaseResponse = Either<BadRequestError | NotFoundError, { computer: Computer }>
 
 export class EditComputerUseCase implements UseCase {
-  constructor(private computerRepository: ComputerRepository) {}
+  constructor(private readonly computerRepository: ComputerRepository) {}
 
   async execute({
     id,
@@ -40,6 +41,17 @@ export class EditComputerUseCase implements UseCase {
       return failure(NotFound('Computer not found'))
     }
 
+    const computerWithSameHostname = await this.computerRepository.findByHostname(hostname)
+
+    if (computerWithSameHostname && computerWithSameHostname.id !== computer.id) {
+      return failure(BadRequest('Computer with this hostname already exists'))
+    }
+
+    const computerWithSameIpAddress = await this.computerRepository.findByIpAddress(ipAddress)
+
+    if (computerWithSameIpAddress && computerWithSameIpAddress.id !== computer.id) {
+      return failure(BadRequest('Computer with this hostname already exists'))
+    }
     const slug = Slug.createFromText(operatingSystem)
 
     computer.hostname = hostname
