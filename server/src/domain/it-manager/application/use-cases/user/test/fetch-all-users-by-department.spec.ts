@@ -1,8 +1,9 @@
-import { InMemoryUsersRepository } from 'test/repositories/in-memory-users-repository'
-import { FetchAllUsersByDepartmentUseCase } from '../fetch-all-users-by-department'
-import { InMemoryDepartmentRepository } from 'test/repositories/in-memory-department-repository'
 import { makeDepartment } from 'test/factories/make-department'
 import { makeUser } from 'test/factories/make-user'
+import { InMemoryDepartmentRepository } from 'test/repositories/in-memory-department-repository'
+import { InMemoryUsersRepository } from 'test/repositories/in-memory-users-repository'
+
+import { FetchAllUsersByDepartmentUseCase } from '../fetch-all-users-by-department'
 
 let usersRepository: InMemoryUsersRepository
 let departmentRepository: InMemoryDepartmentRepository

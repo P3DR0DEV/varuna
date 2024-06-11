@@ -1,6 +1,7 @@
-import { InMemoryUsersRepository } from 'test/repositories/in-memory-users-repository'
-import { EditUserUseCase } from '../edit-user'
 import { makeUser } from 'test/factories/make-user'
+import { InMemoryUsersRepository } from 'test/repositories/in-memory-users-repository'
+
+import { EditUserUseCase } from '../edit-user'
 
 let usersRepository: InMemoryUsersRepository
 let sut: EditUserUseCase

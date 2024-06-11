@@ -1,11 +1,12 @@
-import { User } from '@/domain/it-manager/enterprise/entities/user'
-import { UsersRepository } from '../../repositories/users-repository'
-import { Phone } from '@/domain/it-manager/enterprise/entities/value-objects/phone'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { Either, failure, success } from '@/core/types/either'
-import { NotFound, NotFoundError } from '@/core/errors/not-found'
-import { UseCase } from '@/core/use-cases/use-case'
 import { BadRequest, BadRequestError } from '@/core/errors/bad-request'
+import { NotFound, NotFoundError } from '@/core/errors/not-found'
+import { Either, failure, success } from '@/core/types/either'
+import { UseCase } from '@/core/use-cases/use-case'
+import { User } from '@/domain/it-manager/enterprise/entities/user'
+import { Phone } from '@/domain/it-manager/enterprise/entities/value-objects/phone'
+
+import { UsersRepository } from '../../repositories/users-repository'
 
 type EditUserUseCaseProps = {
   id: string

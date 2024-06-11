@@ -1,9 +1,10 @@
-import { Either, failure, success } from '@/core/types/either'
-import { UsersRepository } from '../../repositories/users-repository'
-import { NotFound, NotFoundError } from '@/core/errors/not-found'
-import { User } from '@/domain/it-manager/enterprise/entities/user'
-import { UseCase } from '@/core/use-cases/use-case'
 import { BadRequest, BadRequestError } from '@/core/errors/bad-request'
+import { NotFound, NotFoundError } from '@/core/errors/not-found'
+import { Either, failure, success } from '@/core/types/either'
+import { UseCase } from '@/core/use-cases/use-case'
+import { User } from '@/domain/it-manager/enterprise/entities/user'
+
+import { UsersRepository } from '../../repositories/users-repository'
 
 type GetUserByIdUseCaseProps = { id: string }
 

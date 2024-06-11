@@ -1,10 +1,11 @@
-import { InMemoryWorkstationRepository } from 'test/repositories/in-memory-workstation-repository'
-import { GetWorkstationByComputerId } from '../get-workstation-by-computer-id.js'
 import { makeComputer } from 'test/factories/make-computer.js'
 import { makeDepartment } from 'test/factories/make-department.js'
 import { InMemoryComputerRepository } from 'test/repositories/in-memory-computer-repository.js'
 import { InMemoryDepartmentRepository } from 'test/repositories/in-memory-department-repository.js'
+import { InMemoryWorkstationRepository } from 'test/repositories/in-memory-workstation-repository'
+
 import { CreateWorkstationUseCase } from '../create-workstation.js'
+import { GetWorkstationByComputerId } from '../get-workstation-by-computer-id.js'
 
 let workstationRepository: InMemoryWorkstationRepository
 let departmentRepository: InMemoryDepartmentRepository

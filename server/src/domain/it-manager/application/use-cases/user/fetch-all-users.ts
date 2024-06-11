@@ -1,7 +1,8 @@
-import { User } from '@/domain/it-manager/enterprise/entities/user'
-import { UsersRepository } from '../../repositories/users-repository'
 import { Either, success } from '@/core/types/either'
 import { UseCase } from '@/core/use-cases/use-case'
+import { User } from '@/domain/it-manager/enterprise/entities/user'
+
+import { UsersRepository } from '../../repositories/users-repository'
 
 type FetchAllUserUseCaseResponse = Either<unknown, { users: User[] }>
 

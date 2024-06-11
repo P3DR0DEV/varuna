@@ -1,13 +1,14 @@
-import { InMemoryIncidentRepository } from 'test/repositories/in-memory-incident-repository'
-import { CreateIncidentUseCase } from '../create-incident'
-import { InMemoryDeviceRepository } from 'test/repositories/in-memory-device-repository'
-import { InMemoryWorkstationRepository } from 'test/repositories/in-memory-workstation-repository'
-import { makeDepartment } from 'test/factories/make-department'
 import { makeComputer } from 'test/factories/make-computer'
+import { makeDepartment } from 'test/factories/make-department'
+import { makeDevice } from 'test/factories/make-device'
 import { InMemoryComputerRepository } from 'test/repositories/in-memory-computer-repository'
 import { InMemoryDepartmentRepository } from 'test/repositories/in-memory-department-repository'
+import { InMemoryDeviceRepository } from 'test/repositories/in-memory-device-repository'
+import { InMemoryIncidentRepository } from 'test/repositories/in-memory-incident-repository'
+import { InMemoryWorkstationRepository } from 'test/repositories/in-memory-workstation-repository'
+
 import { CreateWorkstationUseCase } from '../../workstation/create-workstation'
-import { makeDevice } from 'test/factories/make-device'
+import { CreateIncidentUseCase } from '../create-incident'
 
 let incidentRepository: InMemoryIncidentRepository
 let deviceRepository: InMemoryDeviceRepository

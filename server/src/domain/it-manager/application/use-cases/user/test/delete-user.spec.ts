@@ -1,6 +1,7 @@
-import { InMemoryUsersRepository } from 'test/repositories/in-memory-users-repository'
-import { DeleteUserUseCase } from '../delete-user'
 import { makeUser } from 'test/factories/make-user'
+import { InMemoryUsersRepository } from 'test/repositories/in-memory-users-repository'
+
+import { DeleteUserUseCase } from '../delete-user'
 
 let usersRepository: InMemoryUsersRepository
 let sut: DeleteUserUseCase

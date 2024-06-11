@@ -1,12 +1,13 @@
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { BadRequest, BadRequestError } from '@/core/errors/bad-request'
+import { NotFound, NotFoundError } from '@/core/errors/not-found'
 import { Either, failure, success } from '@/core/types/either'
 import { UseCase } from '@/core/use-cases/use-case'
 import { Incident } from '@/domain/it-manager/enterprise/entities/incident'
-import { IncidentRepository } from '../../repositories/incident-repository'
-import { NotFound, NotFoundError } from '@/core/errors/not-found'
-import { BadRequest, BadRequestError } from '@/core/errors/bad-request'
+
 import { DeviceRepository } from '../../repositories/device-repository'
+import { IncidentRepository } from '../../repositories/incident-repository'
 import { WorkstationRepository } from '../../repositories/workstation-repository'
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 
 type CreateIncidentUseCaseProps = {
   description: string

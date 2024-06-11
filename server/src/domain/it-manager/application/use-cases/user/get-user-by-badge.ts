@@ -1,9 +1,10 @@
-import { User } from '@/domain/it-manager/enterprise/entities/user'
-import { UsersRepository } from '../../repositories/users-repository'
-import { Either, failure, success } from '@/core/types/either'
 import { BadRequest, BadRequestError } from '@/core/errors/bad-request'
-import { UseCase } from '@/core/use-cases/use-case'
 import { NotFound, NotFoundError } from '@/core/errors/not-found'
+import { Either, failure, success } from '@/core/types/either'
+import { UseCase } from '@/core/use-cases/use-case'
+import { User } from '@/domain/it-manager/enterprise/entities/user'
+
+import { UsersRepository } from '../../repositories/users-repository'
 
 type GetUserByBadgeUseCaseProps = {
   badge: string

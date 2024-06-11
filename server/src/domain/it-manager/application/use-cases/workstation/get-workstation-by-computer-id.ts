@@ -1,8 +1,9 @@
 import { BadRequest, BadRequestError } from '@/core/errors/bad-request'
 import { NotFound, NotFoundError } from '@/core/errors/not-found'
 import { Either, failure, success } from '@/core/types/either'
-import { WorkstationRepository } from '../../repositories/workstation-repository'
 import { Workstation } from '@/domain/it-manager/enterprise/entities/workstation'
+
+import { WorkstationRepository } from '../../repositories/workstation-repository'
 
 type GetWorkstationByComputerIdUseCaseProps = {
   computerId: string

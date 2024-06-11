@@ -8,6 +8,7 @@ import { InMemoryDepartmentRepository } from 'test/repositories/in-memory-depart
 import { InMemoryDeviceRepository } from 'test/repositories/in-memory-device-repository'
 import { InMemoryIncidentRepository } from 'test/repositories/in-memory-incident-repository'
 import { InMemoryWorkstationRepository } from 'test/repositories/in-memory-workstation-repository'
+
 import { GetIncidentByIdUseCase } from '../get-incident-by-id'
 
 let incidentRepository: InMemoryIncidentRepository

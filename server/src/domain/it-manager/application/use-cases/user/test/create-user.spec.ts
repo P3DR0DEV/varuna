@@ -1,4 +1,5 @@
 import { InMemoryUsersRepository } from 'test/repositories/in-memory-users-repository'
+
 import { CreateUserUseCase } from '../create-user'
 
 let usersRepository: InMemoryUsersRepository

@@ -1,8 +1,9 @@
-import { UseCase } from '@/core/use-cases/use-case'
-import { UsersRepository } from '../../repositories/users-repository'
-import { Either, failure, success } from '@/core/types/either'
-import { NotFound, NotFoundError } from '@/core/errors/not-found'
 import { BadRequest, BadRequestError } from '@/core/errors/bad-request'
+import { NotFound, NotFoundError } from '@/core/errors/not-found'
+import { Either, failure, success } from '@/core/types/either'
+import { UseCase } from '@/core/use-cases/use-case'
+
+import { UsersRepository } from '../../repositories/users-repository'
 
 type DeleteUserUseCaseProps = { id: string }
 type DeleteUserUseCaseResponse = Either<BadRequestError | NotFoundError, { message: string }>

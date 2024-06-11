@@ -1,6 +1,7 @@
-import { InMemoryUsersRepository } from 'test/repositories/in-memory-users-repository'
-import { GetUserByEmailUseCase } from '../get-user-by-email'
 import { makeUser } from 'test/factories/make-user'
+import { InMemoryUsersRepository } from 'test/repositories/in-memory-users-repository'
+
+import { GetUserByEmailUseCase } from '../get-user-by-email'
 
 let usersRepository: InMemoryUsersRepository
 let sut: GetUserByEmailUseCase

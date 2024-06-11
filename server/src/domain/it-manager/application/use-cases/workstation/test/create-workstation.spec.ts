@@ -1,9 +1,10 @@
-import { InMemoryWorkstationRepository } from 'test/repositories/in-memory-workstation-repository'
-import { CreateWorkstationUseCase } from '../create-workstation'
-import { InMemoryComputerRepository } from 'test/repositories/in-memory-computer-repository'
-import { InMemoryDepartmentRepository } from 'test/repositories/in-memory-department-repository'
 import { makeComputer } from 'test/factories/make-computer'
 import { makeDepartment } from 'test/factories/make-department'
+import { InMemoryComputerRepository } from 'test/repositories/in-memory-computer-repository'
+import { InMemoryDepartmentRepository } from 'test/repositories/in-memory-department-repository'
+import { InMemoryWorkstationRepository } from 'test/repositories/in-memory-workstation-repository'
+
+import { CreateWorkstationUseCase } from '../create-workstation'
 
 let workstationRepository: InMemoryWorkstationRepository
 let departmentRepository: InMemoryDepartmentRepository

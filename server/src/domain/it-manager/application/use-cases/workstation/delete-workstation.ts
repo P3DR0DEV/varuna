@@ -1,8 +1,9 @@
-import { UseCase } from '@/core/use-cases/use-case'
-import { WorkstationRepository } from '../../repositories/workstation-repository'
-import { Either, failure, success } from '@/core/types/either'
 import { BadRequest, BadRequestError } from '@/core/errors/bad-request'
 import { NotFound, NotFoundError } from '@/core/errors/not-found'
+import { Either, failure, success } from '@/core/types/either'
+import { UseCase } from '@/core/use-cases/use-case'
+
+import { WorkstationRepository } from '../../repositories/workstation-repository'
 
 type DeleteWorkstationUseCaseProps = {
   id: string

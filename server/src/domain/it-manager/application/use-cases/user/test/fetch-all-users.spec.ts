@@ -1,6 +1,7 @@
-import { InMemoryUsersRepository } from 'test/repositories/in-memory-users-repository'
-import { FetchAllUserUseCase } from '../fetch-all-users'
 import { makeUser } from 'test/factories/make-user'
+import { InMemoryUsersRepository } from 'test/repositories/in-memory-users-repository'
+
+import { FetchAllUserUseCase } from '../fetch-all-users'
 
 let usersRepository: InMemoryUsersRepository
 let sut: FetchAllUserUseCase
