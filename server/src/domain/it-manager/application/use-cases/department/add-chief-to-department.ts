@@ -1,11 +1,12 @@
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { BadRequest, BadRequestError } from '@/core/errors/bad-request'
 import { NotFound, NotFoundError } from '@/core/errors/not-found'
 import { Either, failure, success } from '@/core/types/either'
 import { UseCase } from '@/core/use-cases/use-case'
 import { Department } from '@/domain/it-manager/enterprise/entities/department'
+
 import { DepartmentRepository } from '../../repositories/department-repository'
 import { UsersRepository } from '../../repositories/users-repository'
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 
 type AddChiefToDepartmentUseCaseProps = {
   departmentId: string

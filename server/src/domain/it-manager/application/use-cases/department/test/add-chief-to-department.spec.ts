@@ -1,53 +1,51 @@
+import { makeDepartment } from 'test/factories/make-department'
+import { makeUser } from 'test/factories/make-user'
 import { InMemoryDepartmentRepository } from 'test/repositories/in-memory-department-repository'
-import { AddChiefToDepartmentUseCase } from '../add-chief-to-department'
 import { InMemoryUsersRepository } from 'test/repositories/in-memory-users-repository'
-import { RegisterDepartmentUseCase } from '../register'
-import { RegisterUserUseCase } from '../../user/register'
+
+import { AddChiefToDepartmentUseCase } from '../add-chief-to-department'
 
 let departmentRepository: InMemoryDepartmentRepository
 let usersRepository: InMemoryUsersRepository
-let register: RegisterDepartmentUseCase
-let registerUser: RegisterUserUseCase
 let sut: AddChiefToDepartmentUseCase
 
 describe('Add chief to department use case', () => {
   beforeEach(async () => {
     departmentRepository = new InMemoryDepartmentRepository()
     usersRepository = new InMemoryUsersRepository()
-    register = new RegisterDepartmentUseCase(departmentRepository)
-    registerUser = new RegisterUserUseCase(usersRepository)
+
+    const user = makeUser()
+    usersRepository.create(user)
+
+    const department = makeDepartment()
+    departmentRepository.create(department)
+
     sut = new AddChiefToDepartmentUseCase(departmentRepository, usersRepository)
-
-    await registerUser.execute({
-      name: 'John Doe',
-      email: 'johndoe@example.com',
-      badge: '123456789',
-    })
-
-    await register.execute({
-      description: 'Recursos Humanos',
-      email: 'rh@example.com',
-    })
   })
 
   it('should add a chief to a department', async () => {
+    const departmentId = departmentRepository.items[0].id.toString()
+    const chiefId = usersRepository.items[0].id.toString()
+
     const result = await sut.execute({
-      departmentId: departmentRepository.items[0].id.toString(),
-      chiefId: usersRepository.items[0].id.toString(),
+      departmentId,
+      chiefId,
     })
 
     expect(result.isSuccess()).toBe(true)
 
     if (result.isSuccess()) {
       const { department } = result.value
-      expect(department.chiefId).toEqual(usersRepository.items[0].id)
+      expect(department.chiefId?.toString()).toEqual(chiefId)
     }
   })
 
   it('should return a NotFoundError on invalid department', async () => {
+    const chiefId = usersRepository.items[0].id.toString()
+
     const result = await sut.execute({
       departmentId: 'invalid_department_id',
-      chiefId: usersRepository.items[0].id.toString(),
+      chiefId,
     })
 
     expect(result.isFailure()).toBe(true)
@@ -59,8 +57,10 @@ describe('Add chief to department use case', () => {
   })
 
   it('should return a NotFoundError on invalid user', async () => {
+    const departmentId = departmentRepository.items[0].id.toString()
+
     const result = await sut.execute({
-      departmentId: departmentRepository.items[0].id.toString(),
+      departmentId,
       chiefId: 'invalid_user_id',
     })
 
