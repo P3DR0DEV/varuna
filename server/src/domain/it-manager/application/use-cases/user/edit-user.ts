@@ -51,7 +51,7 @@ export class EditUserUseCase implements UseCase {
     if (user.badge !== badge) {
       const userWithSameBadge = await this.usersRepository.findByBadge(badge)
 
-      if (userWithSameBadge) {
+      if (userWithSameBadge && userWithSameBadge.id.toString() !== id) {
         return failure(BadRequest('Badge already in use by another user'))
       }
     }

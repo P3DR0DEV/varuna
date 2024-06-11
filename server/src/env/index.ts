@@ -1,5 +1,6 @@
-import { InternalServerError } from '@/core/errors/internal-server-error'
 import { z } from 'zod'
+
+import { InternalServerError } from '@/core/errors/internal-server-error'
 
 export const envSchema = z.object({
   DATABASE_URL: z.string(),
