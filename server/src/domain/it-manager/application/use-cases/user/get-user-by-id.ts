@@ -3,13 +3,20 @@ import { UsersRepository } from '../../repositories/users-repository'
 import { NotFound, NotFoundError } from '@/core/errors/not-found'
 import { User } from '@/domain/it-manager/enterprise/entities/user'
 import { UseCase } from '@/core/use-cases/use-case'
+import { BadRequest, BadRequestError } from '@/core/errors/bad-request'
 
-type FindByIdUseCaseResponse = Either<NotFoundError, { user: User }>
+type GetUserByIdUseCaseProps = { id: string }
 
-export class FindByIdUseCase implements UseCase {
+type GetUserByIdUseCaseResponse = Either<BadRequestError | NotFoundError, { user: User }>
+
+export class GetUserByIdUseCase implements UseCase {
   constructor(private readonly usersRepository: UsersRepository) {}
 
-  async execute(id: string): Promise<FindByIdUseCaseResponse> {
+  async execute({ id }: GetUserByIdUseCaseProps): Promise<GetUserByIdUseCaseResponse> {
+    if (!id) {
+      return failure(BadRequest('Id is required'))
+    }
+
     const user = await this.usersRepository.findById(id)
 
     if (!user) {

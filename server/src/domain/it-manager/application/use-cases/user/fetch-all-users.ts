@@ -3,12 +3,12 @@ import { UsersRepository } from '../../repositories/users-repository'
 import { Either, success } from '@/core/types/either'
 import { UseCase } from '@/core/use-cases/use-case'
 
-type FindAllUseCaseResponse = Either<unknown, { users: User[] }>
+type FetchAllUserUseCaseResponse = Either<unknown, { users: User[] }>
 
-export class FindAllUseCase implements UseCase {
+export class FetchAllUserUseCase implements UseCase {
   constructor(private userRepository: UsersRepository) {}
 
-  async execute(): Promise<FindAllUseCaseResponse> {
+  async execute(): Promise<FetchAllUserUseCaseResponse> {
     const users = await this.userRepository.findMany()
 
     return success({ users })

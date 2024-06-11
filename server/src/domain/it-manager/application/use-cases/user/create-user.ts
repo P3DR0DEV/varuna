@@ -6,9 +6,9 @@ import { Either, failure, success } from '@/core/types/either'
 import { UseCase } from '@/core/use-cases/use-case'
 import { BadRequest, BadRequestError } from '@/core/errors/bad-request'
 
-type RegisterUserUseCaseResponse = Either<BadRequestError, { user: User }>
+type CreateUserUseCaseResponse = Either<BadRequestError, { user: User }>
 
-type RegisterUserUseCaseRequest = {
+type CreateUserUseCaseProps = {
   name: string
   email: string
   phone?: string
@@ -16,32 +16,38 @@ type RegisterUserUseCaseRequest = {
   departmentId?: string
 }
 
-export class RegisterUserUseCase implements UseCase {
-  constructor(private userRepository: UsersRepository) {}
+export class CreateUserUseCase implements UseCase {
+  constructor(private readonly userRepository: UsersRepository) {}
 
-  async execute(user: RegisterUserUseCaseRequest): Promise<RegisterUserUseCaseResponse> {
-    const registeredUser = await this.userRepository.findByBadge(user.badge)
+  async execute({
+    name,
+    email,
+    phone,
+    badge,
+    departmentId,
+  }: CreateUserUseCaseProps): Promise<CreateUserUseCaseResponse> {
+    const registeredUser = await this.userRepository.findByBadge(badge)
 
     if (registeredUser) {
       return failure(BadRequest('A user with this badge already exists'))
     }
 
-    const registeredEmail = await this.userRepository.findByEmail(user.email)
+    const registeredEmail = await this.userRepository.findByEmail(email)
 
     if (registeredEmail) {
       return failure(BadRequest('A user with this email already exists'))
     }
 
-    const userCreated = User.create({
-      name: user.name,
-      email: user.email,
-      phone: user.phone ? Phone.format(user.phone, 'pt-BR') : null,
-      badge: user.badge,
-      departmentId: new UniqueEntityID(user.departmentId),
+    const user = User.create({
+      name,
+      email,
+      phone: phone ? Phone.format(phone, 'pt-BR') : null,
+      badge,
+      departmentId: new UniqueEntityID(departmentId),
     })
 
-    await this.userRepository.create(userCreated)
+    await this.userRepository.create(user)
 
-    return success({ user: userCreated })
+    return success({ user })
   }
 }
