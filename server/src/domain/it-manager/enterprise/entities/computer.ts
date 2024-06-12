@@ -1,11 +1,12 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
+
+import { Device, DeviceProps } from './device'
 import { Slug } from './value-objects/slug'
-import { DeviceProps, Device } from './device'
 
 type ComputerTypes = 'notebook' | 'desktop' | 'server'
 
-interface ComputerProps extends DeviceProps {
+export interface ComputerProps extends DeviceProps {
   hostname: string
   operatingSystem: Slug
   type: ComputerTypes
@@ -54,10 +55,6 @@ export class Computer extends Device<ComputerProps> {
 
   set description(_description: string) {
     this.props.description = _description
-  }
-
-  private touch(): void {
-    this.props.updatedAt = new Date()
   }
 
   static create(props: Optional<ComputerProps, 'createdAt'>, id?: UniqueEntityID) {
