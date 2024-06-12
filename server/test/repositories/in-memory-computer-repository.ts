@@ -1,6 +1,5 @@
 import { ComputerRepository } from '@/domain/it-manager/application/repositories/computer-repository'
 import { Computer } from '@/domain/it-manager/enterprise/entities/computer'
-import { Slug } from '@/domain/it-manager/enterprise/entities/value-objects/slug'
 
 export class InMemoryComputerRepository implements ComputerRepository {
   public items: Computer[] = []
@@ -16,7 +15,7 @@ export class InMemoryComputerRepository implements ComputerRepository {
 
   async findMany(operatingSystem?: string): Promise<Computer[]> {
     if (operatingSystem) {
-      return this.items.filter((item) => item.operatingSystem === Slug.createFromText(operatingSystem).value)
+      return this.items.filter((item) => item.operatingSystem === operatingSystem)
     }
 
     return this.items

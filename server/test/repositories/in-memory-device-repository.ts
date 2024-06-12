@@ -1,5 +1,6 @@
 import { DeviceRepository } from '@/domain/it-manager/application/repositories/device-repository'
 import { Device, DeviceProps } from '@/domain/it-manager/enterprise/entities/device'
+import { Slug } from '@/domain/it-manager/enterprise/entities/value-objects/slug'
 
 export class InMemoryDeviceRepository implements DeviceRepository {
   public items: Device<DeviceProps>[] = []
@@ -27,7 +28,8 @@ export class InMemoryDeviceRepository implements DeviceRepository {
   }
 
   async findByModel(model: string): Promise<Device<DeviceProps>[]> {
-    const devices = this.items.filter((item) => item.model === model)
+    const slug = Slug.createFromText(model)
+    const devices = this.items.filter((item) => item.modelSlug === slug.value)
 
     return devices
   }
