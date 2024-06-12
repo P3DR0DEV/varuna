@@ -1,13 +1,14 @@
 import { InMemoryContractRepository } from 'test/repositories/in-memory-contract-repository'
-import { RegisterContractUseCase } from '../register'
+
+import { CreateContractUseCase } from '../create-contract'
 
 let contractRepository: InMemoryContractRepository
-let sut: RegisterContractUseCase
+let sut: CreateContractUseCase
 
 describe('Register contract use case', () => {
   beforeEach(() => {
     contractRepository = new InMemoryContractRepository()
-    sut = new RegisterContractUseCase(contractRepository)
+    sut = new CreateContractUseCase(contractRepository)
   })
   it('should be able to register a contract', async () => {
     const result = await sut.execute({

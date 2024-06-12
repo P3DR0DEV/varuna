@@ -1,31 +1,24 @@
+import { makeContract } from 'test/factories/make-contract'
 import { InMemoryContractRepository } from 'test/repositories/in-memory-contract-repository'
-import { EditContractUseCase } from '../edit'
-import { RegisterContractUseCase } from '../register'
+
+import { EditContractUseCase } from '../edit-contract'
 
 let sut: EditContractUseCase
 let contractsRepository: InMemoryContractRepository
-let register: RegisterContractUseCase
 
 describe('Edit contract use case', () => {
   beforeEach(() => {
     contractsRepository = new InMemoryContractRepository()
     sut = new EditContractUseCase(contractsRepository)
-    register = new RegisterContractUseCase(contractsRepository)
+
+    const contract = makeContract()
+    contractsRepository.create(contract)
   })
 
   it('should edit contract', async () => {
-    const contract = await register.execute({
-      description: 'any_description',
-      type: 'renting',
-      userEmail: 'any_user_email',
-      fileName: 'any_file_name',
-      endsAt: new Date('2025-01-01'),
-    })
-
-    if (!contract.isSuccess()) return
-
+    const contract = contractsRepository.items[0]
     const result = await sut.execute({
-      id: contract.value.contract.id.toString(),
+      id: contract.id.toString(),
       description: 'any_description',
       type: 'borrowing',
       userEmail: 'any_user_email',
@@ -56,7 +49,29 @@ describe('Edit contract use case', () => {
     expect(result.isSuccess()).toBeFalsy()
 
     if (result.isFailure()) {
-      expect(result.reason.name).toEqual('NotFoundError')
+      const { name } = result.reason
+
+      expect(name).toBe('NotFoundError')
+    }
+  })
+
+  it('should return BadRequestError', async () => {
+    const result = await sut.execute({
+      id: '',
+      description: 'any_description',
+      type: 'renting',
+      userEmail: 'any_user_email',
+      fileName: 'any_file_name',
+      endsAt: new Date('2025-01-01'),
+      status: 'inactive',
+    })
+
+    expect(result.isSuccess()).toBeFalsy()
+
+    if (result.isFailure()) {
+      const { name } = result.reason
+
+      expect(name).toBe('BadRequestError')
     }
   })
 })

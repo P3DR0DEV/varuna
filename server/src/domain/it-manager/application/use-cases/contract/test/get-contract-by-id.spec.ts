@@ -1,29 +1,23 @@
+import { makeContract } from 'test/factories/make-contract'
 import { InMemoryContractRepository } from 'test/repositories/in-memory-contract-repository'
-import { FindByIdUseCase } from '../find-by-id'
-import { RegisterContractUseCase } from '../register'
+
+import { GetContractByIdUseCase } from '../get-contract-by-id'
 
 let contractsRepository: InMemoryContractRepository
-let sut: FindByIdUseCase
-let register: RegisterContractUseCase
+let sut: GetContractByIdUseCase
 
 describe('Find all contracts use case', () => {
   beforeEach(() => {
     contractsRepository = new InMemoryContractRepository()
-    sut = new FindByIdUseCase(contractsRepository)
-    register = new RegisterContractUseCase(contractsRepository)
+    sut = new GetContractByIdUseCase(contractsRepository)
+
+    const contract = makeContract()
+    contractsRepository.create(contract)
   })
 
   it('should find a contract by id', async () => {
-    for (let i = 0; i < 5; i++) {
-      await register.execute({
-        description: 'any_description',
-        type: 'renting',
-        userEmail: 'any_user_email',
-        fileName: 'any_file_name',
-        endsAt: new Date('2025-01-01'),
-      })
-    }
-    const result = await sut.execute(contractsRepository.items[0].id.toString())
+    const id = contractsRepository.items[0].id
+    const result = await sut.execute({ id: id.toString() })
 
     expect(result.isSuccess()).toBeTruthy()
 
@@ -34,7 +28,7 @@ describe('Find all contracts use case', () => {
   })
 
   it('should return an NotFoundError', async () => {
-    const result = await sut.execute('any_id')
+    const result = await sut.execute({ id: 'any_id' })
     expect(result.isSuccess()).toBeFalsy()
 
     if (result.isFailure()) {
@@ -43,7 +37,7 @@ describe('Find all contracts use case', () => {
   })
 
   it('should return an BadRequestError', async () => {
-    const result = await sut.execute('')
+    const result = await sut.execute({ id: '' })
     expect(result.isSuccess()).toBeFalsy()
 
     if (result.isFailure()) {
