@@ -6,6 +6,7 @@ import { Department, DepartmentProps } from '@/domain/it-manager/enterprise/enti
 export function makeDepartment(override: Partial<DepartmentProps> = {}, id?: UniqueEntityID) {
   const department = Department.create(
     {
+      name: faker.company.name(),
       description: faker.person.jobArea().concat(faker.lorem.words(3)),
       email: faker.internet.email(),
       ...override,

@@ -10,7 +10,7 @@ export function makeContract(override: Partial<ContractProps> = {}, id?: UniqueE
       description: faker.commerce.productDescription(),
       userEmail: faker.internet.email(),
       endsAt: faker.date.future(),
-      type: 'renting',
+      type: faker.helpers.arrayElement(['renting', 'borrowing']),
       ...override,
     },
     id,

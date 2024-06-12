@@ -19,7 +19,7 @@ export function makeComputer(override: Partial<ComputerProps> = {}, id?: UniqueE
       ipAddress: faker.internet.ip(),
       description: faker.commerce.productDescription(),
       operatingSystem: Slug.createFromText('Windows XP'),
-      type: 'notebook',
+      type: faker.helpers.arrayElement(['desktop', 'server', 'notebook']),
       ...device,
       ...override,
     },
