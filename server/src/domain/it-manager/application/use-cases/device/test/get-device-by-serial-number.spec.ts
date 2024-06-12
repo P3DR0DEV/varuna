@@ -1,26 +1,24 @@
+import { makeDevice } from 'test/factories/make-device'
 import { InMemoryDeviceRepository } from 'test/repositories/in-memory-device-repository'
-import { FindBySerialNumberUseCase } from '../find-by-serial-number'
-import { RegisterDeviceUseCase } from '../register'
+
+import { GetDeviceBySerialumberUseCase } from '../get-device-by-serial-number'
 
 let deviceRepository: InMemoryDeviceRepository
-let sut: FindBySerialNumberUseCase
-let register: RegisterDeviceUseCase
+let sut: GetDeviceBySerialumberUseCase
 
 describe(' Find device by serial number use case', () => {
   beforeEach(async () => {
     deviceRepository = new InMemoryDeviceRepository()
-    sut = new FindBySerialNumberUseCase(deviceRepository)
-    register = new RegisterDeviceUseCase(deviceRepository)
+    sut = new GetDeviceBySerialumberUseCase(deviceRepository)
 
-    await register.execute({
-      model: 'any_model',
-      acquisitionDate: new Date('2022-01-01'),
+    const device = makeDevice({
       serialNumber: 'any_serial_number',
-      invoiceNumber: '20735',
     })
+    deviceRepository.create(device)
   })
+
   it('should be able to find device by serial number', async () => {
-    const result = await sut.execute('any_serial_number')
+    const result = await sut.execute({ serialNumber: 'any_serial_number' })
 
     expect(result.isSuccess()).toBeTruthy()
 
@@ -33,7 +31,7 @@ describe(' Find device by serial number use case', () => {
   })
 
   it('should return an NotFoundError', async () => {
-    const result = await sut.execute('invalid_serial_number')
+    const result = await sut.execute({ serialNumber: 'invalid_serial_number' })
 
     expect(result.isFailure()).toBeTruthy()
 
@@ -43,7 +41,7 @@ describe(' Find device by serial number use case', () => {
   })
 
   it('should return an BadRequestError', async () => {
-    const result = await sut.execute('')
+    const result = await sut.execute({ serialNumber: '' })
 
     expect(result.isFailure()).toBeTruthy()
 

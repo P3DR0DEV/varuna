@@ -1,10 +1,13 @@
-import { Optional } from '@/core/types/optional'
 import { Entity } from '@/core/entities/entity'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Optional } from '@/core/types/optional'
+
+import { Slug } from './value-objects/slug'
 
 export interface DeviceProps {
   serialNumber: string
   model: string
+  modelSlug: Slug
   acquisitionDate: Date
   endWarrantyDate?: Date | null
   invoiceNumber?: string | null
@@ -29,6 +32,16 @@ export class Device<Props extends DeviceProps> extends Entity<Props> {
 
   set model(model: string) {
     this.props.model = model
+    this.modelSlug = model
+    this.touch()
+  }
+
+  get modelSlug(): string {
+    return this.props.modelSlug.value
+  }
+
+  private set modelSlug(model: string) {
+    this.props.modelSlug = new Slug(model)
     this.touch()
   }
 
@@ -71,15 +84,16 @@ export class Device<Props extends DeviceProps> extends Entity<Props> {
     return this.props.updatedAt
   }
 
-  private touch(): void {
+  protected touch(): void {
     this.props.updatedAt = new Date()
   }
 
-  static create(props: Optional<DeviceProps, 'createdAt'>, id?: UniqueEntityID) {
+  static create(props: Optional<DeviceProps, 'createdAt' | 'modelSlug'>, id?: UniqueEntityID) {
     const device = new Device(
       {
         ...props,
         createdAt: props.createdAt ?? new Date(),
+        modelSlug: props.modelSlug ? props.modelSlug : Slug.createFromText(props.model),
       },
       id,
     )
