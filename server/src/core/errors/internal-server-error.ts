@@ -1,11 +1,11 @@
 export interface InternalServerError {
-  name: 'Internal Server Error'
+  name: 'InternalServerError'
   message: string
 }
 
-export function InternalServerError(message = 'InternalServerError'): InternalServerError {
+export function InternalServerError(message = 'Internal Server Error'): InternalServerError {
   return {
-    name: 'Internal Server Error',
+    name: 'InternalServerError',
     message,
   }
 }
