@@ -1,15 +1,19 @@
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Optional } from '@/core/types/optional'
+
 import { Device, DeviceProps } from './device'
 import { Phone } from './value-objects/phone'
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Slug } from './value-objects/slug'
 
 export type MobileTypes = 'cellphone' | 'tablet'
-interface MobileProps extends DeviceProps {
+export interface MobileProps extends DeviceProps {
   name: string
   type: MobileTypes
-  operatingSystem: string
+  operatingSystem: Slug
   departmentId: UniqueEntityID
   number?: Phone | null
   numberProvider?: string | null
+  createdAt: Date
 }
 
 export class Mobile extends Device<MobileProps> {
@@ -40,10 +44,10 @@ export class Mobile extends Device<MobileProps> {
   }
 
   get operatingSystem(): string {
-    return this.props.operatingSystem
+    return this.props.operatingSystem.value
   }
 
-  set operatingSystem(_operatingSystem: string) {
+  set operatingSystem(_operatingSystem: Slug) {
     this.props.operatingSystem = _operatingSystem
     this.touch()
   }
@@ -57,18 +61,15 @@ export class Mobile extends Device<MobileProps> {
     this.touch()
   }
 
-  private touch(): void {
-    this.props.updatedAt = new Date()
-  }
-
   get departmentId(): UniqueEntityID {
     return this.props.departmentId
   }
 
-  static create(props: MobileProps, id?: UniqueEntityID) {
+  static create(props: Optional<MobileProps, 'createdAt'>, id?: UniqueEntityID) {
     const mobile = new Mobile(
       {
         ...props,
+        createdAt: props.createdAt ?? new Date(),
       },
       id,
     )

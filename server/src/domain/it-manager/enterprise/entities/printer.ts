@@ -1,10 +1,11 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
+
 import { Device, DeviceProps } from './device'
 
 export type PrinterTypes = 'laser' | 'thermal' | 'inkjet' | 'dotmatrix'
 export type PrintingOptions = 'colorful' | 'monochrome'
-interface PrinterProps extends DeviceProps {
+export interface PrinterProps extends DeviceProps {
   name: string
   type: PrinterTypes
   printing: PrintingOptions
@@ -53,10 +54,6 @@ export class Printer extends Device<PrinterProps> {
 
   set observations(_observations: string | undefined | null) {
     this.props.observations = _observations
-  }
-
-  private touch(): void {
-    this.props.updatedAt = new Date()
   }
 
   static create(props: Optional<PrinterProps, 'createdAt'>, id?: UniqueEntityID) {
