@@ -30,6 +30,7 @@ export class Department extends Entity<DepartmentProps> {
 
   set name(name: string) {
     this.props.name = name
+    this.props.slug = Slug.createFromText(name)
     this.touch()
   }
 
@@ -39,7 +40,6 @@ export class Department extends Entity<DepartmentProps> {
 
   set description(description: string) {
     this.props.description = description
-    this.props.slug = Slug.createFromText(description)
     this.touch()
   }
 
