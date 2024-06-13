@@ -35,6 +35,7 @@ export class CreateComputerUseCase implements UseCase {
 
     const computer = Computer.create({
       ...props,
+      modelSlug: Slug.createFromText(props.model),
       operatingSystem: Slug.createFromText(props.operatingSystem),
     })
 
