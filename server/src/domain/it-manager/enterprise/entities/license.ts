@@ -2,6 +2,8 @@ import { Entity } from '@/core/entities/entity'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
 
+import { Slug } from './value-objects/slug'
+
 export interface LicenseProps {
   name: string
   quantity: number
@@ -9,11 +11,17 @@ export interface LicenseProps {
   price: number
   createdAt: Date
   status: 'active' | 'inactive'
-  expirationDate?: Date | null
+  expirationDate: Date | null
   updatedAt?: Date | null
 }
 
 export class License extends Entity<LicenseProps> {
+  constructor(props: LicenseProps, id?: UniqueEntityID) {
+    super(props, id)
+
+    this.name = Slug.createFromText(props.name).value
+  }
+
   get name(): string {
     return this.props.name
   }
@@ -50,12 +58,21 @@ export class License extends Entity<LicenseProps> {
     this.touch()
   }
 
-  get expiration_date(): Date | null | undefined {
+  get expirationDate(): Date | null {
     return this.props.expirationDate
   }
 
-  set expiration_date(_expirationDate: Date | null) {
+  set expirationDate(_expirationDate: Date | null) {
     this.props.expirationDate = _expirationDate
+    this.touch()
+  }
+
+  get status(): 'active' | 'inactive' {
+    return this.props.status
+  }
+
+  set status(_status: 'active' | 'inactive') {
+    this.props.status = _status
     this.touch()
   }
 
@@ -63,11 +80,16 @@ export class License extends Entity<LicenseProps> {
     this.props.updatedAt = new Date()
   }
 
-  static create(props: Optional<LicenseProps, 'createdAt'>, id?: UniqueEntityID): License {
+  static create(
+    props: Optional<LicenseProps, 'createdAt' | 'status' | 'expirationDate'>,
+    id?: UniqueEntityID,
+  ): License {
     const license = new License(
       {
         ...props,
         createdAt: props.createdAt ?? new Date(),
+        expirationDate: props.expirationDate ?? null,
+        status: props.status ?? 'active',
       },
       id,
     )
