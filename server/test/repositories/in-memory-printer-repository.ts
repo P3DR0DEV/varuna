@@ -4,6 +4,15 @@ import { Printer, PrinterTypes, PrintingOptions } from '@/domain/it-manager/ente
 export class InMemoryPrinterRepository implements PrinterRepository {
   public items: Printer[] = []
 
+  async findBySerialNumber(serialNumber: string): Promise<Printer | null> {
+    const printer = this.items.find((item) => item.serialNumber === serialNumber)
+
+    if (!printer) {
+      return null
+    }
+    return printer
+  }
+
   async findById(id: string): Promise<Printer | null> {
     const printer = this.items.find((item) => item.id.toString() === id)
     if (!printer) {

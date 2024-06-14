@@ -2,6 +2,7 @@ import { faker } from '@faker-js/faker'
 
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Printer, PrinterProps } from '@/domain/it-manager/enterprise/entities/printer'
+import { Slug } from '@/domain/it-manager/enterprise/entities/value-objects/slug'
 
 export function makePrinter(override: Partial<PrinterProps> = {}, id?: UniqueEntityID) {
   const device = {
@@ -16,6 +17,7 @@ export function makePrinter(override: Partial<PrinterProps> = {}, id?: UniqueEnt
     {
       name: faker.commerce.productName(),
       printing: faker.helpers.arrayElement(['colorful', 'monochrome']),
+      modelSlug: Slug.createFromText(device.model),
       type: faker.helpers.arrayElement(['laser', 'thermal', 'inkjet', 'dotmatrix']),
       ...device,
       ...override,
