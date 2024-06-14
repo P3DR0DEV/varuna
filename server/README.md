@@ -1,15 +1,21 @@
 ### RF Requisitos Funcionais
 
 - [X] O sistema deve permitir o cadastro de departamentos
-- [ ] O sistema deve permitir o cadastro de usuários
+- [X] O sistema deve permitir o cadastro de usuários
 - [ ] O sistema deve permitir o cadastro de licenças (licença, usuários de licença)
-- [ ] O sistema deve permitir o cadastro de contratos
+  - [X] licença 
+  - [ ] usuario-licença
+- [X] O sistema deve permitir o cadastro de contratos
 - [ ] O sistema deve permitir o cadastro de dispositivos (computador, impressora, dispositivos móveis)
+  - [X] computador
+  - [X] dispositivos móveis
+  - [X] dispositivos genericos
+  - [ ] impressoras
 - [ ] O sistema deve permitir o cadastro de endereços de serviços
-- [ ] O sistema deve permitir o cadastro de estação de trabalho
-- [ ] O sistema deve permitir o cadastro de ocorrências
+- [X] O sistema deve permitir o cadastro de estação de trabalho
+- [X] O sistema deve permitir o cadastro de ocorrências
 - [ ] O sistema deve permitir a liberação de certos endpoints (recursos) para departamentos selecionados
-- [ ] O sistema deve permitir o cadastro de contas de emails por departamento
+- [X] O sistema deve permitir o cadastro de contas de emails por departamento
 - [ ] O sistema deve permitir o cadastro de contas de emails por usuário para que o sistema envie e-mail por ele
 
 ### RN Regras de negócios
