@@ -30,11 +30,6 @@ export class InMemoryMobileRepository implements MobileRepository {
     return mobiles
   }
 
-  async findByOperatingSystem(operatingSystem: string): Promise<Mobile[]> {
-    const mobiles = this.items.filter((item) => item.operatingSystem === operatingSystem)
-    return mobiles
-  }
-
   async findByDepartmentId(departmentId: string): Promise<Mobile[]> {
     const mobiles = this.items.filter((item) => item.departmentId.toString() === departmentId)
 

@@ -16,6 +16,7 @@ export function makeMobile(override: Partial<MobileProps> = {}, id?: UniqueEntit
   const mobile = Mobile.create(
     {
       name: faker.commerce.productName(),
+      modelSlug: Slug.createFromText(device.model),
       departmentId: new UniqueEntityID(),
       type: faker.helpers.arrayElement(['tablet', 'cellphone']),
       operatingSystem: Slug.createFromText('Android'),

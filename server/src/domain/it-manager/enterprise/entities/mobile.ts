@@ -65,6 +65,11 @@ export class Mobile extends Device<MobileProps> {
     return this.props.departmentId
   }
 
+  set departmentId(departmentId: UniqueEntityID) {
+    this.props.departmentId = departmentId
+    this.touch()
+  }
+
   static create(props: Optional<MobileProps, 'createdAt'>, id?: UniqueEntityID) {
     const mobile = new Mobile(
       {
