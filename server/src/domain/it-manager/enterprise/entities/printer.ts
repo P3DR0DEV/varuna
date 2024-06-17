@@ -5,13 +5,15 @@ import { Device, DeviceProps } from './device'
 
 export type PrinterTypes = 'laser' | 'thermal' | 'inkjet' | 'dotmatrix'
 export type PrintingOptions = 'colorful' | 'monochrome'
+
 export interface PrinterProps extends DeviceProps {
   name: string
   type: PrinterTypes
   printing: PrintingOptions
-  ipAddress?: string | null
+  ipAddress: string | null
   observations?: string | null
 }
+
 export class Printer extends Device<PrinterProps> {
   get name(): string {
     return this.props.name
@@ -40,7 +42,7 @@ export class Printer extends Device<PrinterProps> {
     this.touch()
   }
 
-  get ipAddress(): string | null | undefined {
+  get ipAddress(): string | null {
     return this.props.ipAddress
   }
 
@@ -56,11 +58,12 @@ export class Printer extends Device<PrinterProps> {
     this.props.observations = _observations
   }
 
-  static create(props: Optional<PrinterProps, 'createdAt'>, id?: UniqueEntityID) {
+  static create(props: Optional<PrinterProps, 'createdAt' | 'ipAddress'>, id?: UniqueEntityID) {
     const printer = new Printer(
       {
         ...props,
         createdAt: props.createdAt ?? new Date(),
+        ipAddress: props.ipAddress ?? null,
       },
       id,
     )

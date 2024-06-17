@@ -17,6 +17,7 @@ export function makePrinter(override: Partial<PrinterProps> = {}, id?: UniqueEnt
     {
       name: faker.commerce.productName(),
       printing: faker.helpers.arrayElement(['colorful', 'monochrome']),
+      ipAddress: faker.internet.ipv4(),
       modelSlug: Slug.createFromText(device.model),
       type: faker.helpers.arrayElement(['laser', 'thermal', 'inkjet', 'dotmatrix']),
       ...device,
