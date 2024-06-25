@@ -4,6 +4,16 @@ import { UserLicense } from '@/domain/it-manager/enterprise/entities/user-licens
 export class InMemoryUserLicenseRepository implements UserLicenseRepository {
   public items: UserLicense[] = []
 
+  async findById(id: string): Promise<UserLicense | null> {
+    const userLicense = this.items.find((item) => item.id.toString() === id)
+
+    if (!userLicense) {
+      return null
+    }
+
+    return userLicense
+  }
+
   async findByUserId(userId: string): Promise<UserLicense[]> {
     const userLicenses = this.items.filter((item) => item.userId.toString() === userId)
 

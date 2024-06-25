@@ -3,6 +3,7 @@ import { UserLicense } from '@/domain/it-manager/enterprise/entities/user-licens
 export interface UserLicenseRepository {
   findByUserId(userId: string): Promise<UserLicense[]>
   findByLicenseId(licenseId: string): Promise<UserLicense | null>
+  findById(id: string): Promise<UserLicense | null>
 
   create(userLicense: UserLicense): Promise<void>
   save(userLicense: UserLicense): Promise<void>
