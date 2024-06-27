@@ -2,16 +2,16 @@
 
 - [X] O sistema deve permitir o cadastro de departamentos
 - [X] O sistema deve permitir o cadastro de usuários
-- [ ] O sistema deve permitir o cadastro de licenças (licença, usuários de licença)
+- [X] O sistema deve permitir o cadastro de licenças (licença, usuários de licença)
   - [X] licença 
-  - [ ] usuario-licença
+  - [X] usuario-licença
 - [X] O sistema deve permitir o cadastro de contratos
-- [ ] O sistema deve permitir o cadastro de dispositivos (computador, impressora, dispositivos móveis)
+- [X] O sistema deve permitir o cadastro de dispositivos (computador, impressora, dispositivos móveis)
   - [X] computador
   - [X] dispositivos móveis
   - [X] dispositivos genericos
-  - [ ] impressoras
-- [ ] O sistema deve permitir o cadastro de endereços de serviços
+  - [X] impressoras
+- [X] O sistema deve permitir o cadastro de endereços de serviços
 - [X] O sistema deve permitir o cadastro de estação de trabalho
 - [X] O sistema deve permitir o cadastro de ocorrências
 - [ ] O sistema deve permitir a liberação de certos endpoints (recursos) para departamentos selecionados
