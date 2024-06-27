@@ -17,7 +17,7 @@ describe('Create license use case', () => {
       quantity: 1,
       enterpriseName: 'any_enterprise_name',
       price: 100,
-      expirationDate: new Date('2025-01-01'),
+      expiresAt: new Date('2025-01-01'),
     })
 
     expect(result.isSuccess()).toBeTruthy()
@@ -42,7 +42,7 @@ describe('Create license use case', () => {
       quantity: 1,
       enterpriseName: 'any_enterprise_name',
       price: 100,
-      expirationDate: new Date('2025-01-01'),
+      expiresAt: new Date('2025-01-01'),
     })
 
     const result = await sut.execute({

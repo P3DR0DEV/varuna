@@ -14,7 +14,7 @@ type EditLicenseUseCaseProps = {
   enterpriseName: string
   price: number
   status?: 'active' | 'inactive'
-  expirationDate?: Date | null
+  expiresAt?: Date | null
 }
 
 type EditLicenseUseCaseResponse = Either<BadRequestError | NotFoundError, { license: License }>
@@ -29,7 +29,7 @@ export class EditLicenseUseCase implements UseCase {
     enterpriseName,
     price,
     status,
-    expirationDate,
+    expiresAt,
   }: EditLicenseUseCaseProps): Promise<EditLicenseUseCaseResponse> {
     if (!id) {
       return failure(BadRequest('ID is required'))
@@ -51,7 +51,7 @@ export class EditLicenseUseCase implements UseCase {
     license.enterpriseName = enterpriseName
     license.price = price
     license.status = status ?? license.status
-    license.expirationDate = expirationDate ?? license.expirationDate
+    license.expiresAt = expiresAt ?? license.expiresAt
 
     return success({ license })
   }

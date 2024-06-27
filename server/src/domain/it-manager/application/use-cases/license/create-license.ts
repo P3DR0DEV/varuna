@@ -12,7 +12,7 @@ type CreateLicenseUseCaseProps = {
   enterpriseName: string
   price: number
   status?: 'active' | 'inactive'
-  expirationDate?: Date | null
+  expiresAt?: Date | null
 }
 
 type CreateLicenseUseCaseResponse = Either<BadRequestError, { license: License }>
@@ -26,7 +26,7 @@ export class CreateLicenseUseCase implements UseCase {
     enterpriseName,
     price,
     status,
-    expirationDate,
+    expiresAt,
   }: CreateLicenseUseCaseProps): Promise<CreateLicenseUseCaseResponse> {
     const licenseExists = await this.licenseRepository.findByName(Slug.createFromText(name).value)
 
@@ -40,7 +40,7 @@ export class CreateLicenseUseCase implements UseCase {
       enterpriseName,
       price,
       status,
-      expirationDate,
+      expiresAt,
     })
 
     await this.licenseRepository.create(license)

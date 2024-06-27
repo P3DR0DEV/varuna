@@ -50,7 +50,7 @@ describe('Edit license use case', () => {
       enterpriseName: 'any-enterprise-name',
       price: 10,
       status: 'active',
-      expirationDate: new Date(),
+      expiresAt: new Date(),
     })
 
     expect(result.isFailure()).toBe(true)
