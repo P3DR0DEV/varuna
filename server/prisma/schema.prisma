@@ -1,0 +1,285 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum DATA_STATUS {
+  ACTIVE
+  INACTIVE
+}
+
+enum CONTRACT_TYPES {
+  RENTING
+  BORROWING
+}
+
+enum COMPUTER_TYPES {
+  NOTEBOOK
+  SERVER
+  DESKTOP
+}
+
+enum PRINTER_TYPES {
+  LASER
+  THERMAL
+  INKJET
+  DOTMATRIX
+}
+
+enum PRINTER_OPTIONS {
+  COLORFUL
+  MONOCHROME
+}
+
+enum MOBILE_TYPES {
+  CELLPHONE
+  TABLET
+}
+
+enum SERVICE_TYPES {
+  APPLICATION
+  DATABASE
+  INFRA
+}
+
+model User {
+  id            String   @id @default(uuid())
+  name          String
+  email         String   @unique
+  badge         String   @unique
+  phone         String?
+  departmentId  String   @map("department_id")
+  workstationId String?
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  userLicense UserLicense[]
+  workstation Workstation?  @relation(fields: [workstationId], references: [id])
+  department  Department    @relation(name: "part-of", fields: [departmentId], references: [id])
+  chiefOn     Department?   @relation(name: "chief-on")
+
+  @@map("users")
+}
+
+model License {
+  id             String      @id @default(uuid())
+  name           String      @unique
+  quantity       Int
+  enterpriseName String      @map("enterprise_name")
+  price          Float
+  status         DATA_STATUS @default(ACTIVE)
+  expiresAt      DateTime?   @map("expires_at")
+  createdAt      DateTime    @default(now()) @map("created_at")
+  updatedAt      DateTime    @updatedAt @map("updated_at")
+
+  userLicense UserLicense[]
+
+  @@map("licenses")
+}
+
+model Department {
+  id          String   @id @default(uuid())
+  description String
+  name        String   @unique
+  email       String?
+  slug        String   @unique
+  chiefId     String   @unique @map("chief_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  userLicense UserLicense[]
+  mobile      Mobile[]
+  workstation Workstation[]
+  users       User[]        @relation(name: "part-of")
+  chief       User?         @relation(name: "chief-on", fields: [chiefId], references: [id])
+
+  @@map("departments")
+}
+
+model UserLicense {
+  id           String @id @default(uuid())
+  userId       String @map("user_id")
+  licenseId    String @map("license_id")
+  departmentId String @map("department_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user       User       @relation(fields: [userId], references: [id])
+  license    License    @relation(fields: [licenseId], references: [id])
+  department Department @relation(fields: [departmentId], references: [id])
+
+  @@map("user_licenses")
+}
+
+model Contract {
+  id          String         @id @default(uuid())
+  description String
+  type        CONTRACT_TYPES
+  userEmail   String         @map("user_email")
+  fileName    String         @map("file_name")
+  status      DATA_STATUS
+  endsAt      DateTime?      @map("ends_at")
+  createdAt   DateTime       @default(now()) @map("created_at")
+  updatedAt   DateTime       @updatedAt @map("updated_at")
+
+  devices   Device[]
+  computers Computer[]
+  printer   Printer[]
+  mobile    Mobile[]
+
+  @@map("contracts")
+}
+
+model Device {
+  id              String    @id @default(uuid())
+  serialNumber    String    @unique @map("serial_number")
+  model           String
+  modelSlug       String    @unique @map("model_slug")
+  acquisitionDate DateTime  @map("acquisition_date")
+  endWarrantyDate DateTime? @map("end_warranty_date")
+  invoiceNumber   String?   @map("invoice_number")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  contractId String? @map("contract_id")
+
+  contract Contract?  @relation(fields: [contractId], references: [id])
+  incident Incident[]
+
+  @@map("devices")
+}
+
+model Computer {
+  id              String         @id @default(uuid())
+  serialNumber    String         @unique @map("serial_number")
+  model           String
+  modelSlug       String         @unique @map("model_slug")
+  acquisitionDate DateTime       @map("acquisition_date")
+  endWarrantyDate DateTime?      @map("end_warranty_date")
+  invoiceNumber   String?        @map("invoice_number")
+  hostname        String         @unique
+  operatingSystem String         @map("operating_system")
+  type            COMPUTER_TYPES
+  ipAddress       String         @unique @map("ip_address")
+  description     String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  contractId  String?       @map("contract_id")
+  contract    Contract?     @relation(fields: [contractId], references: [id])
+  incident    Incident[]
+  workstation Workstation[]
+
+  @@map("computers")
+}
+
+model Printer {
+  id              String          @id @default(uuid())
+  serialNumber    String          @unique @map("serial_number")
+  model           String
+  modelSlug       String          @unique @map("model_slug")
+  acquisitionDate DateTime        @map("acquisition_date")
+  endWarrantyDate DateTime?       @map("end_warranty_date")
+  invoiceNumber   String?         @map("invoice_number")
+  name            String          @unique
+  printing        PRINTER_OPTIONS
+  type            PRINTER_TYPES
+  ipAddress       String?         @unique @map("ip_address")
+  observations    String?
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  contractId String?    @map("contract_id")
+  contract   Contract?  @relation(fields: [contractId], references: [id])
+  incident   Incident[]
+
+  @@map("printers")
+}
+
+model Mobile {
+  id              String       @id @default(uuid())
+  serialNumber    String       @unique @map("serial_number")
+  model           String
+  modelSlug       String       @map("model_slug")
+  acquisitionDate DateTime     @map("acquisition_date")
+  endWarrantyDate DateTime?    @map("end_warranty_date")
+  invoiceNumber   String?      @map("invoice_number")
+  name            String
+  type            MOBILE_TYPES
+  operatingSystem String       @map("operating_system")
+  numberProvider  String?      @map("number_provider")
+  number          String?
+  createdAt       DateTime     @default(now()) @map("created_at")
+  updatedAt       DateTime     @updatedAt @map("updated_at")
+
+  departmentId String? @map("department_id")
+  contractId   String? @map("contract_id")
+
+  contract   Contract?   @relation(fields: [contractId], references: [id])
+  department Department? @relation(fields: [departmentId], references: [id])
+  incident   Incident[]
+
+  @@map("mobiles")
+}
+
+model Incident {
+  id          String    @id @default(uuid())
+  description String
+  fixedAt     DateTime? @map("fixed_at")
+
+  workstationId String  @map("workstation_id")
+  deviceId      String? @map("device_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  workstation Workstation @relation(fields: [workstationId], references: [id])
+  device      Device?     @relation(fields: [deviceId], references: [id])
+  computer    Computer?   @relation(fields: [deviceId], references: [id], map: "computer_id")
+  mobile      Mobile?     @relation(fields: [deviceId], references: [id], map: "mobile_id")
+  printer     Printer?    @relation(fields: [deviceId], references: [id], map: "printer_id")
+
+  @@map("incidents")
+}
+
+model Workstation {
+  id           String @id @default(uuid())
+  departmentId String @map("deparment_id")
+  computerId   String @unique @map("computer_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  incident   Incident[]
+  computer   Computer   @relation(fields: [computerId], references: [id])
+  department Department @relation(fields: [departmentId], references: [id])
+  users      User[]
+
+  @@map("workstations")
+}
+
+model Service {
+  id          String        @id @default(uuid())
+  name        String
+  ipAddress   String        @map("ip_address")
+  port        Int
+  description String
+  type        SERVICE_TYPES
+  createdAt   DateTime      @default(now()) @map("created_at")
+  updatedAt   DateTime      @updatedAt @map("updated_at")
+
+  @@map("services")
+}
