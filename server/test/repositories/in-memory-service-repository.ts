@@ -8,14 +8,6 @@ export class InMemoryServiceRepository implements ServiceRepository {
     return this.items
   }
 
-  async findByName(serviceName: string): Promise<Service | null> {
-    const service = this.items.find((item) => item.name === serviceName)
-    if (!service) {
-      return null
-    }
-    return service
-  }
-
   async findById(id: string): Promise<Service | null> {
     const service = this.items.find((item) => item.id.toString() === id)
     if (!service) {
@@ -29,11 +21,9 @@ export class InMemoryServiceRepository implements ServiceRepository {
     return services
   }
 
-  async findByIpAddress(ipAddress: string): Promise<Service | null> {
-    const service = this.items.find((item) => item.ipAddress === ipAddress)
-    if (!service) {
-      return null
-    }
+  async findByIpAddress(ipAddress: string): Promise<Service[]> {
+    const service = this.items.filter((item) => item.ipAddress === ipAddress)
+
     return service
   }
 
