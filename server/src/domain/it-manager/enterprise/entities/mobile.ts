@@ -10,7 +10,7 @@ export interface MobileProps extends DeviceProps {
   name: string
   type: MobileTypes
   operatingSystem: Slug
-  departmentId: UniqueEntityID
+  departmentId: UniqueEntityID |null
   number?: Phone | null
   numberProvider?: string | null
   createdAt: Date
@@ -61,7 +61,7 @@ export class Mobile extends Device<MobileProps> {
     this.touch()
   }
 
-  get departmentId(): UniqueEntityID {
+  get departmentId(): UniqueEntityID | null {
     return this.props.departmentId
   }
 
@@ -70,11 +70,12 @@ export class Mobile extends Device<MobileProps> {
     this.touch()
   }
 
-  static create(props: Optional<MobileProps, 'createdAt'>, id?: UniqueEntityID) {
+  static create(props: Optional<MobileProps, 'createdAt' | 'departmentId'>, id?: UniqueEntityID) {
     const mobile = new Mobile(
       {
         ...props,
         createdAt: props.createdAt ?? new Date(),
+        departmentId: props.departmentId ?? null,
       },
       id,
     )
