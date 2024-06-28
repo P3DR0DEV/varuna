@@ -10,7 +10,7 @@ export interface MobileProps extends DeviceProps {
   name: string
   type: MobileTypes
   operatingSystem: Slug
-  departmentId: UniqueEntityID |null
+  departmentId: UniqueEntityID | null
   number?: Phone | null
   numberProvider?: string | null
   createdAt: Date
