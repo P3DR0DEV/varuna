@@ -13,23 +13,42 @@ export class PrismaDepartmentsRepository implements DepartmentRepository {
     return departments.map(PrismaDepartmentMapper.toDomain)
   }
 
-  findBySlug(slug: string): Promise<Department | null> {
-    throw new Error('Method not implemented.')
+  async findBySlug(slug: string): Promise<Department | null> {
+    const department = await this.prisma.department.findUnique({ where: { slug } })
+
+    if (!department) {
+      return null
+    }
+
+    return PrismaDepartmentMapper.toDomain(department)
   }
 
-  findById(id: string): Promise<Department | null> {
-    throw new Error('Method not implemented.')
+  async findById(id: string): Promise<Department | null> {
+    const department = await this.prisma.department.findUnique({ where: { id } })
+
+    if (!department) {
+      return null
+    }
+
+    return PrismaDepartmentMapper.toDomain(department)
   }
 
-  create(department: Department): Promise<void> {
-    throw new Error('Method not implemented.')
+  async create(department: Department): Promise<void> {
+    const data = PrismaDepartmentMapper.toPersistence(department)
+
+    await this.prisma.department.create({ data })
   }
 
-  save(department: Department): Promise<void> {
-    throw new Error('Method not implemented.')
+  async save(department: Department): Promise<void> {
+    const data = PrismaDepartmentMapper.toPersistence(department)
+
+    await this.prisma.department.update({
+      where: { id: data.id },
+      data,
+    })
   }
 
-  delete(id: string): Promise<void> {
-    throw new Error('Method not implemented.')
+  async delete(id: string): Promise<void> {
+    await this.prisma.department.delete({ where: { id } })
   }
 }
