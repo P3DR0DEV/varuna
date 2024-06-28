@@ -52,7 +52,7 @@ export class User extends Entity<UserProps> {
     this.touch()
   }
 
-  get departmentId(): UniqueEntityID{
+  get departmentId(): UniqueEntityID {
     return this.props.departmentId
   }
 
