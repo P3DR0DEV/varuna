@@ -18,6 +18,10 @@ export class UserLicense extends Entity<UserLicenseProps> {
     return this.props.licenseId
   }
 
+  get departmentId(): UniqueEntityID {
+    return this.props.departmentId
+  }
+
   static create(props: Optional<UserLicenseProps, 'createdAt'>, id?: UniqueEntityID) {
     const userLicense = new UserLicense(
       {

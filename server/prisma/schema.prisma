@@ -82,7 +82,8 @@ model License {
   createdAt      DateTime    @default(now()) @map("created_at")
   updatedAt      DateTime    @updatedAt @map("updated_at")
 
-  userLicense UserLicense[]
+  userLicenseId String?
+  userLicense   UserLicense? @relation(fields: [userLicenseId], references: [id])
 
   @@map("licenses")
 }
@@ -109,15 +110,15 @@ model Department {
 model UserLicense {
   id           String @id @default(uuid())
   userId       String @map("user_id")
-  licenseId    String @map("license_id")
+  licenseId    String @unique @map("license_id")
   departmentId String @map("department_id")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   user       User       @relation(fields: [userId], references: [id])
-  license    License    @relation(fields: [licenseId], references: [id])
   department Department @relation(fields: [departmentId], references: [id])
+  license    License[]
 
   @@map("user_licenses")
 }
@@ -217,7 +218,7 @@ model Mobile {
   acquisitionDate DateTime     @map("acquisition_date")
   endWarrantyDate DateTime?    @map("end_warranty_date")
   invoiceNumber   String?      @map("invoice_number")
-  name            String
+  name            String       @unique
   type            MOBILE_TYPES
   operatingSystem String       @map("operating_system")
   numberProvider  String?      @map("number_provider")

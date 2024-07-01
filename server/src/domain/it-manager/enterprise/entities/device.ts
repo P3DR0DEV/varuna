@@ -11,7 +11,7 @@ export interface DeviceProps {
   acquisitionDate: Date
   endWarrantyDate?: Date | null
   invoiceNumber?: string | null
-  contractId?: string | null
+  contractId?: UniqueEntityID | null
   createdAt: Date
   updatedAt?: Date | null
 }
@@ -73,7 +73,7 @@ export class Device<Props extends DeviceProps> extends Entity<Props> {
   }
 
   get contractId(): string | null | undefined {
-    return this.props.contractId
+    return this.props.contractId?.toString()
   }
 
   get createdAt(): Date {
