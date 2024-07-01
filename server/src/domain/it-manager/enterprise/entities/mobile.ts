@@ -70,12 +70,13 @@ export class Mobile extends Device<MobileProps> {
     this.touch()
   }
 
-  static create(props: Optional<MobileProps, 'createdAt' | 'departmentId'>, id?: UniqueEntityID) {
+  static create(props: Optional<MobileProps, 'createdAt' | 'departmentId'|'modelSlug'>, id?: UniqueEntityID) {
     const mobile = new Mobile(
       {
         ...props,
         createdAt: props.createdAt ?? new Date(),
         departmentId: props.departmentId ?? null,
+        modelSlug: props.modelSlug ? props.modelSlug : Slug.createFromText(props.model),
       },
       id,
     )

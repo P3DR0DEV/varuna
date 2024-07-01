@@ -2,6 +2,7 @@ import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
 
 import { Device, DeviceProps } from './device'
+import { Slug } from './value-objects/slug'
 
 export type PrinterTypes = 'laser' | 'thermal' | 'inkjet' | 'dotmatrix'
 export type PrintingOptions = 'colorful' | 'monochrome'
@@ -58,12 +59,13 @@ export class Printer extends Device<PrinterProps> {
     this.props.observations = _observations
   }
 
-  static create(props: Optional<PrinterProps, 'createdAt' | 'ipAddress'>, id?: UniqueEntityID) {
+  static create(props: Optional<PrinterProps, 'createdAt' | 'ipAddress'|'modelSlug'>, id?: UniqueEntityID) {
     const printer = new Printer(
       {
         ...props,
         createdAt: props.createdAt ?? new Date(),
         ipAddress: props.ipAddress ?? null,
+        modelSlug: props.modelSlug ? props.modelSlug : Slug.createFromText(props.model),
       },
       id,
     )

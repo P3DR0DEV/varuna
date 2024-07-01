@@ -57,11 +57,12 @@ export class Computer extends Device<ComputerProps> {
     this.props.description = _description
   }
 
-  static create(props: Optional<ComputerProps, 'createdAt'>, id?: UniqueEntityID) {
+  static create(props: Optional<ComputerProps, 'createdAt'| 'modelSlug'>, id?: UniqueEntityID) {
     const computer = new Computer(
       {
         ...props,
         createdAt: props.createdAt ?? new Date(),
+        modelSlug: props.modelSlug ? props.modelSlug : Slug.createFromText(props.model),
       },
       id,
     )
