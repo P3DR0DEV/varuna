@@ -30,6 +30,11 @@
 - [ ] Os dados da aplicação precisam estar persistidos em um banco PostgresSQL;
 
 
+### TODO
+
+- [ ] Implementar testes E2E
+- [ ] Criar Servidor utilizando Fastify 
+
 ### Diagrama Relacional
 
 <img src="../.github/Conceitual_1.png" alt="diagrama relacional" />
