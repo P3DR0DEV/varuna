@@ -57,7 +57,7 @@ export class Computer extends Device<ComputerProps> {
     this.props.description = _description
   }
 
-  static create(props: Optional<ComputerProps, 'createdAt'| 'modelSlug'>, id?: UniqueEntityID) {
+  static create(props: Optional<ComputerProps, 'createdAt' | 'modelSlug'>, id?: UniqueEntityID) {
     const computer = new Computer(
       {
         ...props,

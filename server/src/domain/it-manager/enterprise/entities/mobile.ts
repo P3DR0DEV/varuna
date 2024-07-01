@@ -70,7 +70,7 @@ export class Mobile extends Device<MobileProps> {
     this.touch()
   }
 
-  static create(props: Optional<MobileProps, 'createdAt' | 'departmentId'|'modelSlug'>, id?: UniqueEntityID) {
+  static create(props: Optional<MobileProps, 'createdAt' | 'departmentId' | 'modelSlug'>, id?: UniqueEntityID) {
     const mobile = new Mobile(
       {
         ...props,

@@ -85,7 +85,10 @@ export class License extends Entity<LicenseProps> {
     this.props.updatedAt = new Date()
   }
 
-  static create(props: Optional<LicenseProps, 'createdAt' | 'status' | 'expiresAt'| 'userLicenseId'>, id?: UniqueEntityID): License {
+  static create(
+    props: Optional<LicenseProps, 'createdAt' | 'status' | 'expiresAt' | 'userLicenseId'>,
+    id?: UniqueEntityID,
+  ): License {
     const license = new License(
       {
         ...props,
