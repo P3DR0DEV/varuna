@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client'
 
 import { DepartmentRepository } from '@/domain/it-manager/application/repositories/department-repository'
 import { Department } from '@/domain/it-manager/enterprise/entities/department'
+
 import { PrismaDepartmentMapper } from '../mappers/prisma-department-mapper'
 
 export class PrismaDepartmentsRepository implements DepartmentRepository {
