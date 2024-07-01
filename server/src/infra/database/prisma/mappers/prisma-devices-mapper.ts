@@ -16,7 +16,7 @@ export class PrismaDevicesMapper {
         invoiceNumber: raw.invoiceNumber,
         acquisitionDate: raw.acquisitionDate,
         modelSlug,
-        contractId: raw.contractId,
+        contractId: raw.contractId ? new UniqueEntityID(raw.contractId) : null,
         endWarrantyDate: raw.endWarrantyDate,
       },
       id,

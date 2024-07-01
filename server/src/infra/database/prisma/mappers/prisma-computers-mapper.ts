@@ -20,7 +20,7 @@ export class PrismaComputerMapper {
         model: raw.model,
         serialNumber: raw.serialNumber,
         type,
-        contractId: raw.contractId,
+        contractId: raw.contractId ? new UniqueEntityID(raw.contractId) : null,
         endWarrantyDate: raw.endWarrantyDate,
         invoiceNumber: raw.invoiceNumber,
         modelSlug: Slug.createFromText(raw.model),
