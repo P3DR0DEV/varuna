@@ -1,8 +1,10 @@
 import { faker } from '@faker-js/faker'
+import { PrismaClient } from '@prisma/client'
 
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Computer, ComputerProps } from '@/domain/it-manager/enterprise/entities/computer'
 import { Slug } from '@/domain/it-manager/enterprise/entities/value-objects/slug'
+import { PrismaComputerMapper } from '@/infra/database/prisma/mappers/prisma-computers-mapper'
 
 export function makeComputer(override: Partial<ComputerProps> = {}, id?: UniqueEntityID) {
   const device = {
@@ -27,4 +29,16 @@ export function makeComputer(override: Partial<ComputerProps> = {}, id?: UniqueE
   )
 
   return computer
+}
+
+export class ComputerFactory {
+  constructor(private prisma: PrismaClient) {}
+
+  async createPrismaComputer(data: Partial<ComputerProps> = {}) {
+    const computer = makeComputer(data)
+
+    await this.prisma.computer.create({ data: PrismaComputerMapper.toPersistence(computer) })
+
+    return computer
+  }
 }

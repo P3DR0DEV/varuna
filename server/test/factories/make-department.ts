@@ -1,7 +1,9 @@
 import { faker } from '@faker-js/faker'
+import { PrismaClient } from '@prisma/client'
 
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Department, DepartmentProps } from '@/domain/it-manager/enterprise/entities/department'
+import { PrismaDepartmentMapper } from '@/infra/database/prisma/mappers/prisma-departments-mapper'
 
 export function makeDepartment(override: Partial<DepartmentProps> = {}, id?: UniqueEntityID) {
   const department = Department.create(
@@ -15,4 +17,16 @@ export function makeDepartment(override: Partial<DepartmentProps> = {}, id?: Uni
   )
 
   return department
+}
+
+export class DepartmentFactory {
+  constructor(private prisma: PrismaClient) {}
+
+  async createDepartment(data: Partial<DepartmentProps> = {}) {
+    const department = makeDepartment(data)
+
+    await this.prisma.department.create({ data: PrismaDepartmentMapper.toPersistence(department) })
+
+    return department
+  }
 }

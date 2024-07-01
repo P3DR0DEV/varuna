@@ -3,6 +3,8 @@ import { faker } from '@faker-js/faker'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { User, UserProps } from '@/domain/it-manager/enterprise/entities/user'
 import { Phone } from '@/domain/it-manager/enterprise/entities/value-objects/phone'
+import { PrismaClient } from '@prisma/client'
+import { PrismaUsersMapper } from '@/infra/database/prisma/mappers/prisma-users-mapper'
 
 export function makeUser(override: Partial<UserProps> = {}, id?: UniqueEntityID) {
   const phoneNumber = String('(11)')
@@ -23,4 +25,19 @@ export function makeUser(override: Partial<UserProps> = {}, id?: UniqueEntityID)
   )
 
   return user
+}
+
+
+export class UserFactory {
+  constructor(private prisma: PrismaClient) {}
+
+  async createUser(data: Partial<UserProps> = {}) {
+    const user = makeUser(data)
+
+    await this.prisma.user.create({
+      data: PrismaUsersMapper.toPersistence(user),
+    })
+    
+    return user
+  }
 }

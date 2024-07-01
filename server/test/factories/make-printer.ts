@@ -3,6 +3,8 @@ import { faker } from '@faker-js/faker'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Printer, PrinterProps } from '@/domain/it-manager/enterprise/entities/printer'
 import { Slug } from '@/domain/it-manager/enterprise/entities/value-objects/slug'
+import { PrismaClient } from '@prisma/client'
+import { PrismaPrintersMapper } from '@/infra/database/prisma/mappers/prisma-printers-mapper'
 
 export function makePrinter(override: Partial<PrinterProps> = {}, id?: UniqueEntityID) {
   const device = {
@@ -27,4 +29,19 @@ export function makePrinter(override: Partial<PrinterProps> = {}, id?: UniqueEnt
   )
 
   return printer
+}
+
+
+export class PrinterFactory {
+  constructor(private prisma: PrismaClient) {}
+
+  async createPrinter(data: Partial<PrinterProps> = {}) {
+    const printer = makePrinter(data)
+  
+    await this.prisma.printer.create({
+      data: PrismaPrintersMapper.toPersistence(printer),
+    })
+  
+    return printer
+  }
 }
