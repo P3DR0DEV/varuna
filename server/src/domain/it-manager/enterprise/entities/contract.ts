@@ -3,6 +3,7 @@ import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
 
 export type ContractTypes = 'renting' | 'borrowing'
+export type ContractStatus = 'active' | 'inactive'
 
 export interface ContractProps {
   description: string
@@ -10,7 +11,7 @@ export interface ContractProps {
   userEmail: string
   createdAt: Date
   fileName: string
-  status: 'active' | 'inactive'
+  status: ContractStatus
   endsAt?: Date | null
   updatedAt?: Date | null
 }
@@ -25,11 +26,11 @@ export class Contract extends Entity<ContractProps> {
     this.touch()
   }
 
-  get status(): 'active' | 'inactive' {
+  get status(): ContractStatus {
     return this.props.status
   }
 
-  set status(_status: 'active' | 'inactive') {
+  set status(_status: ContractStatus) {
     this.props.status = _status
     this.touch()
   }
