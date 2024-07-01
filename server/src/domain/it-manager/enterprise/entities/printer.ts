@@ -59,7 +59,7 @@ export class Printer extends Device<PrinterProps> {
     this.props.observations = _observations
   }
 
-  static create(props: Optional<PrinterProps, 'createdAt' | 'ipAddress'|'modelSlug'>, id?: UniqueEntityID) {
+  static create(props: Optional<PrinterProps, 'createdAt' | 'ipAddress' | 'modelSlug'>, id?: UniqueEntityID) {
     const printer = new Printer(
       {
         ...props,

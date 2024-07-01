@@ -30,7 +30,7 @@ export class PrismaLicensesMapper {
       quantity: license.quantity,
       expiresAt: license.expiresAt,
       status: MapLicenseStatus.toPersistence(license.status),
-      userLicenseId: license.userLicenseId?.toString() ,
+      userLicenseId: license.userLicenseId?.toString(),
     }
   }
 }

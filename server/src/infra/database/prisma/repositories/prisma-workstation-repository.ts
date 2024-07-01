@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client'
 
 import { WorkstationRepository } from '@/domain/it-manager/application/repositories/workstation-repository'
 import { Workstation } from '@/domain/it-manager/enterprise/entities/workstation'
+
 import { PrismaWorkstationMapper } from '../mappers/prisma-workstation-mapper'
 
 export class PrismaWorkstationRepository implements WorkstationRepository {
@@ -47,8 +48,8 @@ export class PrismaWorkstationRepository implements WorkstationRepository {
     const data = PrismaWorkstationMapper.toPersistence(workstation)
 
     await this.prisma.workstation.update({
-      where: {id: data.id},
-      data
+      where: { id: data.id },
+      data,
     })
   }
 

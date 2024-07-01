@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client'
 
 import { UserLicenseRepository } from '@/domain/it-manager/application/repositories/user-license-repository'
 import { UserLicense } from '@/domain/it-manager/enterprise/entities/user-license'
+
 import { PrismaUserLicenseMapper } from '../mappers/prisma-user-license-mapper'
 
 export class PrismaUserLicenseRepository implements UserLicenseRepository {
@@ -19,8 +20,8 @@ export class PrismaUserLicenseRepository implements UserLicenseRepository {
 
   async findByLicenseId(licenseId: string): Promise<UserLicense | null> {
     const userLicense = await this.prisma.userLicense.findUnique({
-      where: { licenseId }
-    }) 
+      where: { licenseId },
+    })
 
     if (!userLicense) {
       return null
@@ -31,7 +32,7 @@ export class PrismaUserLicenseRepository implements UserLicenseRepository {
 
   async findById(id: string): Promise<UserLicense | null> {
     const userLicense = await this.prisma.userLicense.findUnique({
-      where: { id }
+      where: { id },
     })
 
     if (!userLicense) {
@@ -41,7 +42,7 @@ export class PrismaUserLicenseRepository implements UserLicenseRepository {
     return PrismaUserLicenseMapper.toDomain(userLicense)
   }
 
- async  create(userLicense: UserLicense): Promise<void> {
+  async create(userLicense: UserLicense): Promise<void> {
     const data = PrismaUserLicenseMapper.toPersistence(userLicense)
 
     await this.prisma.userLicense.create({ data })
