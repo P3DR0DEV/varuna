@@ -1,7 +1,7 @@
+import { Contract as PrismaContract, CONTRACT_TYPES, DATA_STATUS, Prisma } from '@prisma/client'
+
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Contract, ContractStatus, ContractTypes } from '@/domain/it-manager/enterprise/entities/contract'
-import { CONTRACT_TYPES, DATA_STATUS, Prisma, Contract as PrismaContract } from '@prisma/client' 
-
 
 export class PrismaContractsMapper {
   static toDomain(contract: PrismaContract): Contract {
@@ -9,14 +9,17 @@ export class PrismaContractsMapper {
     const type = MapContractType.toDomain(contract.type)
     const status = MapContractStatus.toDomain(contract.status)
 
-    return Contract.create({
-      description: contract.description,
-      fileName: contract.fileName,
-      type,
-      userEmail: contract.userEmail,
-      endsAt: contract.endsAt,
-      status
-    }, id)
+    return Contract.create(
+      {
+        description: contract.description,
+        fileName: contract.fileName,
+        type,
+        userEmail: contract.userEmail,
+        endsAt: contract.endsAt,
+        status,
+      },
+      id,
+    )
   }
 
   static toPersistence(contract: Contract): Prisma.ContractUncheckedCreateInput {
@@ -30,7 +33,7 @@ export class PrismaContractsMapper {
       type,
       userEmail: contract.userEmail,
       endsAt: contract.endsAt,
-      status
+      status,
     }
   }
 }
@@ -38,47 +41,47 @@ export class PrismaContractsMapper {
 export class MapContractType {
   static toDomain(type: CONTRACT_TYPES): ContractTypes {
     switch (type) {
-      case "BORROWING":
-        return "borrowing"
-      case "RENTING":
-        return "renting"
+      case 'BORROWING':
+        return 'borrowing'
+      case 'RENTING':
+        return 'renting'
       default:
-        return "borrowing"
+        return 'borrowing'
     }
   }
 
   static toPersistence(type: ContractTypes): CONTRACT_TYPES {
     switch (type) {
-      case "borrowing":
-        return "BORROWING"
-      case "renting":
-        return "RENTING"
+      case 'borrowing':
+        return 'BORROWING'
+      case 'renting':
+        return 'RENTING'
       default:
-        return "BORROWING"
+        return 'BORROWING'
     }
   }
 }
 
 export class MapContractStatus {
-  static toDomain(status: DATA_STATUS): ContractStatus  {
+  static toDomain(status: DATA_STATUS): ContractStatus {
     switch (status) {
-      case "ACTIVE":
-        return "active"
-      case "INACTIVE":
-        return "inactive"
+      case 'ACTIVE':
+        return 'active'
+      case 'INACTIVE':
+        return 'inactive'
       default:
-        return "active"
+        return 'active'
     }
   }
 
   static toPersistence(status: ContractStatus): DATA_STATUS {
     switch (status) {
-      case "active":
-        return "ACTIVE"
-      case "inactive":
-        return "INACTIVE"
+      case 'active':
+        return 'ACTIVE'
+      case 'inactive':
+        return 'INACTIVE'
       default:
-        return "ACTIVE"
+        return 'ACTIVE'
     }
   }
 }

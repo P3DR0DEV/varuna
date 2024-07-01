@@ -6,6 +6,7 @@ import { Slug } from '@/domain/it-manager/enterprise/entities/value-objects/slug
 
 export class PrismaDepartmentMapper {
   static toDomain(raw: PrismaDepartment): Department {
+    const id = new UniqueEntityID(raw.id)
     const chiefId = raw.chiefId ? new UniqueEntityID(raw.chiefId) : null
     const slug = Slug.createFromText(raw.slug)
 
@@ -17,7 +18,7 @@ export class PrismaDepartmentMapper {
         email: raw.email,
         slug,
       },
-      new UniqueEntityID(raw.id),
+      id,
     )
   }
 

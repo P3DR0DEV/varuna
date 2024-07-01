@@ -3,38 +3,66 @@ import { PrismaClient } from '@prisma/client'
 import { MobileRepository } from '@/domain/it-manager/application/repositories/mobile-repository'
 import { Mobile, MobileTypes } from '@/domain/it-manager/enterprise/entities/mobile'
 
+import { MapMobileType, PrismaMobilesMapper } from '../mappers/prisma-mobiles-mapper'
+
 export class PrismaMobilesRepository implements MobileRepository {
   constructor(private prisma: PrismaClient) {}
 
-  findMany(): Promise<Mobile[]> {
-    throw new Error('Method not implemented.')
+  async findMany(): Promise<Mobile[]> {
+    const mobiles = await this.prisma.mobile.findMany()
+
+    return mobiles.map(PrismaMobilesMapper.toDomain)
   }
 
-  findById(id: string): Promise<Mobile | null> {
-    throw new Error('Method not implemented.')
+  async findById(id: string): Promise<Mobile | null> {
+    const mobile = await this.prisma.mobile.findUnique({ where: { id } })
+
+    if (!mobile) {
+      return null
+    }
+
+    return PrismaMobilesMapper.toDomain(mobile)
   }
 
-  findByName(name: string): Promise<Mobile | null> {
-    throw new Error('Method not implemented.')
+  async findByName(name: string): Promise<Mobile | null> {
+    const mobile = await this.prisma.mobile.findUnique({ where: { name } })
+
+    if (!mobile) {
+      return null
+    }
+
+    return PrismaMobilesMapper.toDomain(mobile)
   }
 
-  findByType(type: MobileTypes): Promise<Mobile[]> {
-    throw new Error('Method not implemented.')
+  async findByType(type: MobileTypes): Promise<Mobile[]> {
+    const mobiles = await this.prisma.mobile.findMany({
+      where: { type: MapMobileType.toPersistence(type) },
+    })
+
+    return mobiles.map(PrismaMobilesMapper.toDomain)
   }
 
-  findByDepartmentId(departmentId: string): Promise<Mobile[]> {
-    throw new Error('Method not implemented.')
+  async findByDepartmentId(departmentId: string): Promise<Mobile[]> {
+    const mobiles = await this.prisma.mobile.findMany({
+      where: { departmentId },
+    })
+
+    return mobiles.map(PrismaMobilesMapper.toDomain)
   }
 
-  create(mobile: Mobile): Promise<void> {
-    throw new Error('Method not implemented.')
+  async create(mobile: Mobile): Promise<void> {
+    const data = PrismaMobilesMapper.toPersistence(mobile)
+
+    await this.prisma.mobile.create({ data })
   }
 
-  save(mobile: Mobile): Promise<void> {
-    throw new Error('Method not implemented.')
+  async save(mobile: Mobile): Promise<void> {
+    const data = PrismaMobilesMapper.toPersistence(mobile)
+
+    await this.prisma.mobile.update({ where: { id: data.id }, data })
   }
 
-  delete(id: string): Promise<void> {
-    throw new Error('Method not implemented.')
+  async delete(id: string): Promise<void> {
+    await this.prisma.mobile.delete({ where: { id } })
   }
 }

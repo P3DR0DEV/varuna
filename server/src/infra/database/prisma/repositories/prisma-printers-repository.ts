@@ -3,46 +3,93 @@ import { PrismaClient } from '@prisma/client'
 import { PrinterRepository } from '@/domain/it-manager/application/repositories/printer-repository'
 import { Printer, PrinterTypes, PrintingOptions } from '@/domain/it-manager/enterprise/entities/printer'
 
+import { MapPrinterOptions, MapPrinterType, PrismaPrintersMapper } from '../mappers/prisma-printers-mapper'
+
 export class PrismaPrintersRepository implements PrinterRepository {
   constructor(private prisma: PrismaClient) {}
 
-  findById(id: string): Promise<Printer | null> {
-    throw new Error('Method not implemented.')
+  async findById(id: string): Promise<Printer | null> {
+    const printer = await this.prisma.printer.findUnique({ where: { id } })
+
+    if (!printer) {
+      return null
+    }
+
+    return PrismaPrintersMapper.toDomain(printer)
   }
 
-  findByName(name: string): Promise<Printer | null> {
-    throw new Error('Method not implemented.')
+  async findByName(name: string): Promise<Printer | null> {
+    const printer = await this.prisma.printer.findUnique({ where: { name } })
+
+    if (!printer) {
+      return null
+    }
+
+    return PrismaPrintersMapper.toDomain(printer)
   }
 
-  findByType(type: PrinterTypes): Promise<Printer[]> {
-    throw new Error('Method not implemented.')
+  async findByType(type: PrinterTypes): Promise<Printer[]> {
+    const printers = await this.prisma.printer.findMany({
+      where: { type: MapPrinterType.toPersistence(type) },
+    })
+
+    return printers.map(PrismaPrintersMapper.toDomain)
   }
 
-  findByIpAddress(ipAddress: string): Promise<Printer | null> {
-    throw new Error('Method not implemented.')
+  async findByIpAddress(ipAddress: string): Promise<Printer | null> {
+    const printer = await this.prisma.printer.findUnique({
+      where: { ipAddress },
+    })
+
+    if (!printer) {
+      return null
+    }
+
+    return PrismaPrintersMapper.toDomain(printer)
   }
 
-  findByPrintingOptions(printing: PrintingOptions): Promise<Printer[]> {
-    throw new Error('Method not implemented.')
+  async findByPrintingOptions(printing: PrintingOptions): Promise<Printer[]> {
+    const printers = await this.prisma.printer.findMany({
+      where: { printing: MapPrinterOptions.toPersistence(printing) },
+    })
+
+    return printers.map(PrismaPrintersMapper.toDomain)
   }
 
-  findBySerialNumber(serialNumber: string): Promise<Printer | null> {
-    throw new Error('Method not implemented.')
+  async findBySerialNumber(serialNumber: string): Promise<Printer | null> {
+    const printer = await this.prisma.printer.findUnique({
+      where: { serialNumber },
+    })
+
+    if (!printer) {
+      return null
+    }
+
+    return PrismaPrintersMapper.toDomain(printer)
   }
 
-  findMany(): Promise<Printer[]> {
-    throw new Error('Method not implemented.')
+  async findMany(): Promise<Printer[]> {
+    const printers = await this.prisma.printer.findMany()
+
+    return printers.map(PrismaPrintersMapper.toDomain)
   }
 
-  create(printer: Printer): Promise<void> {
-    throw new Error('Method not implemented.')
+  async create(printer: Printer): Promise<void> {
+    const data = PrismaPrintersMapper.toPersistence(printer)
+
+    await this.prisma.printer.create({ data })
   }
 
-  save(printer: Printer): Promise<void> {
-    throw new Error('Method not implemented.')
+  async save(printer: Printer): Promise<void> {
+    const data = PrismaPrintersMapper.toPersistence(printer)
+
+    await this.prisma.printer.update({
+      where: { id: data.id },
+      data,
+    })
   }
 
-  delete(id: string): Promise<void> {
-    throw new Error('Method not implemented.')
+  async delete(id: string): Promise<void> {
+    await this.prisma.printer.delete({ where: { id } })
   }
 }

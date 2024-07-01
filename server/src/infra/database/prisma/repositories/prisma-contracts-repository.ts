@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client'
 
 import { ContractRepository } from '@/domain/it-manager/application/repositories/contract-repository'
 import { Contract, ContractTypes } from '@/domain/it-manager/enterprise/entities/contract'
+
 import { MapContractType, PrismaContractsMapper } from '../mappers/prisma-contracts-mapper'
 
 export class PrismaContractsRepository implements ContractRepository {

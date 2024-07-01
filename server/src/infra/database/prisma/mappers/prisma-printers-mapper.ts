@@ -1,7 +1,8 @@
-import { UniqueEntityID } from "@/core/entities/unique-entity-id"
-import { Printer, PrinterTypes, PrintingOptions } from "@/domain/it-manager/enterprise/entities/printer"
-import { Slug } from "@/domain/it-manager/enterprise/entities/value-objects/slug"
-import { PRINTER_TYPES, Printer as PrismaPrinter, Prisma, PRINTER_OPTIONS } from "@prisma/client"
+import { Printer as PrismaPrinter, PRINTER_OPTIONS, PRINTER_TYPES, Prisma } from '@prisma/client'
+
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Printer, PrinterTypes, PrintingOptions } from '@/domain/it-manager/enterprise/entities/printer'
+import { Slug } from '@/domain/it-manager/enterprise/entities/value-objects/slug'
 
 export class PrismaPrintersMapper {
   static toDomain(raw: PrismaPrinter): Printer {
@@ -10,24 +11,41 @@ export class PrismaPrintersMapper {
     const type = MapPrinterType.toDomain(raw.type)
     const printing = MapPrinterOptions.toDomain(raw.printing)
 
-    return Printer.create({
-      name: raw.name,
-      type,
-      serialNumber: raw.serialNumber,
-      ipAddress: raw.ipAddress,
-      acquisitionDate: raw.acquisitionDate,
-      model: raw.model,
-      modelSlug,
-      printing,
-      contractId: raw.contractId ? new UniqueEntityID(raw.contractId) : null,
-      endWarrantyDate: raw.endWarrantyDate,
-      invoiceNumber: raw.invoiceNumber,
-      observations: raw.observations,
-    }, id)
+    return Printer.create(
+      {
+        name: raw.name,
+        type,
+        serialNumber: raw.serialNumber,
+        ipAddress: raw.ipAddress,
+        acquisitionDate: raw.acquisitionDate,
+        model: raw.model,
+        modelSlug,
+        printing,
+        contractId: raw.contractId ? new UniqueEntityID(raw.contractId) : null,
+        endWarrantyDate: raw.endWarrantyDate,
+        invoiceNumber: raw.invoiceNumber,
+        observations: raw.observations,
+      },
+      id,
+    )
   }
 
   static toPersistence(printer: Printer): Prisma.PrinterUncheckedCreateInput {
-    throw new Error('Method not implemented.')
+    return {
+      id: printer.id.toString(),
+      name: printer.name,
+      type: MapPrinterType.toPersistence(printer.type),
+      serialNumber: printer.serialNumber,
+      ipAddress: printer.ipAddress,
+      acquisitionDate: printer.acquisitionDate,
+      model: printer.model,
+      modelSlug: printer.modelSlug,
+      printing: MapPrinterOptions.toPersistence(printer.printing),
+      contractId: printer.contractId ? printer.contractId.toString() : null,
+      endWarrantyDate: printer.endWarrantyDate,
+      invoiceNumber: printer.invoiceNumber,
+      observations: printer.observations,
+    }
   }
 }
 

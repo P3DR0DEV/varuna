@@ -2,21 +2,22 @@ import { PrismaClient } from '@prisma/client'
 
 import { ComputerRepository } from '@/domain/it-manager/application/repositories/computer-repository'
 import { Computer } from '@/domain/it-manager/enterprise/entities/computer'
+
 import { PrismaComputerMapper } from '../mappers/prisma-computers-mapper'
 
 export class PrismaComputersRepository implements ComputerRepository {
   constructor(private prisma: PrismaClient) {}
 
   async findById(id: string): Promise<Computer | null> {
-     const computer = await this.prisma.computer.findUnique({
-       where: { id },
-     })
+    const computer = await this.prisma.computer.findUnique({
+      where: { id },
+    })
 
-     if (!computer) {
-       return null
-     }
+    if (!computer) {
+      return null
+    }
 
-     return PrismaComputerMapper.toDomain(computer)
+    return PrismaComputerMapper.toDomain(computer)
   }
 
   async findMany(operatingSystem?: string): Promise<Computer[]> {

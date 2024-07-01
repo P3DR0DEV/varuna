@@ -1,6 +1,7 @@
-import { Prisma, Incident as PrismaIncident } from "@prisma/client"
-import { Incident } from "@/domain/it-manager/enterprise/entities/incident"
-import { UniqueEntityID } from "@/core/entities/unique-entity-id"
+import { Incident as PrismaIncident, Prisma } from '@prisma/client'
+
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Incident } from '@/domain/it-manager/enterprise/entities/incident'
 
 export class PrismaIncidentsMapper {
   static toDomain(raw: PrismaIncident): Incident {
@@ -12,9 +13,9 @@ export class PrismaIncidentsMapper {
         workstationId,
         description: raw.description,
         fixedAt: raw.fixedAt,
-        deviceId: raw.deviceId ? new UniqueEntityID(raw.deviceId): null,
+        deviceId: raw.deviceId ? new UniqueEntityID(raw.deviceId) : null,
       },
-      id
+      id,
     )
   }
 

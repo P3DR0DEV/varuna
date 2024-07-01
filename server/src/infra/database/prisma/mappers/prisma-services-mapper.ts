@@ -1,7 +1,7 @@
-import { Service as PrismaService, Prisma, SERVICE_TYPES } from "@prisma/client"
+import { Prisma, Service as PrismaService, SERVICE_TYPES } from '@prisma/client'
 
-import { Service, ServiceTypes } from "@/domain/it-manager/enterprise/entities/service"
-import { UniqueEntityID } from "@/core/entities/unique-entity-id"
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Service, ServiceTypes } from '@/domain/it-manager/enterprise/entities/service'
 
 export class PrismaServiceMapper {
   static toPersistence(service: Service): Prisma.ServiceUncheckedCreateInput {
@@ -37,27 +37,27 @@ export class PrismaServiceMapper {
 export class MapServiceType {
   static toDomain(type: SERVICE_TYPES) {
     switch (type) {
-      case "APPLICATION":
-        return "application"
-      case "DATABASE":
-        return "database"
-      case "INFRA":
-        return "infra"
+      case 'APPLICATION':
+        return 'application'
+      case 'DATABASE':
+        return 'database'
+      case 'INFRA':
+        return 'infra'
       default:
-        return "application"
+        return 'application'
     }
   }
 
   static toPersistence(type: ServiceTypes) {
     switch (type) {
-      case "application":
-        return "APPLICATION"
-      case "database":
-        return "DATABASE"
-      case "infra":
-        return "INFRA"
+      case 'application':
+        return 'APPLICATION'
+      case 'database':
+        return 'DATABASE'
+      case 'infra':
+        return 'INFRA'
       default:
-        return "APPLICATION"
+        return 'APPLICATION'
     }
   }
 }
