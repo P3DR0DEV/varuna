@@ -2,35 +2,71 @@ import { PrismaClient } from '@prisma/client'
 
 import { ComputerRepository } from '@/domain/it-manager/application/repositories/computer-repository'
 import { Computer } from '@/domain/it-manager/enterprise/entities/computer'
+import { PrismaComputerMapper } from '../mappers/prisma-computer-mapper'
 
 export class PrismaComputersRepository implements ComputerRepository {
   constructor(private prisma: PrismaClient) {}
 
   async findById(id: string): Promise<Computer | null> {
-    throw new Error('Method not implemented.')
+     const computer = await this.prisma.computer.findUnique({
+       where: { id },
+     })
+
+     if (!computer) {
+       return null
+     }
+
+     return PrismaComputerMapper.toDomain(computer)
   }
 
   async findMany(operatingSystem?: string): Promise<Computer[]> {
-    throw new Error('Method not implemented.')
+    const computers = await this.prisma.computer.findMany({
+      where: { operatingSystem },
+    })
+
+    return computers.map(PrismaComputerMapper.toDomain)
   }
 
   async findByHostname(hostname: string): Promise<Computer | null> {
-    throw new Error('Method not implemented.')
+    const computer = await this.prisma.computer.findUnique({
+      where: { hostname },
+    })
+
+    if (!computer) {
+      return null
+    }
+
+    return PrismaComputerMapper.toDomain(computer)
   }
 
   async findByIpAddress(ipAddress: string): Promise<Computer | null> {
-    throw new Error('Method not implemented.')
+    const computer = await this.prisma.computer.findUnique({
+      where: { ipAddress },
+    })
+
+    if (!computer) {
+      return null
+    }
+
+    return PrismaComputerMapper.toDomain(computer)
   }
 
   async create(computer: Computer): Promise<void> {
-    throw new Error('Method not implemented.')
+    const data = PrismaComputerMapper.toPersistence(computer)
+
+    await this.prisma.computer.create({ data })
   }
 
   async save(computer: Computer): Promise<void> {
-    throw new Error('Method not implemented.')
+    const data = PrismaComputerMapper.toPersistence(computer)
+
+    await this.prisma.computer.update({
+      where: { id: data.id },
+      data,
+    })
   }
 
   async delete(id: string): Promise<void> {
-    throw new Error('Method not implemented.')
+    await this.prisma.computer.delete({ where: { id } })
   }
 }

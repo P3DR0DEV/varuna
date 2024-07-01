@@ -4,7 +4,7 @@ import { Optional } from '@/core/types/optional'
 import { Device, DeviceProps } from './device'
 import { Slug } from './value-objects/slug'
 
-type ComputerTypes = 'notebook' | 'desktop' | 'server'
+export type ComputerTypes = 'notebook' | 'desktop' | 'server'
 
 export interface ComputerProps extends DeviceProps {
   hostname: string
