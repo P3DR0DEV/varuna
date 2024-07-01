@@ -11,6 +11,7 @@ export interface LicenseProps {
   price: number
   createdAt: Date
   status: 'active' | 'inactive'
+  userLicenseId: UniqueEntityID | null
   expiresAt: Date | null
   updatedAt?: Date | null
 }
@@ -76,17 +77,22 @@ export class License extends Entity<LicenseProps> {
     this.touch()
   }
 
+  get userLicenseId(): UniqueEntityID | null {
+    return this.props.userLicenseId
+  }
+
   private touch(): void {
     this.props.updatedAt = new Date()
   }
 
-  static create(props: Optional<LicenseProps, 'createdAt' | 'status' | 'expiresAt'>, id?: UniqueEntityID): License {
+  static create(props: Optional<LicenseProps, 'createdAt' | 'status' | 'expiresAt'| 'userLicenseId'>, id?: UniqueEntityID): License {
     const license = new License(
       {
         ...props,
         createdAt: props.createdAt ?? new Date(),
         expiresAt: props.expiresAt ?? null,
         status: props.status ?? 'active',
+        userLicenseId: props.userLicenseId ?? null,
       },
       id,
     )
