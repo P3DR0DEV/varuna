@@ -1,7 +1,8 @@
+import { PrismaClient } from '@prisma/client'
+
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { UserLicense, UserLicenseProps } from '@/domain/it-manager/enterprise/entities/user-license'
 import { PrismaUserLicenseMapper } from '@/infra/database/prisma/mappers/prisma-user-license-mapper'
-import { PrismaClient } from '@prisma/client'
 
 export function makeUserLicense(override: Partial<UserLicenseProps> = {}, id?: UniqueEntityID) {
   const userLicense = UserLicense.create(
@@ -12,11 +13,10 @@ export function makeUserLicense(override: Partial<UserLicenseProps> = {}, id?: U
       ...override,
     },
     id,
-    )
-    
-    return userLicense
-  }
-  
+  )
+
+  return userLicense
+}
 
 export class UserLicenseFactory {
   constructor(private prisma: PrismaClient) {}
@@ -27,7 +27,7 @@ export class UserLicenseFactory {
     await this.prisma.userLicense.create({
       data: PrismaUserLicenseMapper.toPersistence(userLicense),
     })
-    
+
     return userLicense
   }
 }

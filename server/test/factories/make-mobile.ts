@@ -1,9 +1,9 @@
 import { faker } from '@faker-js/faker'
+import { PrismaClient } from '@prisma/client'
 
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Mobile, MobileProps } from '@/domain/it-manager/enterprise/entities/mobile'
 import { Slug } from '@/domain/it-manager/enterprise/entities/value-objects/slug'
-import { PrismaClient } from '@prisma/client'
 import { PrismaMobilesMapper } from '@/infra/database/prisma/mappers/prisma-mobiles-mapper'
 
 export function makeMobile(override: Partial<MobileProps> = {}, id?: UniqueEntityID) {
@@ -30,7 +30,6 @@ export function makeMobile(override: Partial<MobileProps> = {}, id?: UniqueEntit
 
   return mobile
 }
-
 
 export class MobileFactory {
   constructor(private prisma: PrismaClient) {}
