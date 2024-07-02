@@ -1,9 +1,11 @@
-import {fastify} from 'fastify'
 import fastifyCors from '@fastify/cors'
 import fastifySwagger from '@fastify/swagger'
 import fastifySwaggerUI from '@fastify/swagger-ui'
+import { fastify } from 'fastify'
 import { jsonSchemaTransform, serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod'
+
 import { env } from '@/env'
+
 import { errorHandler } from './error-handler'
 
 const app = fastify({ logger: { level: env.LOG_LEVEL } })

@@ -1,9 +1,10 @@
-import { FastifyInstance } from "fastify"
-import { ZodError } from "zod"
-import { NotFoundError } from "./controllers/_errors/not-found"
-import { BadRequestError } from "./controllers/_errors/bad-request"
-import { UnauthorizedError } from "./controllers/_errors/unauthorized"
-import { InternalServerError } from "./controllers/_errors/internal-server-error"
+import { FastifyInstance } from 'fastify'
+import { ZodError } from 'zod'
+
+import { BadRequestError } from './controllers/_errors/bad-request'
+import { InternalServerError } from './controllers/_errors/internal-server-error'
+import { NotFoundError } from './controllers/_errors/not-found'
+import { UnauthorizedError } from './controllers/_errors/unauthorized'
 
 type FastifyErrorHandler = FastifyInstance['errorHandler']
 
