@@ -1,3 +1,4 @@
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { BadRequest, BadRequestError } from '@/core/errors/bad-request'
 import { Either, failure, success } from '@/core/types/either'
 import { UseCase } from '@/core/use-cases/use-case'
@@ -37,6 +38,7 @@ export class CreateComputerUseCase implements UseCase {
       ...props,
       modelSlug: Slug.createFromText(props.model),
       operatingSystem: Slug.createFromText(props.operatingSystem),
+      contractId: props.contractId ? new UniqueEntityID(props.contractId) : null,
     })
 
     await this.computerRepository.create(computer)

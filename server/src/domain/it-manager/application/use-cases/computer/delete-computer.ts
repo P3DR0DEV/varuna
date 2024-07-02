@@ -5,12 +5,16 @@ import { UseCase } from '@/core/use-cases/use-case'
 
 import { ComputerRepository } from '../../repositories/computer-repository'
 
+type DeleteComputerUseCaseProps = {
+  id: string
+}
+
 type DeleteComputerUseCaseResponse = Either<BadRequestError | NotFoundError, { message: string }>
 
 export class DeleteComputerUseCase implements UseCase {
   constructor(private readonly computerRepository: ComputerRepository) {}
 
-  async execute(id: string): Promise<DeleteComputerUseCaseResponse> {
+  async execute({ id }: DeleteComputerUseCaseProps): Promise<DeleteComputerUseCaseResponse> {
     if (!id) {
       return failure(BadRequest('Id is required'))
     }

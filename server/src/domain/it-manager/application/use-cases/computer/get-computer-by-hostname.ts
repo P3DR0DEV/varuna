@@ -6,12 +6,16 @@ import { Computer } from '@/domain/it-manager/enterprise/entities/computer'
 
 import { ComputerRepository } from '../../repositories/computer-repository'
 
+type GetComputerByHostNameUseCaseProps = {
+  hostname: string
+}
+
 type GetComputerByHostNameUseCaseResponse = Either<NotFoundError | BadRequestError, { computer: Computer }>
 
 export class GetComputerByHostNameUseCase implements UseCase {
   constructor(private readonly computerRepository: ComputerRepository) {}
 
-  async execute(hostname: string): Promise<GetComputerByHostNameUseCaseResponse> {
+  async execute({ hostname }: GetComputerByHostNameUseCaseProps): Promise<GetComputerByHostNameUseCaseResponse> {
     if (!hostname) {
       return failure(BadRequest('Hostname is required'))
     }
