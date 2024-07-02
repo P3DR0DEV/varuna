@@ -4,6 +4,7 @@ import fastifySwagger from '@fastify/swagger'
 import fastifySwaggerUI from '@fastify/swagger-ui'
 import { jsonSchemaTransform, serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod'
 import { env } from '@/env'
+import { errorHandler } from './error-handler'
 
 const app = fastify({ logger: { level: env.LOG_LEVEL } })
 
@@ -33,6 +34,7 @@ app.register(fastifyCors, {
   origin: '*',
 })
 
+app.setErrorHandler(errorHandler)
 
 app.listen({ port: env.PORT }, () => {
   console.log(`[server] HTTP listening on port ${env.PORT}`)
