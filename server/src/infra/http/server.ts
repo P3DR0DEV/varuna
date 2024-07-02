@@ -6,6 +6,7 @@ import { jsonSchemaTransform, serializerCompiler, validatorCompiler } from 'fast
 
 import { env } from '@/env'
 
+import { ComputerRoutes } from './controllers/computer'
 import { errorHandler } from './error-handler'
 
 const app = fastify({ logger: { level: env.LOG_LEVEL } })
@@ -20,8 +21,8 @@ app.register(fastifySwagger, {
     consumes: ['application/json'],
     produces: ['application/json'],
     info: {
-      title: 'food-ordering',
-      description: 'food-ordering API documentation',
+      title: 'IT Manager API',
+      description: 'IT Manager API documentation',
       version: '1.0.0',
     },
   },
@@ -35,6 +36,8 @@ app.register(fastifySwaggerUI, {
 app.register(fastifyCors, {
   origin: '*',
 })
+
+app.register(ComputerRoutes, { prefix: '/computers' })
 
 app.setErrorHandler(errorHandler)
 
