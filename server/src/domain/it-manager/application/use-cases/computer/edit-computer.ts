@@ -3,7 +3,6 @@ import { NotFound, NotFoundError } from '@/core/errors/not-found'
 import { Either, failure, success } from '@/core/types/either'
 import { UseCase } from '@/core/use-cases/use-case'
 import { Computer } from '@/domain/it-manager/enterprise/entities/computer'
-import { DeviceProps } from '@/domain/it-manager/enterprise/entities/device'
 import { Slug } from '@/domain/it-manager/enterprise/entities/value-objects/slug'
 
 import { ComputerRepository } from '../../repositories/computer-repository'
