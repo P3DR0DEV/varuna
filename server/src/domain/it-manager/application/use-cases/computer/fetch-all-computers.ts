@@ -5,7 +5,7 @@ import { Slug } from '@/domain/it-manager/enterprise/entities/value-objects/slug
 
 import { ComputerRepository } from '../../repositories/computer-repository'
 
-type FetchAllComputersUseCaseProps = { operatingSystem?: string }
+type FetchAllComputersUseCaseProps = { operatingSystem?: string | null }
 type FetchAllComputersUseCaseResponse = Either<unknown, { computers: Computer[] }>
 
 export class FetchAllComputersUseCase implements UseCase {

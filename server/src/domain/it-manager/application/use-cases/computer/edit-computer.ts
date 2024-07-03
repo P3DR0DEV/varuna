@@ -11,11 +11,17 @@ import { ComputerRepository } from '../../repositories/computer-repository'
 type EditComputerUseCaseRequest = {
   id: string
   hostname: string
-  ipAddress: string
-  type: 'notebook' | 'desktop' | 'server'
-  description: string
   operatingSystem: string
-} & Omit<DeviceProps, 'id' | 'createdAt'>
+  type: 'notebook' | 'desktop' | 'server'
+  ipAddress: string
+  description: string
+  serialNumber: string
+  model: string
+  acquisitionDate: Date
+  endWarrantyDate?: Date | null
+  invoiceNumber?: string | null
+  contractId?: string | null
+}
 
 type EditComputerUseCaseResponse = Either<BadRequestError | NotFoundError, { computer: Computer }>
 
