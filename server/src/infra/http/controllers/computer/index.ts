@@ -2,11 +2,11 @@ import { FastifyInstance } from 'fastify'
 
 import { createComputer } from './create-computer'
 import { deleteComputer } from './delete-computer'
+import { editComputer } from './edit-computer'
 import { fetchAllComputers } from './fetch-all-computers'
 import { getComputerByHostname } from './get-computer-by-hostname'
 import { getComputerById } from './get-computer-by-id'
 import { getComputerByIpAddress } from './get-computer-by-ip-address'
-import { editComputer } from './edit-computer'
 
 export async function ComputerRoutes(app: FastifyInstance) {
   /* GET /computers?operatingSystem='' */
