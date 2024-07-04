@@ -29,7 +29,7 @@ export async function createComputer(app: FastifyInstance) {
 
         response: {
           201: z.object({
-            computer: computersSchema
+            computer: computersSchema,
           }),
 
           400: z.object({

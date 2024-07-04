@@ -18,7 +18,7 @@ export async function getComputerById(app: FastifyInstance) {
         }),
         response: {
           200: z.object({
-            computer: computersSchema
+            computer: computersSchema,
           }),
           400: z.object({
             name: z.string(),

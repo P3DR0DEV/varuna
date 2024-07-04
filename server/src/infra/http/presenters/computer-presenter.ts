@@ -1,5 +1,6 @@
-import { Computer } from '@/domain/it-manager/enterprise/entities/computer'
 import z from 'zod'
+
+import { Computer } from '@/domain/it-manager/enterprise/entities/computer'
 
 export class ComputerPresenter {
   static toHttp(computer: Computer) {
@@ -19,7 +20,6 @@ export class ComputerPresenter {
     }
   }
 }
-
 
 export const computersSchema = z.object({
   id: z.string(),
