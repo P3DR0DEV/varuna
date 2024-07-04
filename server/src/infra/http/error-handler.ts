@@ -9,14 +9,6 @@ import { UnauthorizedError } from './controllers/_errors/unauthorized'
 type FastifyErrorHandler = FastifyInstance['errorHandler']
 
 export const errorHandler: FastifyErrorHandler = (error, request, reply) => {
-  if (error instanceof ZodError) {
-    return reply.status(400).send({
-      name: error.name,
-      message: `Error during Validation`,
-      errors: error.flatten().fieldErrors,
-    })
-  }
-
   if (error instanceof UnauthorizedError) {
     return reply.status(401).send({
       name: error.name,
@@ -35,6 +27,14 @@ export const errorHandler: FastifyErrorHandler = (error, request, reply) => {
     return reply.status(400).send({
       name: error.name,
       message: error.message,
+    })
+  }
+
+  if (error instanceof ZodError) {
+    return reply.status(400).send({
+      name: error.name,
+      message: `Error during Validation`,
+      errors: error.flatten().fieldErrors,
     })
   }
 
