@@ -16,6 +16,30 @@ export async function fetchAllComputers(app: FastifyInstance) {
         querystring: z.object({
           operatingSystem: z.string().nullish(),
         }),
+        response: {
+          200: z.object({
+            computers: z.array(
+              z.object({
+                id: z.string(),
+                acquisitionDate: z.coerce.date(),
+                description: z.string(),
+                hostname: z.string(),
+                ipAddress: z.string(),
+                model: z.string(),
+                operatingSystem: z.string(),
+                serialNumber: z.string(),
+                type: z.enum(['server', 'notebook', 'desktop']),
+                contractId: z.string().nullish(),
+                endWarrantyDate: z.coerce.date().nullish(),
+                invoiceNumber: z.string().nullish(),
+              }),
+            ),
+          }),
+          500: z.object({
+            name: z.string(),
+            message: z.string(),
+          }),
+        },
       },
     },
     async (request, reply) => {
