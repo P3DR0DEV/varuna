@@ -38,8 +38,14 @@ export async function editUser(app: FastifyInstance) {
             }),
           }),
 
-          404: errors.NotFoundError,
-          500: errors.InternalServerError,
+          404: z.object({
+            name: z.string(),
+            message: z.string(),
+          }),
+          500: z.object({
+            name: z.string(),
+            message: z.string(),
+          }),
         },
       },
     },

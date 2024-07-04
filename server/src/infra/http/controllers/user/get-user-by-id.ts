@@ -16,6 +16,28 @@ export async function getUserById(app: FastifyInstance) {
         params: z.object({
           id: z.string().uuid(),
         }),
+
+        response: {
+          200: z.object({
+            user: z.object({
+              id: z.string(),
+              name: z.string(),
+              email: z.string(),
+              phone: z.string().nullable(),
+              badge: z.string(),
+              departmentId: z.string(),
+              workstationId: z.string().nullable(),
+            }),
+          }),
+          400: z.object({
+            name: z.string(),
+            message: z.string(),
+          }),
+          404: z.object({
+            name: z.string(),
+            message: z.string(),
+          }),
+        },
       },
     },
     async (request, reply) => {
