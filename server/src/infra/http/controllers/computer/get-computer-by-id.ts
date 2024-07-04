@@ -6,7 +6,7 @@ import { ComputerPresenter } from '../../presenters/computer-presenter'
 import { errors } from '../_errors'
 import { getComputerByIdUseCase } from './factories/make-get-computer-by-id'
 
-export function getComputerById(app: FastifyInstance) {
+export async function getComputerById(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     '/:id',
     {

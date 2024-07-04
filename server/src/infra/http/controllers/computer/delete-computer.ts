@@ -20,7 +20,7 @@ export async function deleteComputer(app: FastifyInstance) {
     async (request, reply) => {
       const { id } = request.params
 
-      const result = await deleteComputerUseCase.execute(id)
+      const result = await deleteComputerUseCase.execute({ id })
 
       if (result.isFailure()) {
         const { name, message } = result.reason
