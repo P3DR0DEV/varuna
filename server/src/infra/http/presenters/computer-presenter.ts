@@ -1,4 +1,5 @@
 import { Computer } from '@/domain/it-manager/enterprise/entities/computer'
+import z from 'zod'
 
 export class ComputerPresenter {
   static toHttp(computer: Computer) {
@@ -18,3 +19,19 @@ export class ComputerPresenter {
     }
   }
 }
+
+
+export const computersSchema = z.object({
+  id: z.string(),
+  acquisitionDate: z.coerce.date(),
+  description: z.string(),
+  hostname: z.string(),
+  ipAddress: z.string(),
+  model: z.string(),
+  operatingSystem: z.string(),
+  serialNumber: z.string(),
+  type: z.enum(['server', 'notebook', 'desktop']),
+  contractId: z.string().nullish(),
+  endWarrantyDate: z.coerce.date().nullish(),
+  invoiceNumber: z.string().nullish(),
+})

@@ -2,7 +2,7 @@ import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
 
-import { ComputerPresenter } from '../../presenters/computer-presenter'
+import { ComputerPresenter, computersSchema } from '../../presenters/computer-presenter'
 import { errors } from '../_errors'
 import { getComputerByIpAddressUseCase } from './factories/make-get-computer-by-ip-address'
 
@@ -18,20 +18,7 @@ export async function getComputerByIpAddress(app: FastifyInstance) {
         }),
         response: {
           200: z.object({
-            computer: z.object({
-              id: z.string(),
-              acquisitionDate: z.date(),
-              description: z.string(),
-              hostname: z.string(),
-              ipAddress: z.string(),
-              model: z.string(),
-              operatingSystem: z.string(),
-              serialNumber: z.string(),
-              type: z.enum(['desktop', 'notebook', 'server']),
-              contractId: z.string().uuid().nullish(),
-              endWarrantyDate: z.date().nullish(),
-              invoiceNumber: z.string().nullish(),
-            }),
+            computer: computersSchema
           }),
           400: z.object({
             name: z.string(),
@@ -40,8 +27,8 @@ export async function getComputerByIpAddress(app: FastifyInstance) {
           404: z.object({
             name: z.string(),
             message: z.string(),
-          })
-        }
+          }),
+        },
       },
     },
     async (request, reply) => {

@@ -2,7 +2,7 @@ import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
 
-import { ComputerPresenter } from '../../presenters/computer-presenter'
+import { ComputerPresenter, computersSchema } from '../../presenters/computer-presenter'
 import { errors } from '../_errors'
 import { createComputerUseCase } from './factories/make-create-computer'
 
@@ -29,20 +29,7 @@ export async function createComputer(app: FastifyInstance) {
 
         response: {
           201: z.object({
-            computer: z.object({
-              id: z.string(),
-              acquisitionDate: z.coerce.date(),
-              description: z.string(),
-              hostname: z.string(),
-              ipAddress: z.string(),
-              model: z.string(),
-              operatingSystem: z.string(),
-              serialNumber: z.string(),
-              type: z.enum(['server', 'notebook', 'desktop']),
-              contractId: z.string().nullish(),
-              endWarrantyDate: z.coerce.date().nullish(),
-              invoiceNumber: z.string().nullish(),
-            }),
+            computer: computersSchema
           }),
 
           400: z.object({
