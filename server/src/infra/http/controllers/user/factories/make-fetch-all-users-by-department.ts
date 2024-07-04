@@ -7,4 +7,4 @@ const usersRepository = new PrismaUsersRepository(prisma)
 const departmentRepository = new PrismaDepartmentsRepository(prisma)
 const useCase = new FetchAllUsersByDepartmentUseCase(usersRepository, departmentRepository)
 
-export const fetchAllUsersByDepartment = useCase
+export const fetchAllUsersByDepartmentUseCase = useCase

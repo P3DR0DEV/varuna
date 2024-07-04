@@ -6,23 +6,22 @@ import { jsonSchemaTransform, serializerCompiler, validatorCompiler } from 'fast
 
 import { env } from '@/env'
 
-import { ComputerRoutes } from './controllers/computer'
+import { computerRoutes } from './controllers/computer'
+import { userRoutes } from './controllers/user'
 import { errorHandler } from './error-handler'
 
 const app = fastify({ logger: { level: env.LOG_LEVEL } })
 
-// ! Fastify TypeProviderZod config to type routes inputs and outputs
-app.setValidatorCompiler(validatorCompiler)
 app.setSerializerCompiler(serializerCompiler)
+app.setValidatorCompiler(validatorCompiler)
 
-// ! Fastify Swagger config
 app.register(fastifySwagger, {
   swagger: {
     consumes: ['application/json'],
     produces: ['application/json'],
     info: {
       title: 'IT Manager API',
-      description: 'IT Manager API documentation',
+      description: 'IT Manager API',
       version: '1.0.0',
     },
   },
@@ -37,10 +36,11 @@ app.register(fastifyCors, {
   origin: '*',
 })
 
-app.register(ComputerRoutes, { prefix: '/computers' })
+app.register(computerRoutes, { prefix: '/computers' })
+app.register(userRoutes, { prefix: '/users' })
 
 app.setErrorHandler(errorHandler)
 
-app.listen({ port: env.PORT }, () => {
-  console.log(`[server] HTTP listening on port ${env.PORT}`)
+app.listen({ port: env.PORT, host: '0.0.0.0' }).then(() => {
+  console.log(`[server] HTTP server listening on port ${env.PORT}`)
 })

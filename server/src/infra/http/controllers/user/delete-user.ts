@@ -3,15 +3,15 @@ import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
 
 import { errors } from '../_errors'
-import { deleteComputerUseCase } from './factories/make-delete-computer'
+import { deleteUserUseCase } from './factories/make-delete-user'
 
-export async function deleteComputer(app: FastifyInstance) {
+export async function deleteUser(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().delete(
     '/:id',
     {
       schema: {
-        summary: 'Delete a computer',
-        tags: ['Computers'],
+        tags: ['Users'],
+        summary: 'Delete a user',
         params: z.object({
           id: z.string().uuid(),
         }),
@@ -33,7 +33,9 @@ export async function deleteComputer(app: FastifyInstance) {
     async (request, reply) => {
       const { id } = request.params
 
-      const result = await deleteComputerUseCase.execute({ id })
+      const result = await deleteUserUseCase.execute({
+        id,
+      })
 
       if (result.isFailure()) {
         const { name, message } = result.reason
@@ -43,7 +45,9 @@ export async function deleteComputer(app: FastifyInstance) {
 
       const { message } = result.value
 
-      return reply.status(200).send({ message })
+      return reply.status(200).send({
+        message,
+      })
     },
   )
 }

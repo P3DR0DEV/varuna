@@ -16,6 +16,32 @@ export async function getComputerByHostname(app: FastifyInstance) {
         params: z.object({
           hostname: z.string(),
         }),
+        response: {
+          200: z.object({
+            computer: z.object({
+              id: z.string(),
+              acquisitionDate: z.coerce.date(),
+              description: z.string(),
+              hostname: z.string(),
+              ipAddress: z.string(),
+              model: z.string(),
+              operatingSystem: z.string(),
+              serialNumber: z.string(),
+              type: z.enum(['server', 'notebook', 'desktop']),
+              contractId: z.string().nullish(),
+              endWarrantyDate: z.coerce.date().nullish(),
+              invoiceNumber: z.string().nullish(),
+            }),
+          }),
+          400: z.object({
+            name : z.string(),
+            message: z.string(),
+          }),
+          404: z.object({
+            name: z.string(),
+            message: z.string(),
+          }),
+        }
       },
     },
     async (request, reply) => {

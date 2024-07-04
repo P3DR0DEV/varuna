@@ -6,7 +6,7 @@ import { ComputerPresenter } from '../../presenters/computer-presenter'
 import { errors } from '../_errors'
 import { getComputerByIdUseCase } from './factories/make-get-computer-by-id'
 
-export function getComputerById(app: FastifyInstance) {
+export async function getComputerById(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     '/:id',
     {
@@ -16,6 +16,32 @@ export function getComputerById(app: FastifyInstance) {
         params: z.object({
           id: z.string().uuid(),
         }),
+        response: {
+          200: z.object({
+            computer: z.object({
+              id: z.string(),
+              acquisitionDate: z.date(),
+              description: z.string(),
+              hostname: z.string(),
+              ipAddress: z.string(),
+              model: z.string(),
+              operatingSystem: z.string(),
+              serialNumber: z.string(),
+              type: z.enum(['desktop', 'notebook', 'server']),
+              contractId: z.string().uuid().nullish(),
+              endWarrantyDate: z.date().nullish(),
+              invoiceNumber: z.string().nullish(),
+            }),
+          }),
+          400: z.object({
+            name: z.string(),
+            message: z.string(),
+          }),
+          404: z.object({
+            name: z.string(),
+            message: z.string(),
+          })
+        },
       },
     },
     async (request, reply) => {

@@ -8,25 +8,25 @@ import { getComputerByHostname } from './get-computer-by-hostname'
 import { getComputerById } from './get-computer-by-id'
 import { getComputerByIpAddress } from './get-computer-by-ip-address'
 
-export async function ComputerRoutes(app: FastifyInstance) {
+export async function computerRoutes(app: FastifyInstance) {
   /* GET /computers?operatingSystem='' */
-  app.register(fetchAllComputers)
+  fetchAllComputers(app)
 
   /* GET /computers/:id */
-  app.register(getComputerById)
+  getComputerById(app)
 
   /* GET /computers/hostname/:hostname */
-  app.register(getComputerByHostname)
+  getComputerByHostname(app)
 
   /* GET /computers/ip/:ipAddress */
-  app.register(getComputerByIpAddress)
+  getComputerByIpAddress(app)
 
   /* PUT /computers/:id */
-  app.register(editComputer)
+  editComputer(app)
 
   /* POST /computers */
-  app.register(createComputer)
+  createComputer(app)
 
   /* DELETE /computers/:id */
-  app.register(deleteComputer)
+  deleteComputer(app)
 }
