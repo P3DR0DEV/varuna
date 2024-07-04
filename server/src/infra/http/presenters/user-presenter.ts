@@ -1,4 +1,5 @@
 import { User } from '@/domain/it-manager/enterprise/entities/user'
+import z from 'zod'
 
 export class UserPresenter {
   static toHttp(user: User) {
@@ -13,3 +14,13 @@ export class UserPresenter {
     }
   }
 }
+
+export const usersSchema =  z.object({
+  id: z.string().uuid(),
+  name: z.string(),
+  email: z.string().email(),
+  phone: z.string().nullable(),
+  badge: z.string(),
+  departmentId: z.string(),
+  workstationId: z.string().nullable(),
+})

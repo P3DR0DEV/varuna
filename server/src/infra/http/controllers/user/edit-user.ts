@@ -2,7 +2,7 @@ import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
 
-import { UserPresenter } from '../../presenters/user-presenter'
+import { UserPresenter, usersSchema } from '../../presenters/user-presenter'
 import { errors } from '../_errors'
 import { editUserUseCase } from './factories/make-edit-user'
 
@@ -27,15 +27,7 @@ export async function editUser(app: FastifyInstance) {
 
         response: {
           200: z.object({
-            user: z.object({
-              id: z.string().uuid(),
-              name: z.string(),
-              email: z.string().email(),
-              phone: z.string().nullable(),
-              badge: z.string(),
-              departmentId: z.string(),
-              workstationId: z.string().nullable(),
-            }),
+            user: usersSchema,
           }),
 
           404: z.object({

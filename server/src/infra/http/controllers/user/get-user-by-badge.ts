@@ -2,7 +2,7 @@ import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
 
-import { UserPresenter } from '../../presenters/user-presenter'
+import { UserPresenter, usersSchema } from '../../presenters/user-presenter'
 import { errors } from '../_errors'
 import { getUserByBadgeUseCase } from './factories/make-get-user-by-badge'
 
@@ -11,7 +11,7 @@ export async function getUserByBadge(app: FastifyInstance) {
     '/badge/:badge',
     {
       schema: {
-        summary: 'Fetch all users',
+        summary: 'Get user by badge',
         tags: ['Users'],
         params: z.object({
           badge: z.string(),
@@ -19,15 +19,7 @@ export async function getUserByBadge(app: FastifyInstance) {
 
         response: {
           200: z.object({
-            user: z.object({
-              id: z.string(),
-              name: z.string(),
-              email: z.string(),
-              phone: z.string().nullable(),
-              badge: z.string(),
-              departmentId: z.string(),
-              workstationId: z.string().nullable(),
-            }),
+            user: usersSchema,
           }),
 
           400: z.object({
