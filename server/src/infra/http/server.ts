@@ -7,6 +7,7 @@ import { jsonSchemaTransform, serializerCompiler, validatorCompiler } from 'fast
 import { env } from '@/env'
 
 import { computerRoutes } from './controllers/computer'
+import { contractRoutes } from './controllers/contract'
 import { departmentRoutes } from './controllers/department'
 import { userRoutes } from './controllers/user'
 import { errorHandler } from './error-handler'
@@ -40,6 +41,7 @@ app.register(fastifyCors, {
 app.register(computerRoutes, { prefix: '/computers' })
 app.register(userRoutes, { prefix: '/users' })
 app.register(departmentRoutes, { prefix: '/departments' })
+app.register(contractRoutes, { prefix: '/contracts' })
 
 app.setErrorHandler(errorHandler)
 
