@@ -1,12 +1,27 @@
 import { PrismaClient } from '@prisma/client'
 
 import { ContractRepository } from '@/domain/it-manager/application/repositories/contract-repository'
-import { Contract, ContractTypes } from '@/domain/it-manager/enterprise/entities/contract'
+import { Contract, ContractStatus, ContractTypes } from '@/domain/it-manager/enterprise/entities/contract'
 
-import { MapContractType, PrismaContractsMapper } from '../mappers/prisma-contracts-mapper'
+import { MapContractStatus, MapContractType, PrismaContractsMapper } from '../mappers/prisma-contracts-mapper'
 
 export class PrismaContractsRepository implements ContractRepository {
   constructor(private prisma: PrismaClient) {}
+
+  async editContractStatus({ id, status }: { id: string; status: ContractStatus }): Promise<null | Contract> {
+    const contract = await this.prisma.contract.update({
+      where: { id },
+      data: {
+        status: MapContractStatus.toPersistence(status),
+      },
+    })
+
+    if (!contract) {
+      return null
+    }
+
+    return PrismaContractsMapper.toDomain(contract)
+  }
 
   async findById(id: string): Promise<Contract | null> {
     const contract = await this.prisma.contract.findUnique({
@@ -20,26 +35,13 @@ export class PrismaContractsRepository implements ContractRepository {
     return PrismaContractsMapper.toDomain(contract)
   }
 
-  async findByType(type: ContractTypes): Promise<Contract[]> {
-    const persistenceType = MapContractType.toPersistence(type)
-
+  async findMany({ userEmail, type }: { userEmail?: string; type?: ContractTypes }): Promise<Contract[]> {
     const contracts = await this.prisma.contract.findMany({
-      where: { type: persistenceType },
+      where: {
+        userEmail,
+        type: type ? MapContractType.toPersistence(type) : undefined,
+      },
     })
-
-    return contracts.map(PrismaContractsMapper.toDomain)
-  }
-
-  async findByUserEmail(userEmail: string): Promise<Contract[]> {
-    const contracts = await this.prisma.contract.findMany({
-      where: { userEmail },
-    })
-
-    return contracts.map(PrismaContractsMapper.toDomain)
-  }
-
-  async findMany(): Promise<Contract[]> {
-    const contracts = await this.prisma.contract.findMany()
 
     return contracts.map(PrismaContractsMapper.toDomain)
   }

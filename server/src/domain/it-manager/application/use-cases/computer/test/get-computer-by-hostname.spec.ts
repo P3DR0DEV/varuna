@@ -16,7 +16,7 @@ describe('Find computer by hostname use case', () => {
   })
 
   it('should find one computer', async () => {
-    const result = await sut.execute('BHO010201')
+    const result = await sut.execute({ hostname: 'BHO010201' })
 
     expect(result.isSuccess()).toBeTruthy()
 
@@ -27,7 +27,7 @@ describe('Find computer by hostname use case', () => {
   })
 
   it('Should return NotFoundError if computer not found', async () => {
-    const result = await sut.execute('any_hostname')
+    const result = await sut.execute({ hostname: 'any_hostname' })
 
     expect(result.isFailure()).toBeTruthy()
 
@@ -39,7 +39,7 @@ describe('Find computer by hostname use case', () => {
   })
 
   it('Should return BadRequestError if hostname is empty', async () => {
-    const result = await sut.execute('')
+    const result = await sut.execute({ hostname: '' })
 
     expect(result.isFailure()).toBeTruthy()
 
