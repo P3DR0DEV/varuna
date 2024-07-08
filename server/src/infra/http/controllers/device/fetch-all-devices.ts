@@ -8,6 +8,8 @@ import { errors } from "../_errors";
 export async function fetchAllDevices(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get('/', {
     schema: {
+      tags: ['Devices'],
+      summary: 'Fetch all devices',
       querystring: z.object({
         model: z.string().optional(),
         invoiceNumber: z.string().optional()
