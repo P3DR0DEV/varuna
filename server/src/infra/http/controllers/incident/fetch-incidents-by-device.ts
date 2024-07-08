@@ -2,22 +2,23 @@ import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
 
+import { IncidentPresenter, incidentsSchema } from '../../presenters/incident-presenter'
 import { errors } from '../_errors'
-import { deleteDeviceUseCase } from './factories/make-delete-device'
+import { fetchIncidentsByDeviceUseCase } from './factories/make-fetch-incidents-by-device'
 
-export async function deleteDevice(app: FastifyInstance) {
-  app.withTypeProvider<ZodTypeProvider>().delete(
-    '/:id',
+export async function fetchIncidentsByDevice(app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>().get(
+    '/device/:id',
     {
       schema: {
-        tags: ['Devices'],
-        summary: 'Delete a device',
+        tags: ['Incident'],
+        summary: 'Fetch incidents by device',
         params: z.object({
-          id: z.string().uuid(),
+          id: z.string(),
         }),
         response: {
           200: z.object({
-            message: z.string(),
+            incidents: z.array(incidentsSchema),
           }),
           400: z.object({
             name: z.string(),
@@ -33,7 +34,7 @@ export async function deleteDevice(app: FastifyInstance) {
     async (request, reply) => {
       const { id } = request.params
 
-      const result = await deleteDeviceUseCase.execute({ id })
+      const result = await fetchIncidentsByDeviceUseCase.execute({ deviceId: id })
 
       if (result.isFailure()) {
         const { message, name } = result.reason
@@ -41,11 +42,9 @@ export async function deleteDevice(app: FastifyInstance) {
         throw new errors[name](message)
       }
 
-      const { message } = result.value
+      const { incidents } = result.value
 
-      return reply.status(200).send({
-        message,
-      })
+      return reply.status(200).send({ incidents: incidents.map(IncidentPresenter.toHttp) })
     },
   )
 }

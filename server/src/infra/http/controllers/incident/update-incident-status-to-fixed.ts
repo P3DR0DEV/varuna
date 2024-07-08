@@ -3,17 +3,17 @@ import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
 
 import { errors } from '../_errors'
-import { deleteDeviceUseCase } from './factories/make-delete-device'
+import { updateIncidentStatusToFixedUseCase } from './factories/make-update-incident-status-to-fixed'
 
-export async function deleteDevice(app: FastifyInstance) {
-  app.withTypeProvider<ZodTypeProvider>().delete(
-    '/:id',
+export async function updateIncidentStatusToFixed(app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>().patch(
+    '/:id/fixed',
     {
       schema: {
-        tags: ['Devices'],
-        summary: 'Delete a device',
+        tags: ['Incident'],
+        summary: 'Set incident as fixed',
         params: z.object({
-          id: z.string().uuid(),
+          id: z.string(),
         }),
         response: {
           200: z.object({
@@ -33,19 +33,17 @@ export async function deleteDevice(app: FastifyInstance) {
     async (request, reply) => {
       const { id } = request.params
 
-      const result = await deleteDeviceUseCase.execute({ id })
+      const result = await updateIncidentStatusToFixedUseCase.execute({ id })
 
       if (result.isFailure()) {
-        const { message, name } = result.reason
+        const { name, message } = result.reason
 
         throw new errors[name](message)
       }
 
       const { message } = result.value
 
-      return reply.status(200).send({
-        message,
-      })
+      return reply.code(200).send({ message })
     },
   )
 }

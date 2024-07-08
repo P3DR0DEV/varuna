@@ -180,7 +180,6 @@ model Computer {
 
   contractId  String?       @map("contract_id")
   contract    Contract?     @relation(fields: [contractId], references: [id])
-  incident    Incident[]
   workstation Workstation[]
 
   @@map("computers")
@@ -203,9 +202,8 @@ model Printer {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  contractId String?    @map("contract_id")
-  contract   Contract?  @relation(fields: [contractId], references: [id])
-  incident   Incident[]
+  contractId String?   @map("contract_id")
+  contract   Contract? @relation(fields: [contractId], references: [id])
 
   @@map("printers")
 }
@@ -231,7 +229,6 @@ model Mobile {
 
   contract   Contract?   @relation(fields: [contractId], references: [id])
   department Department? @relation(fields: [departmentId], references: [id])
-  incident   Incident[]
 
   @@map("mobiles")
 }
@@ -249,9 +246,6 @@ model Incident {
 
   workstation Workstation @relation(fields: [workstationId], references: [id])
   device      Device?     @relation(fields: [deviceId], references: [id])
-  computer    Computer?   @relation(fields: [deviceId], references: [id], map: "computer_id")
-  mobile      Mobile?     @relation(fields: [deviceId], references: [id], map: "mobile_id")
-  printer     Printer?    @relation(fields: [deviceId], references: [id], map: "printer_id")
 
   @@map("incidents")
 }
