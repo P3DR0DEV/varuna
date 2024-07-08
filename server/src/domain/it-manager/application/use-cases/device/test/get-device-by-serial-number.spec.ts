@@ -1,15 +1,15 @@
 import { makeDevice } from 'test/factories/make-device'
 import { InMemoryDeviceRepository } from 'test/repositories/in-memory-device-repository'
 
-import { GetDeviceBySerialumberUseCase } from '../get-device-by-serial-number'
+import { GetDeviceBySerialNumberUseCase } from '../get-device-by-serial-number'
 
 let deviceRepository: InMemoryDeviceRepository
-let sut: GetDeviceBySerialumberUseCase
+let sut: GetDeviceBySerialNumberUseCase
 
 describe(' Find device by serial number use case', () => {
   beforeEach(async () => {
     deviceRepository = new InMemoryDeviceRepository()
-    sut = new GetDeviceBySerialumberUseCase(deviceRepository)
+    sut = new GetDeviceBySerialNumberUseCase(deviceRepository)
 
     const device = makeDevice({
       serialNumber: 'any_serial_number',

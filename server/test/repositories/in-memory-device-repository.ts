@@ -5,7 +5,18 @@ import { Slug } from '@/domain/it-manager/enterprise/entities/value-objects/slug
 export class InMemoryDeviceRepository implements DeviceRepository {
   public items: Device<DeviceProps>[] = []
 
-  async findMany(): Promise<Device<DeviceProps>[]> {
+  async findMany({invoiceNumber, model}: {invoiceNumber?: string, model?: string}): Promise<Device<DeviceProps>[]> {
+    if (invoiceNumber && model) {
+      return this.items.filter((item) => item.invoiceNumber === invoiceNumber && item.modelSlug === model)
+    }
+
+    if (invoiceNumber) {
+      return this.items.filter((item) => item.invoiceNumber === invoiceNumber)
+    }
+
+    if (model) {
+      return this.items.filter((item) => item.modelSlug === model)
+    }
     return this.items
   }
 
@@ -25,19 +36,6 @@ export class InMemoryDeviceRepository implements DeviceRepository {
       return null
     }
     return device
-  }
-
-  async findByModel(model: string): Promise<Device<DeviceProps>[]> {
-    const slug = Slug.createFromText(model)
-    const devices = this.items.filter((item) => item.modelSlug === slug.value)
-
-    return devices
-  }
-
-  async findByInvoiceNumber(invoiceNumber: string): Promise<Device<DeviceProps>[]> {
-    const devices = this.items.filter((item) => item.invoiceNumber === invoiceNumber)
-
-    return devices
   }
 
   async create(device: Device<DeviceProps>): Promise<void> {

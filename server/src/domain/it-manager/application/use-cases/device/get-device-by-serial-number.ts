@@ -6,15 +6,17 @@ import { Device, DeviceProps } from '@/domain/it-manager/enterprise/entities/dev
 
 import { DeviceRepository } from '../../repositories/device-repository'
 
-type GetDeviceBySerialumberUseCaseProps = {
+type GetDeviceBySerialNumberUseCaseProps = {
   serialNumber: string
 }
-type GetDeviceBySerialumberUseCaseResponse = Either<BadRequestError | NotFoundError, { device: Device<DeviceProps> }>
+type GetDeviceBySerialNumberUseCaseResponse = Either<BadRequestError | NotFoundError, { device: Device<DeviceProps> }>
 
-export class GetDeviceBySerialumberUseCase implements UseCase {
+export class GetDeviceBySerialNumberUseCase implements UseCase {
   constructor(private deviceRepository: DeviceRepository) {}
 
-  async execute({ serialNumber }: GetDeviceBySerialumberUseCaseProps): Promise<GetDeviceBySerialumberUseCaseResponse> {
+  async execute({
+    serialNumber,
+  }: GetDeviceBySerialNumberUseCaseProps): Promise<GetDeviceBySerialNumberUseCaseResponse> {
     if (!serialNumber) {
       return failure(BadRequest('Serial number is required'))
     }

@@ -12,7 +12,7 @@ type EditDeviceUseCaseProps = {
   acquisitionDate: Date
   serialNumber: string
   invoiceNumber?: string | null
-  endWarrantyDate: Date
+  endWarrantyDate?: Date | null
 }
 
 type EditDeviceUseCaseResponse = Either<BadRequestError | NotFoundError, { device: Device<DeviceProps> }>
