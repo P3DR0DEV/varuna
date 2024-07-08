@@ -17,7 +17,7 @@ describe('Find computer by id use case', () => {
   })
 
   it('should find one computer', async () => {
-    const result = await sut.execute(computerRepository.items[0].id.toString())
+    const result = await sut.execute({ id: computerRepository.items[0].id.toString() })
 
     expect(result.isSuccess()).toBeTruthy()
 
@@ -32,10 +32,10 @@ describe('Find computer by id use case', () => {
     const id = computerRepository.items[0].id.toString()
 
     // delete the computer for the first time
-    await sut.execute(id)
+    await sut.execute({ id })
 
     // tries to delete it again
-    const result = await sut.execute(id)
+    const result = await sut.execute({ id })
 
     expect(result.isFailure()).toBeTruthy()
 
@@ -47,7 +47,7 @@ describe('Find computer by id use case', () => {
 
   it('should return a BadRequestError', async () => {
     // tries to delete an empty id
-    const result = await sut.execute('')
+    const result = await sut.execute({ id: '' })
 
     expect(result.isFailure()).toBeTruthy()
 
