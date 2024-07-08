@@ -11,12 +11,37 @@ describe('Find all use case', () => {
     deviceRepository = new InMemoryDeviceRepository()
     sut = new FetchAllDevicesUseCase(deviceRepository)
 
-    const device = makeDevice()
+    const device = makeDevice({
+      invoiceNumber: '123',
+      model: 'Learning book 100e',
+    })
     deviceRepository.create(device)
   })
 
   it('should be able to find all devices', async () => {
-    const result = await sut.execute()
+    const result = await sut.execute({})
+
+    expect(result.isSuccess()).toBeTruthy()
+
+    if (result.isSuccess()) {
+      const { devices } = result.value
+      expect(devices).toHaveLength(1)
+    }
+  })
+
+  it('should be able to find all devices by invoice number', async () => {
+    const result = await sut.execute({ invoiceNumber: '123' })
+
+    expect(result.isSuccess()).toBeTruthy()
+
+    if (result.isSuccess()) {
+      const { devices } = result.value
+      expect(devices).toHaveLength(1)
+    }
+  })
+
+  it('should be able to find all devices by model', async () => {
+    const result = await sut.execute({ model: 'Learning book 100e' })
 
     expect(result.isSuccess()).toBeTruthy()
 

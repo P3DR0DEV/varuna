@@ -9,6 +9,7 @@ import { env } from '@/env'
 import { computerRoutes } from './controllers/computer'
 import { contractRoutes } from './controllers/contract'
 import { departmentRoutes } from './controllers/department'
+import { devicesRoutes } from './controllers/device'
 import { userRoutes } from './controllers/user'
 import { errorHandler } from './error-handler'
 
@@ -42,6 +43,7 @@ app.register(computerRoutes, { prefix: '/computers' })
 app.register(userRoutes, { prefix: '/users' })
 app.register(departmentRoutes, { prefix: '/departments' })
 app.register(contractRoutes, { prefix: '/contracts' })
+app.register(devicesRoutes, { prefix: '/devices' })
 
 app.setErrorHandler(errorHandler)
 

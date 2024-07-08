@@ -8,7 +8,7 @@ import { DeviceRepository } from '../../repositories/device-repository'
 type CreateDeviceUseCaseProps = {
   serialNumber: string
   model: string
-  invoiceNumber: string
+  invoiceNumber?: string | null
   acquisitionDate: Date
 }
 
