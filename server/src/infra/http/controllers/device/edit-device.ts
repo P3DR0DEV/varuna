@@ -1,8 +1,10 @@
-import { FastifyInstance } from "fastify";
-import { ZodTypeProvider } from "fastify-type-provider-zod";
-import z from "zod";
-import { devicesSchema } from "../../presenters/device-presenter";
-import { editDeviceUseCase } from "./factories/make-edit-device";
+import { FastifyInstance } from 'fastify'
+import { ZodTypeProvider } from 'fastify-type-provider-zod'
+import z from 'zod'
+
+import { DevicePresenter, devicesSchema } from '../../presenters/device-presenter'
+import { errors } from '../_errors'
+import { editDeviceUseCase } from './factories/make-edit-device'
 
 export async function editDevice(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().put(
@@ -34,8 +36,8 @@ export async function editDevice(app: FastifyInstance) {
             name: z.string(),
             message: z.string(),
           }),
-        }
-      }
+        },
+      },
     },
     async (request, reply) => {
       const { id } = request.params
@@ -43,6 +45,16 @@ export async function editDevice(app: FastifyInstance) {
       const props = request.body
 
       const result = await editDeviceUseCase.execute({ id, ...props })
-    }
+
+      if (result.isFailure()) {
+        const { name, message } = result.reason
+
+        throw new errors[name](message)
+      }
+
+      const { device } = result.value
+
+      return reply.status(200).send({ device: DevicePresenter.toHttp(device) })
+    },
   )
 }

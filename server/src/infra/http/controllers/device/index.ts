@@ -2,10 +2,10 @@ import { FastifyInstance } from 'fastify'
 
 import { createDevice } from './create-device'
 import { deleteDevice } from './delete-device'
-import { getDeviceById } from './get-device-by-id'
-import { getDeviceBySerialNumber } from './get-device-by-serial-number'
 import { editDevice } from './edit-device'
 import { fetchAllDevices } from './fetch-all-devices'
+import { getDeviceById } from './get-device-by-id'
+import { getDeviceBySerialNumber } from './get-device-by-serial-number'
 
 export async function devicesRoutes(app: FastifyInstance) {
   /* POST /devices/ */

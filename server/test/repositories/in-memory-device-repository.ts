@@ -1,11 +1,10 @@
 import { DeviceRepository } from '@/domain/it-manager/application/repositories/device-repository'
 import { Device, DeviceProps } from '@/domain/it-manager/enterprise/entities/device'
-import { Slug } from '@/domain/it-manager/enterprise/entities/value-objects/slug'
 
 export class InMemoryDeviceRepository implements DeviceRepository {
   public items: Device<DeviceProps>[] = []
 
-  async findMany({invoiceNumber, model}: {invoiceNumber?: string, model?: string}): Promise<Device<DeviceProps>[]> {
+  async findMany({ invoiceNumber, model }: { invoiceNumber?: string; model?: string }): Promise<Device<DeviceProps>[]> {
     if (invoiceNumber && model) {
       return this.items.filter((item) => item.invoiceNumber === invoiceNumber && item.modelSlug === model)
     }
