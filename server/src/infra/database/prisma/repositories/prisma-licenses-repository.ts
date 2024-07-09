@@ -18,8 +18,10 @@ export class PrismaLicensesRepository implements LicenseRepository {
     return PrismaLicensesMapper.toDomain(license)
   }
 
-  async findMany(): Promise<License[]> {
-    const licenses = await this.prisma.license.findMany()
+  async findMany(enterpriseName?: string): Promise<License[]> {
+    const licenses = await this.prisma.license.findMany({
+      where: { enterpriseName },
+    })
 
     return licenses.map(PrismaLicensesMapper.toDomain)
   }
@@ -34,14 +36,6 @@ export class PrismaLicensesRepository implements LicenseRepository {
     }
 
     return PrismaLicensesMapper.toDomain(license)
-  }
-
-  async findByEnterprise(enterpriseName: string): Promise<License[]> {
-    const licenses = await this.prisma.license.findMany({
-      where: { enterpriseName },
-    })
-
-    return licenses.map(PrismaLicensesMapper.toDomain)
   }
 
   async create(license: License): Promise<void> {

@@ -3,6 +3,7 @@ import { License } from '@/domain/it-manager/enterprise/entities/license'
 
 export class InMemoryLicenseRepository implements LicenseRepository {
   public items: License[] = []
+
   async findById(id: string): Promise<License | null> {
     const license = this.items.find((item) => item.id.toString() === id)
     if (!license) {
@@ -11,7 +12,11 @@ export class InMemoryLicenseRepository implements LicenseRepository {
     return license
   }
 
-  async findMany(): Promise<License[]> {
+  async findMany(enterpriseName?: string): Promise<License[]> {
+    if (enterpriseName) {
+      return this.items.filter((item) => item.enterpriseName === enterpriseName)
+    }
+
     return this.items
   }
 
@@ -21,12 +26,6 @@ export class InMemoryLicenseRepository implements LicenseRepository {
     if (!license) {
       return null
     }
-    return license
-  }
-
-  async findByEnterprise(enterpriseName: string): Promise<License[]> {
-    const license = this.items.filter((item) => item.enterpriseName === enterpriseName)
-
     return license
   }
 
