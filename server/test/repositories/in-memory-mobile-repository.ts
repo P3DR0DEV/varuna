@@ -4,7 +4,10 @@ import { Mobile, MobileTypes } from '@/domain/it-manager/enterprise/entities/mob
 export class InMemoryMobileRepository implements MobileRepository {
   public items: Mobile[] = []
 
-  async findMany(): Promise<Mobile[]> {
+  async findMany(type?: MobileTypes): Promise<Mobile[]> {
+    if (type) {
+      return this.items.filter((item) => item.type === type)
+    }
     return this.items
   }
 
@@ -25,13 +28,8 @@ export class InMemoryMobileRepository implements MobileRepository {
     return mobile
   }
 
-  async findByType(type: MobileTypes): Promise<Mobile[]> {
-    const mobiles = this.items.filter((item) => item.type === type)
-    return mobiles
-  }
-
   async findByDepartmentId(departmentId: string): Promise<Mobile[]> {
-    const mobiles = this.items.filter((item) => item.departmentId.toString() === departmentId)
+    const mobiles = this.items.filter((item) => item.departmentId?.toString() === departmentId)
 
     return mobiles
   }

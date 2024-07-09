@@ -14,11 +14,11 @@ type EditMobileUseCaseProps = {
   name: string
   type: MobileTypes
   operatingSystem: string
-  departmentId: string
+  departmentId?: string | null
   number?: string | null
   numberProvider?: string | null
   serialNumber: string
-  invoiceNumber?: string
+  invoiceNumber?: string | null
   model: string
   acquisitionDate: Date
   endWarrantyDate?: Date | null
@@ -49,7 +49,7 @@ export class EditMobileUseCase implements UseCase {
     mobile.acquisitionDate = props.acquisitionDate
     mobile.type = props.type
     mobile.operatingSystem = Slug.createFromText(props.operatingSystem)
-    mobile.departmentId = new UniqueEntityID(props.departmentId)
+    mobile.departmentId = props.departmentId ? new UniqueEntityID(props.departmentId) : null
     mobile.number = props.number ? Phone.format(props.number, 'pt-BR') : null
     mobile.numberProvider = props.numberProvider ?? null
     mobile.serialNumber = props.serialNumber

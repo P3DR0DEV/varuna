@@ -8,8 +8,10 @@ import { MapMobileType, PrismaMobilesMapper } from '../mappers/prisma-mobiles-ma
 export class PrismaMobilesRepository implements MobileRepository {
   constructor(private prisma: PrismaClient) {}
 
-  async findMany(): Promise<Mobile[]> {
-    const mobiles = await this.prisma.mobile.findMany()
+  async findMany(type?: MobileTypes): Promise<Mobile[]> {
+    const mobiles = await this.prisma.mobile.findMany({
+      where: { type: type && MapMobileType.toPersistence(type) },
+    })
 
     return mobiles.map(PrismaMobilesMapper.toDomain)
   }
@@ -32,14 +34,6 @@ export class PrismaMobilesRepository implements MobileRepository {
     }
 
     return PrismaMobilesMapper.toDomain(mobile)
-  }
-
-  async findByType(type: MobileTypes): Promise<Mobile[]> {
-    const mobiles = await this.prisma.mobile.findMany({
-      where: { type: MapMobileType.toPersistence(type) },
-    })
-
-    return mobiles.map(PrismaMobilesMapper.toDomain)
   }
 
   async findByDepartmentId(departmentId: string): Promise<Mobile[]> {
