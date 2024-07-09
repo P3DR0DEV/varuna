@@ -1,6 +1,7 @@
 import { FastifyInstance } from 'fastify'
 
 import { createLicense } from './create-license'
+import { editLicense } from './edit-license'
 import { fetchAllLicenses } from './fetch-all-licenses'
 import { getLicenseById } from './get-license-by-id'
 import { getLicenseByName } from './get-license-by-name'
@@ -19,4 +20,5 @@ export async function licensesRoutes(app: FastifyInstance) {
   getLicenseByName(app)
 
   /** PUT /licenses/:id */
+  editLicense(app)
 }

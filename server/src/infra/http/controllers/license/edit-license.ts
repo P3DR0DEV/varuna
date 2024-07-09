@@ -11,6 +11,8 @@ export async function editLicense(app: FastifyInstance) {
     '/:id',
     {
       schema: {
+        tags: ['License'],
+        summary: 'Edit license',
         params: z.object({
           id: z.string(),
         }),
