@@ -9,8 +9,8 @@ type FetchAllLicensesUseCaseResponse = Either<unknown, { licenses: License[] }>
 export class FetchAllLicensesUseCase implements UseCase {
   constructor(private readonly licenseRepository: LicenseRepository) {}
 
-  async execute(): Promise<FetchAllLicensesUseCaseResponse> {
-    const licenses = await this.licenseRepository.findMany()
+  async execute({ enterpriseName }: { enterpriseName?: string }): Promise<FetchAllLicensesUseCaseResponse> {
+    const licenses = await this.licenseRepository.findMany(enterpriseName)
 
     return success({ licenses })
   }
