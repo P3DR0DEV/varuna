@@ -11,7 +11,7 @@ export async function fetchIncidentsByDevice(app: FastifyInstance) {
     '/device/:id',
     {
       schema: {
-        tags: ['Incident'],
+        tags: ['Incidents'],
         summary: 'Fetch incidents by device',
         params: z.object({
           id: z.string(),

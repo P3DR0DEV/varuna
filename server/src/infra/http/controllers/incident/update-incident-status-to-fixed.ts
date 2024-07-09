@@ -10,7 +10,7 @@ export async function updateIncidentStatusToFixed(app: FastifyInstance) {
     '/:id/fixed',
     {
       schema: {
-        tags: ['Incident'],
+        tags: ['Incidents'],
         summary: 'Set incident as fixed',
         params: z.object({
           id: z.string(),

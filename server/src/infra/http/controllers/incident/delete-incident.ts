@@ -10,7 +10,7 @@ export async function deleteIncident(app: FastifyInstance) {
     '/:id',
     {
       schema: {
-        tags: ['Incident'],
+        tags: ['Incidents'],
         summary: 'Delete an incident',
         params: z.object({
           id: z.string(),
