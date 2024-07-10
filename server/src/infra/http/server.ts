@@ -12,6 +12,7 @@ import { departmentRoutes } from './controllers/department'
 import { devicesRoutes } from './controllers/device'
 import { incidentRoutes } from './controllers/incident'
 import { licensesRoutes } from './controllers/license'
+import { mobileRoutes } from './controllers/mobile'
 import { userRoutes } from './controllers/user'
 import { errorHandler } from './error-handler'
 
@@ -48,6 +49,7 @@ app.register(contractRoutes, { prefix: '/contracts' })
 app.register(devicesRoutes, { prefix: '/devices' })
 app.register(incidentRoutes, { prefix: '/incidents' })
 app.register(licensesRoutes, { prefix: '/licenses' })
+app.register(mobileRoutes, { prefix: '/mobiles' })
 
 app.setErrorHandler(errorHandler)
 

@@ -18,7 +18,7 @@ type CreateMobileUseCaseProps = {
   number?: string | null
   numberProvider?: string | null
   serialNumber: string
-  invoiceNumber?: string
+  invoiceNumber?: string | null
   model: string
   acquisitionDate: Date
 }
