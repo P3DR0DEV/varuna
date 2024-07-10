@@ -15,6 +15,7 @@ import { licensesRoutes } from './controllers/license'
 import { mobileRoutes } from './controllers/mobile'
 import { userRoutes } from './controllers/user'
 import { errorHandler } from './error-handler'
+import { serviceRoutes } from './controllers/service'
 
 const app = fastify({ logger: { level: env.LOG_LEVEL } })
 
@@ -50,6 +51,7 @@ app.register(devicesRoutes, { prefix: '/devices' })
 app.register(incidentRoutes, { prefix: '/incidents' })
 app.register(licensesRoutes, { prefix: '/licenses' })
 app.register(mobileRoutes, { prefix: '/mobiles' })
+app.register(serviceRoutes, { prefix: '/services' })
 
 app.setErrorHandler(errorHandler)
 
