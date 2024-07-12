@@ -1,4 +1,4 @@
-import { NotFound } from '@/core/errors/not-found'
+import { NotFound, NotFoundError } from '@/core/errors/not-found'
 import { Either, failure, success } from '@/core/types/either'
 import { UseCase } from '@/core/use-cases/use-case'
 import { Service, ServiceTypes } from '@/domain/it-manager/enterprise/entities/service'
@@ -14,7 +14,7 @@ type CreateServiceUseCaseProps = {
   type: ServiceTypes
 }
 
-type CreateServiceUseCaseResponse = Either<Error, { service: Service }>
+type CreateServiceUseCaseResponse = Either<NotFoundError, { service: Service }>
 
 export class CreateServiceUseCase implements UseCase {
   constructor(

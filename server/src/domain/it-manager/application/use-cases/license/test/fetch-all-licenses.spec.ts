@@ -18,7 +18,7 @@ describe('Find all licenses use case', () => {
   })
 
   it('should find all licenses', async () => {
-    const result = await sut.execute()
+    const result = await sut.execute({})
 
     expect(result.isSuccess()).toBeTruthy()
 

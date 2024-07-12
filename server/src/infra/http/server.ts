@@ -13,6 +13,7 @@ import { devicesRoutes } from './controllers/device'
 import { incidentRoutes } from './controllers/incident'
 import { licensesRoutes } from './controllers/license'
 import { mobileRoutes } from './controllers/mobile'
+import { serviceRoutes } from './controllers/service'
 import { userRoutes } from './controllers/user'
 import { errorHandler } from './error-handler'
 
@@ -50,6 +51,7 @@ app.register(devicesRoutes, { prefix: '/devices' })
 app.register(incidentRoutes, { prefix: '/incidents' })
 app.register(licensesRoutes, { prefix: '/licenses' })
 app.register(mobileRoutes, { prefix: '/mobiles' })
+app.register(serviceRoutes, { prefix: '/services' })
 
 app.setErrorHandler(errorHandler)
 

@@ -4,7 +4,11 @@ import { Service, ServiceTypes } from '@/domain/it-manager/enterprise/entities/s
 export class InMemoryServiceRepository implements ServiceRepository {
   public items: Service[] = []
 
-  async findMany(): Promise<Service[]> {
+  async findMany(type?: ServiceTypes): Promise<Service[]> {
+    if (type) {
+      return this.items.filter((item) => item.type === type)
+    }
+
     return this.items
   }
 
@@ -14,11 +18,6 @@ export class InMemoryServiceRepository implements ServiceRepository {
       return null
     }
     return service
-  }
-
-  async findByType(type: ServiceTypes): Promise<Service[]> {
-    const services = this.items.filter((item) => item.type === type)
-    return services
   }
 
   async findByIpAddress(ipAddress: string): Promise<Service[]> {

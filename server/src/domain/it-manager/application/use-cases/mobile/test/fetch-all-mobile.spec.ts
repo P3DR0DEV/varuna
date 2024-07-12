@@ -27,7 +27,7 @@ describe('Find all mobiles use case', () => {
   })
 
   it('should find all mobiles', async () => {
-    const result = await sut.execute()
+    const result = await sut.execute({})
 
     expect(result.isSuccess()).toBeTruthy()
 
