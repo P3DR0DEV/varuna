@@ -59,6 +59,12 @@ export class EditComputerUseCase implements UseCase {
       return failure(BadRequest('Computer with this hostname already exists'))
     }
 
+    const computerWithSameTag = await this.computerRepository.findByTag(device.tag || '')
+
+    if (computerWithSameTag && computerWithSameTag.id !== computer.id) {
+      return failure(BadRequest('Computer with this tag already exists'))
+    }
+
     const slug = Slug.createFromText(operatingSystem)
 
     computer.hostname = hostname

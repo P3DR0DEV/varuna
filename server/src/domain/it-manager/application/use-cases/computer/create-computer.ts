@@ -30,9 +30,10 @@ export class CreateComputerUseCase implements UseCase {
   async execute(props: CreateComputerUseCaseProps): Promise<CreateComputerUseCaseResponse> {
     const findIp = await this.computerRepository.findByIpAddress(props.ipAddress)
     const findHostname = await this.computerRepository.findByHostname(props.hostname)
+    const findTag = await this.computerRepository.findByTag(props.tag ?? '')
 
-    if (findIp || findHostname) {
-      return failure(BadRequest('Computer already exists with this IP or hostname'))
+    if (findIp || findHostname || findTag) {
+      return failure(BadRequest('Computer already exists with this IP, hostname or tag'))
     }
 
     const computer = Computer.create({
