@@ -3,12 +3,10 @@ import { Printer, PrinterTypes, PrintingOptions } from '@/domain/it-manager/ente
 export interface PrinterRepository {
   findById(id: string): Promise<Printer | null>
   findByName(name: string): Promise<Printer | null>
-  findByType(type: PrinterTypes): Promise<Printer[]>
   findByIpAddress(ipAddress: string): Promise<Printer | null>
-  findByPrintingOptions(printing: PrintingOptions): Promise<Printer[]>
   findBySerialNumber(serialNumber: string): Promise<Printer | null>
   findByTag(tag: string): Promise<Printer | null>
-  findMany(): Promise<Printer[]>
+  findMany({ type, option }: { type?: PrinterTypes; option?: PrintingOptions }): Promise<Printer[]>
 
   create(printer: Printer): Promise<void>
   save(printer: Printer): Promise<void>

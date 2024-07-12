@@ -39,12 +39,6 @@ export class InMemoryPrinterRepository implements PrinterRepository {
     return printer
   }
 
-  async findByType(type: PrinterTypes): Promise<Printer[]> {
-    const printers = this.items.filter((item) => item.type === type)
-
-    return printers
-  }
-
   async findByIpAddress(ipAddress: string): Promise<Printer | null> {
     const printer = this.items.find((item) => item.ipAddress === ipAddress)
     if (!printer) {
@@ -53,13 +47,20 @@ export class InMemoryPrinterRepository implements PrinterRepository {
     return printer
   }
 
-  async findByPrintingOptions(printing: PrintingOptions): Promise<Printer[]> {
-    const printers = this.items.filter((item) => item.printing === printing)
 
-    return printers
-  }
+  async findMany({ type, option }: { type?: PrinterTypes; option?: PrintingOptions }): Promise<Printer[]> {
+    if (type && option) {
+      return this.items.filter((item) => item.type === type && item.printing === option)
+    }
 
-  async findMany(): Promise<Printer[]> {
+    if (type) {
+      return this.items.filter((item) => item.type === type)
+    }
+
+    if (option) {
+      return this.items.filter((item) => item.printing === option)
+    }
+    
     return this.items
   }
 
