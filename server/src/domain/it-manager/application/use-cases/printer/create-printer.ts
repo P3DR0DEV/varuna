@@ -1,3 +1,4 @@
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { BadRequest, BadRequestError } from '@/core/errors/bad-request'
 import { Either, failure, success } from '@/core/types/either'
 import { UseCase } from '@/core/use-cases/use-case'
@@ -5,7 +6,6 @@ import { Printer, PrinterTypes, PrintingOptions } from '@/domain/it-manager/ente
 import { Slug } from '@/domain/it-manager/enterprise/entities/value-objects/slug'
 
 import { PrinterRepository } from '../../repositories/printer-repository'
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 
 type CreatePrinterUseCaseProps = {
   name: string

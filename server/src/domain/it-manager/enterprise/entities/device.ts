@@ -98,7 +98,7 @@ export class Device<Props extends DeviceProps> extends Entity<Props> {
     this.props.updatedAt = new Date()
   }
 
-  static create(props: Optional<DeviceProps, 'createdAt' | 'modelSlug'| 'tag'>, id?: UniqueEntityID) {
+  static create(props: Optional<DeviceProps, 'createdAt' | 'modelSlug' | 'tag'>, id?: UniqueEntityID) {
     const device = new Device(
       {
         ...props,

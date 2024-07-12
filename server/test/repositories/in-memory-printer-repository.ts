@@ -13,6 +13,16 @@ export class InMemoryPrinterRepository implements PrinterRepository {
     return printer
   }
 
+  async findByTag(tag: string): Promise<Printer | null> {
+    const printer = this.items.find((item) => item.tag === tag)
+
+    if (!printer) {
+      return null
+    }
+
+    return printer
+  }
+
   async findById(id: string): Promise<Printer | null> {
     const printer = this.items.find((item) => item.id.toString() === id)
     if (!printer) {

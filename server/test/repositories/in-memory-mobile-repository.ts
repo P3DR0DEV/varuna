@@ -11,6 +11,16 @@ export class InMemoryMobileRepository implements MobileRepository {
     return this.items
   }
 
+  async findByTag(tag: string): Promise<Mobile | null> {
+    const mobile = this.items.find((item) => item.tag === tag)
+
+    if (!mobile) {
+      return null
+    }
+
+    return mobile
+  }
+
   async findById(id: string): Promise<Mobile | null> {
     const mobile = this.items.find((item) => item.id.toString() === id)
     if (!mobile) {

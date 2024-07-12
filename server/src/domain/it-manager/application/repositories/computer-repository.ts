@@ -5,6 +5,7 @@ export interface ComputerRepository {
   findMany(operatingSystem?: string): Promise<Computer[]>
   findByHostname(hostname: string): Promise<Computer | null>
   findByIpAddress(ipAddress: string): Promise<Computer | null>
+  findByTag(tag: string): Promise<Computer | null>
 
   create(computer: Computer): Promise<void>
   save(computer: Computer): Promise<void>

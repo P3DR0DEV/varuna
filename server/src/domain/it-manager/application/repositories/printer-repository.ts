@@ -7,6 +7,7 @@ export interface PrinterRepository {
   findByIpAddress(ipAddress: string): Promise<Printer | null>
   findByPrintingOptions(printing: PrintingOptions): Promise<Printer[]>
   findBySerialNumber(serialNumber: string): Promise<Printer | null>
+  findByTag(tag: string): Promise<Printer | null>
   findMany(): Promise<Printer[]>
 
   create(printer: Printer): Promise<void>

@@ -19,6 +19,16 @@ export class InMemoryDeviceRepository implements DeviceRepository {
     return this.items
   }
 
+  async findByTag(tag: string): Promise<Device<DeviceProps> | null> {
+    const device = this.items.find((item) => item.tag === tag)
+
+    if (!device) {
+      return null
+    }
+
+    return device
+  }
+
   async findById(id: string): Promise<Device<DeviceProps> | null> {
     const device = this.items.find((item) => item.id.toString() === id)
 

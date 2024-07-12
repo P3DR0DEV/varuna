@@ -5,6 +5,7 @@ export interface MobileRepository {
   findById(id: string): Promise<Mobile | null>
   findByName(name: string): Promise<Mobile | null>
   findByDepartmentId(departmentId: string): Promise<Mobile[]>
+  findByTag(tag: string): Promise<Mobile | null>
 
   create(mobile: Mobile): Promise<void>
   save(mobile: Mobile): Promise<void>

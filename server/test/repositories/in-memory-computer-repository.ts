@@ -13,6 +13,16 @@ export class InMemoryComputerRepository implements ComputerRepository {
     return computer
   }
 
+  async findByTag(tag: string): Promise<Computer | null> {
+    const computer = this.items.find((item) => item.tag === tag)
+
+    if (!computer) {
+      return null
+    }
+
+    return computer
+  }
+
   async findMany(operatingSystem?: string): Promise<Computer[]> {
     if (operatingSystem) {
       return this.items.filter((item) => item.operatingSystem === operatingSystem)

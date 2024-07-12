@@ -13,7 +13,7 @@ type EditMobileUseCaseProps = {
   id: string
   name: string
   type: MobileTypes
-  tag?: string | null 
+  tag?: string | null
   operatingSystem: string
   departmentId?: string | null
   number?: string | null

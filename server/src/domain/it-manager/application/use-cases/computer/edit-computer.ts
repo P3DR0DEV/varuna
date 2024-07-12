@@ -72,7 +72,7 @@ export class EditComputerUseCase implements UseCase {
     computer.model = device.model
     computer.endWarrantyDate = device.endWarrantyDate
     computer.tag = device.tag
-    
+
     await this.computerRepository.save(computer)
 
     return success({ computer })
