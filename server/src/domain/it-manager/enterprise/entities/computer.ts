@@ -10,6 +10,7 @@ export interface ComputerProps extends DeviceProps {
   hostname: string
   operatingSystem: Slug
   type: ComputerTypes
+  tag: string | null
   ipAddress: string
   description: string
 }
@@ -57,12 +58,13 @@ export class Computer extends Device<ComputerProps> {
     this.props.description = _description
   }
 
-  static create(props: Optional<ComputerProps, 'createdAt' | 'modelSlug'>, id?: UniqueEntityID) {
+  static create(props: Optional<ComputerProps, 'createdAt' | 'modelSlug' | 'tag'>, id?: UniqueEntityID) {
     const computer = new Computer(
       {
         ...props,
         createdAt: props.createdAt ?? new Date(),
         modelSlug: props.modelSlug ? props.modelSlug : Slug.createFromText(props.model),
+        tag: props.tag ?? null,
       },
       id,
     )

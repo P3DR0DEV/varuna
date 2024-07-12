@@ -11,6 +11,7 @@ export interface PrinterProps extends DeviceProps {
   name: string
   type: PrinterTypes
   printing: PrintingOptions
+  tag: string | null
   ipAddress: string | null
   observations?: string | null
 }
@@ -59,13 +60,14 @@ export class Printer extends Device<PrinterProps> {
     this.props.observations = _observations
   }
 
-  static create(props: Optional<PrinterProps, 'createdAt' | 'ipAddress' | 'modelSlug'>, id?: UniqueEntityID) {
+  static create(props: Optional<PrinterProps, 'createdAt' | 'ipAddress' | 'modelSlug' | 'tag'>, id?: UniqueEntityID) {
     const printer = new Printer(
       {
         ...props,
         createdAt: props.createdAt ?? new Date(),
         ipAddress: props.ipAddress ?? null,
         modelSlug: props.modelSlug ? props.modelSlug : Slug.createFromText(props.model),
+        tag: props.tag ?? null,
       },
       id,
     )
