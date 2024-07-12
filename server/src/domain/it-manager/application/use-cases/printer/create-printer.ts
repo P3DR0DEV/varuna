@@ -30,6 +30,7 @@ export class CreatePrinterUseCase implements UseCase {
   async execute(props: CreatePrinterUseCaseProps): Promise<CreatePrinterUseCaseResponse> {
     const findName = await this.printerRepository.findByName(props.name)
     const findSerialNumber = await this.printerRepository.findBySerialNumber(props.serialNumber)
+    const findTag = await this.printerRepository.findByTag(props.tag ?? '')
 
     if (findName) {
       return failure(BadRequest('Printer already exists with this name'))
@@ -37,6 +38,10 @@ export class CreatePrinterUseCase implements UseCase {
 
     if (findSerialNumber) {
       return failure(BadRequest('Printer already exists with this serial number'))
+    }
+
+    if (findTag) {
+      return failure(BadRequest('Printer already exists with this tag'))
     }
 
     if (props.ipAddress) {

@@ -35,6 +35,14 @@ export class EditPrinterUseCase implements UseCase {
       }
     }
 
+    if (props.tag && props.tag !== printer.tag) {
+      const printerExists = await this.printerRepository.findByTag(props.tag)
+
+      if (printerExists && printerExists.id !== printer.id) {
+        return failure(BadRequest('Printer already exists with this tag'))
+      }
+    }
+
     if (props.ipAddress && props.ipAddress !== printer.ipAddress) {
       const printerExists = await this.printerRepository.findByIpAddress(props.ipAddress)
 
