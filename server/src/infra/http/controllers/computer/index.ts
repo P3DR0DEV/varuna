@@ -7,6 +7,7 @@ import { fetchAllComputers } from './fetch-all-computers'
 import { getComputerByHostname } from './get-computer-by-hostname'
 import { getComputerById } from './get-computer-by-id'
 import { getComputerByIpAddress } from './get-computer-by-ip-address'
+import { getComputerByTag } from './get-computer-by-tag'
 
 export async function computerRoutes(app: FastifyInstance) {
   /* GET /computers?operatingSystem='' */
@@ -20,6 +21,9 @@ export async function computerRoutes(app: FastifyInstance) {
 
   /* GET /computers/ip/:ipAddress */
   getComputerByIpAddress(app)
+
+  /* GET /computers/tag/:tag */
+  getComputerByTag(app)
 
   /* PUT /computers/:id */
   editComputer(app)

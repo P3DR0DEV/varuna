@@ -22,6 +22,7 @@ export async function createComputer(app: FastifyInstance) {
           operatingSystem: z.string(),
           serialNumber: z.string(),
           type: z.enum(['server', 'notebook', 'desktop']),
+          tag: z.string().nullish(),
           contractId: z.string().nullish(),
           endWarrantyDate: z.coerce.date().nullish(),
           invoiceNumber: z.string(),
