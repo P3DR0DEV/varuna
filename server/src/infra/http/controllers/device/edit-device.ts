@@ -20,6 +20,7 @@ export async function editDevice(app: FastifyInstance) {
           serialNumber: z.string(),
           model: z.string(),
           acquisitionDate: z.coerce.date(),
+          tag: z.string().nullish(),
           invoiceNumber: z.string().nullish(),
           contractId: z.string().nullish(),
           endWarrantyDate: z.coerce.date().nullish(),

@@ -18,6 +18,7 @@ export async function createDevice(app: FastifyInstance) {
           model: z.string(),
           acquisitionDate: z.coerce.date(),
           invoiceNumber: z.string().nullish(),
+          tag: z.string().nullish(),
         }),
         response: {
           201: z.object({ device: devicesSchema }),

@@ -12,6 +12,7 @@ export class DevicePresenter {
       contractId: device.contractId,
       endWarrantyDate: device.endWarrantyDate,
       invoiceNumber: device.invoiceNumber,
+      tag: device.tag,
     }
   }
 }
@@ -24,4 +25,5 @@ export const devicesSchema = z.object({
   contractId: z.string().nullish(),
   endWarrantyDate: z.coerce.date().nullish(),
   invoiceNumber: z.string().nullish(),
+  tag: z.string().nullish(),
 })

@@ -6,6 +6,7 @@ import { editDevice } from './edit-device'
 import { fetchAllDevices } from './fetch-all-devices'
 import { getDeviceById } from './get-device-by-id'
 import { getDeviceBySerialNumber } from './get-device-by-serial-number'
+import { getDeviceByTag } from './get-device-by-tag'
 
 export async function devicesRoutes(app: FastifyInstance) {
   /* POST /devices/ */
@@ -19,6 +20,9 @@ export async function devicesRoutes(app: FastifyInstance) {
 
   /* GET /devices/serial-number/:serialNumber */
   getDeviceBySerialNumber(app)
+
+  /* GET /devices/tag/:tag */
+  getDeviceByTag(app)
 
   /* PUT /devices/:id */
   editDevice(app)
