@@ -2,22 +2,23 @@ import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
 
+import { ServicePresenter, serviceSchema } from '../../presenters/service-presenter'
 import { errors } from '../_errors'
-import { deleteServiceUseCase } from './factories/make-delete-service'
+import { getServiceByIdUseCase } from './factories/make-get-service-by-id'
 
-export async function deleteService(app: FastifyInstance) {
-  app.withTypeProvider<ZodTypeProvider>().delete(
+export async function getServiceById(app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>().get(
     '/:id',
     {
       schema: {
         tags: ['Services'],
-        summary: 'Delete a service',
+        summary: 'Get service by id',
         params: z.object({
           id: z.string().uuid(),
         }),
         response: {
           200: z.object({
-            message: z.string(),
+            service: serviceSchema,
           }),
           400: z.object({
             name: z.string(),
@@ -33,18 +34,18 @@ export async function deleteService(app: FastifyInstance) {
     async (request, reply) => {
       const { id } = request.params
 
-      const result = await deleteServiceUseCase.execute({ id })
+      const result = await getServiceByIdUseCase.execute({ id })
 
       if (result.isFailure()) {
-        const { name, message } = result.reason
+        const { message, name } = result.reason
 
         throw new errors[name](message)
       }
 
-      const { message } = result.value
+      const { service } = result.value
 
-      return reply.status(200).send({
-        message,
+      return reply.code(200).send({
+        service: ServicePresenter.toHttp(service),
       })
     },
   )

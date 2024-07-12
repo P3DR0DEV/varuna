@@ -1,15 +1,15 @@
-import { Service } from "@/domain/it-manager/enterprise/entities/service";
-import z from "zod";
+import z from 'zod'
+
+import { Service } from '@/domain/it-manager/enterprise/entities/service'
 
 export class ServicePresenter {
   static toHttp(service: Service) {
-    const {} = service
     return {
       id: service.id.toString(),
       description: service.description,
       name: service.name,
       url: `${service.ipAddress}:${service.port}`,
-      type: service.type
+      type: service.type,
     }
   }
 }
@@ -19,5 +19,5 @@ export const serviceSchema = z.object({
   name: z.string(),
   description: z.string(),
   url: z.string().url(),
-  type: z.enum(['application', 'database', 'infra'])
+  type: z.enum(['application', 'database', 'infra']),
 })

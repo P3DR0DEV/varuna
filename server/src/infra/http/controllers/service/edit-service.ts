@@ -4,25 +4,32 @@ import z from 'zod'
 
 import { ServicePresenter, serviceSchema } from '../../presenters/service-presenter'
 import { errors } from '../_errors'
-import { createServiceUseCase } from './factories/make-create-service'
+import { editServiceUseCase } from './factories/make-edit-service'
 
-export async function createService(app: FastifyInstance) {
-  app.withTypeProvider<ZodTypeProvider>().post(
-    '/',
+export async function editService(app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>().put(
+    '/:id',
     {
       schema: {
         tags: ['Services'],
-        summary: 'Create a new service',
+        summary: 'Edit a service',
+        params: z.object({
+          id: z.string().uuid(),
+        }),
         body: z.object({
-          name: z.string(),
           description: z.string(),
-          ipAddress: z.string().ip({ version: 'v4' }),
+          ipAddress: z.string(),
+          name: z.string(),
           port: z.coerce.number(),
-          type: z.enum(['application', 'database', 'infra']),
+          type: z.enum(['application', 'infra', 'database']),
         }),
         response: {
-          201: z.object({
+          200: z.object({
             service: serviceSchema,
+          }),
+          400: z.object({
+            name: z.string(),
+            message: z.string(),
           }),
           404: z.object({
             name: z.string(),
@@ -32,9 +39,13 @@ export async function createService(app: FastifyInstance) {
       },
     },
     async (request, reply) => {
+      const { id } = request.params
       const props = request.body
 
-      const result = await createServiceUseCase.execute(props)
+      const result = await editServiceUseCase.execute({
+        id,
+        ...props,
+      })
 
       if (result.isFailure()) {
         const { name, message } = result.reason
@@ -44,7 +55,7 @@ export async function createService(app: FastifyInstance) {
 
       const { service } = result.value
 
-      return reply.status(201).send({
+      return reply.code(200).send({
         service: ServicePresenter.toHttp(service),
       })
     },

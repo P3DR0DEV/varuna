@@ -2,22 +2,23 @@ import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
 
+import { ServicePresenter, serviceSchema } from '../../presenters/service-presenter'
 import { errors } from '../_errors'
-import { deleteServiceUseCase } from './factories/make-delete-service'
+import { fetchServicesByIpAddressUseCase } from './factories/make-fetch-services-by-ip-address'
 
-export async function deleteService(app: FastifyInstance) {
-  app.withTypeProvider<ZodTypeProvider>().delete(
-    '/:id',
+export async function fetchServicesByIpAddress(app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>().get(
+    '/ip/:ip',
     {
       schema: {
         tags: ['Services'],
-        summary: 'Delete a service',
+        summary: 'Fetch services by IP address',
         params: z.object({
-          id: z.string().uuid(),
+          ip: z.string().ip({ version: 'v4' }),
         }),
         response: {
           200: z.object({
-            message: z.string(),
+            services: z.array(serviceSchema),
           }),
           400: z.object({
             name: z.string(),
@@ -31,9 +32,9 @@ export async function deleteService(app: FastifyInstance) {
       },
     },
     async (request, reply) => {
-      const { id } = request.params
+      const { ip } = request.params
 
-      const result = await deleteServiceUseCase.execute({ id })
+      const result = await fetchServicesByIpAddressUseCase.execute({ ipAddress: ip })
 
       if (result.isFailure()) {
         const { name, message } = result.reason
@@ -41,10 +42,10 @@ export async function deleteService(app: FastifyInstance) {
         throw new errors[name](message)
       }
 
-      const { message } = result.value
+      const { services } = result.value
 
       return reply.status(200).send({
-        message,
+        services: services.map(ServicePresenter.toHttp),
       })
     },
   )

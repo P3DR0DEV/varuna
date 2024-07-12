@@ -18,7 +18,7 @@ describe('Fetch all services use case', () => {
   })
 
   it('should return 10 services', async () => {
-    const result = await sut.execute()
+    const result = await sut.execute({})
 
     expect(result.isSuccess()).toBeTruthy()
 

@@ -8,8 +8,12 @@ import { MapServiceType, PrismaServiceMapper } from '../mappers/prisma-services-
 export class PrismaServicesRepository implements ServiceRepository {
   constructor(private prisma: PrismaClient) {}
 
-  async findMany(): Promise<Service[]> {
-    const services = await this.prisma.service.findMany()
+  async findMany(type?: ServiceTypes): Promise<Service[]> {
+    const services = await this.prisma.service.findMany({
+      where: {
+        type: type ? MapServiceType.toPersistence(type) : undefined,
+      },
+    })
 
     return services.map(PrismaServiceMapper.toDomain)
   }
@@ -24,16 +28,6 @@ export class PrismaServicesRepository implements ServiceRepository {
     }
 
     return PrismaServiceMapper.toDomain(service)
-  }
-
-  async findByType(type: ServiceTypes): Promise<Service[]> {
-    const persistenceType = MapServiceType.toPersistence(type)
-
-    const services = await this.prisma.service.findMany({
-      where: { type: persistenceType },
-    })
-
-    return services.map(PrismaServiceMapper.toDomain)
   }
 
   async findByIpAddress(ipAddress: string): Promise<Service[]> {
