@@ -146,6 +146,7 @@ model Device {
   id              String    @id @default(uuid())
   serialNumber    String    @unique @map("serial_number")
   model           String
+  tag             String?   @unique
   modelSlug       String    @unique @map("model_slug")
   acquisitionDate DateTime  @map("acquisition_date")
   endWarrantyDate DateTime? @map("end_warranty_date")
@@ -165,6 +166,7 @@ model Computer {
   id              String         @id @default(uuid())
   serialNumber    String         @unique @map("serial_number")
   model           String
+  tag             String?        @unique
   modelSlug       String         @unique @map("model_slug")
   acquisitionDate DateTime       @map("acquisition_date")
   endWarrantyDate DateTime?      @map("end_warranty_date")
@@ -189,6 +191,7 @@ model Printer {
   id              String          @id @default(uuid())
   serialNumber    String          @unique @map("serial_number")
   model           String
+  tag             String?         @unique
   modelSlug       String          @unique @map("model_slug")
   acquisitionDate DateTime        @map("acquisition_date")
   endWarrantyDate DateTime?       @map("end_warranty_date")
@@ -212,6 +215,7 @@ model Mobile {
   id              String       @id @default(uuid())
   serialNumber    String       @unique @map("serial_number")
   model           String
+  tag             String?      @unique
   modelSlug       String       @map("model_slug")
   acquisitionDate DateTime     @map("acquisition_date")
   endWarrantyDate DateTime?    @map("end_warranty_date")

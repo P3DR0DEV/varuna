@@ -8,6 +8,7 @@ export interface DeviceProps {
   serialNumber: string
   model: string
   modelSlug: Slug
+  tag?: string | null
   acquisitionDate: Date
   endWarrantyDate?: Date | null
   invoiceNumber?: string | null
@@ -84,16 +85,26 @@ export class Device<Props extends DeviceProps> extends Entity<Props> {
     return this.props.updatedAt
   }
 
+  get tag(): string | null | undefined {
+    return this.props.tag
+  }
+
+  set tag(tag: string | null | undefined) {
+    this.props.tag = tag
+    this.touch()
+  }
+
   protected touch(): void {
     this.props.updatedAt = new Date()
   }
 
-  static create(props: Optional<DeviceProps, 'createdAt' | 'modelSlug'>, id?: UniqueEntityID) {
+  static create(props: Optional<DeviceProps, 'createdAt' | 'modelSlug'| 'tag'>, id?: UniqueEntityID) {
     const device = new Device(
       {
         ...props,
         createdAt: props.createdAt ?? new Date(),
         modelSlug: props.modelSlug ? props.modelSlug : Slug.createFromText(props.model),
+        tag: props.tag ?? null,
       },
       id,
     )
