@@ -18,6 +18,7 @@ export class MobilePresenter {
       departmentId: mobile.departmentId?.toString(),
       contractId: mobile.contractId?.toString(),
       operatingSystem: mobile.operatingSystem,
+      tag: mobile.tag,
     }
   }
 }
@@ -30,6 +31,7 @@ export const mobileSchema = z.object({
   serialNumber: z.string(),
   model: z.string(),
   operatingSystem: z.string(),
+  tag: z.string().nullish(),
   number: z.string().nullish(),
   endWarrantyDate: z.coerce.date().nullish(),
   invoiceNumber: z.string().nullish(),

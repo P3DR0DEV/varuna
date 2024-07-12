@@ -21,6 +21,7 @@ export async function createMobile(app: FastifyInstance) {
           model: z.string(),
           operatingSystem: z.string(),
           departmentId: z.string(),
+          tag: z.string().nullish(),
           numberProvider: z.string().nullish(),
           endWarrantyDate: z.coerce.date().nullish(),
           number: z.string().nullish(),

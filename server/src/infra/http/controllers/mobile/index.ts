@@ -7,6 +7,7 @@ import { fetchAllMobiles } from './fetch-all-mobiles'
 import { fetchMobilesByDepartment } from './fetch-mobiles-by-department'
 import { getMobileById } from './get-mobile-by-id'
 import { getMobileByName } from './get-mobile-by-name'
+import { getMobileByTag } from './get-mobile-by-tag'
 
 export async function mobileRoutes(app: FastifyInstance) {
   /** POST /mobiles */
@@ -23,6 +24,9 @@ export async function mobileRoutes(app: FastifyInstance) {
 
   /** GET /mobiles/name/:name */
   getMobileByName(app)
+
+  /** GET /mobiles/tag/:tag */
+  getMobileByTag(app)
 
   /** PUT /mobiles/:id */
   editMobile(app)
