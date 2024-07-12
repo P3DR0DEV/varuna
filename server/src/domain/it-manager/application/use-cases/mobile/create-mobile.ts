@@ -42,9 +42,14 @@ export class CreateMobileUseCase implements UseCase {
     const number = props.number ? Phone.format(props.number, 'pt-BR') : null
 
     const findName = await this.mobileRepository.findByName(props.name)
+    const findTag = await this.mobileRepository.findByTag(props.tag ?? '')
 
     if (findName) {
       return failure(BadRequest('Mobile already exists with this name'))
+    }
+
+    if (findTag) {
+      return failure(BadRequest('Mobile already exists with this tag'))
     }
 
     const mobile = Mobile.create({
