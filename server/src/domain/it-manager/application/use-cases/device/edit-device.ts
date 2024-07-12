@@ -36,6 +36,17 @@ export class EditDeviceUseCase implements UseCase {
 
     const device = await this.deviceRepository.findById(id)
 
+    const serialNumberExists = await this.deviceRepository.findBySerialNumber(serialNumber)
+    const tagExists = await this.deviceRepository.findByTag(tag || '')
+
+    if (serialNumberExists && serialNumberExists.id.toString() !== id) {
+      return failure(BadRequest('Serial number already exists for another device'))
+    }
+
+    if (tagExists && tagExists.id.toString() !== id) {
+      return failure(BadRequest('Tag already exists for another device'))
+    }
+
     if (!device) {
       return failure(NotFound('Device not found'))
     }

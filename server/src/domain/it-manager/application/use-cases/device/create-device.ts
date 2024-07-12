@@ -20,9 +20,14 @@ export class CreateDeviceUseCase implements UseCase {
 
   async execute(props: CreateDeviceUseCaseProps): Promise<CreateDeviceUseCaseResponse> {
     const existentDevice = await this.deviceRepository.findBySerialNumber(props.serialNumber)
+    const existentTag = await this.deviceRepository.findByTag(props.tag || '')
 
     if (existentDevice) {
-      return failure(BadRequest('Device already exists'))
+      return failure(BadRequest('Serial number already in use.'))
+    }
+
+    if (existentTag) {
+      return failure(BadRequest('Tag already in use.'))
     }
 
     const device = Device.create(props)
