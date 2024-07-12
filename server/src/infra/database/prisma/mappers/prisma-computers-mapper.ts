@@ -24,6 +24,7 @@ export class PrismaComputerMapper {
         endWarrantyDate: raw.endWarrantyDate,
         invoiceNumber: raw.invoiceNumber,
         modelSlug: Slug.createFromText(raw.model),
+        tag: raw.tag,
       },
       id,
     )
@@ -43,6 +44,7 @@ export class PrismaComputerMapper {
       contractId: computer.contractId,
       endWarrantyDate: computer.endWarrantyDate,
       invoiceNumber: computer.invoiceNumber,
+      tag: computer.tag,
       modelSlug: computer.modelSlug,
     }
   }

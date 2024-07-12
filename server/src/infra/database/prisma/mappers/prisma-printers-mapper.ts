@@ -25,6 +25,7 @@ export class PrismaPrintersMapper {
         endWarrantyDate: raw.endWarrantyDate,
         invoiceNumber: raw.invoiceNumber,
         observations: raw.observations,
+        tag: raw.tag,
       },
       id,
     )
@@ -45,6 +46,7 @@ export class PrismaPrintersMapper {
       endWarrantyDate: printer.endWarrantyDate,
       invoiceNumber: printer.invoiceNumber,
       observations: printer.observations,
+      tag: printer.tag,
     }
   }
 }

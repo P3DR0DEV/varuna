@@ -27,6 +27,7 @@ export class PrismaMobilesMapper {
         number,
         numberProvider: raw.numberProvider,
         modelSlug,
+        tag: raw.tag,
       },
       id,
     )
@@ -48,6 +49,7 @@ export class PrismaMobilesMapper {
       number: mobile.number?.toString(),
       numberProvider: mobile.numberProvider,
       modelSlug: mobile.modelSlug,
+      tag: mobile.tag,
     }
   }
 }
