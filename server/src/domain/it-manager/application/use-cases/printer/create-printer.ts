@@ -5,6 +5,7 @@ import { Printer, PrinterTypes, PrintingOptions } from '@/domain/it-manager/ente
 import { Slug } from '@/domain/it-manager/enterprise/entities/value-objects/slug'
 
 import { PrinterRepository } from '../../repositories/printer-repository'
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 
 type CreatePrinterUseCaseProps = {
   name: string
@@ -15,16 +16,18 @@ type CreatePrinterUseCaseProps = {
   serialNumber: string
   model: string
   acquisitionDate: Date
+  tag?: string | null
   endWarrantyDate?: Date | null
   invoiceNumber?: string | null
   contractId?: string | null
 }
-type CreatePrinterUseCaseReponse = Either<BadRequestError, { printer: Printer }>
+
+type CreatePrinterUseCaseResponse = Either<BadRequestError, { printer: Printer }>
 
 export class CreatePrinterUseCase implements UseCase {
   constructor(private readonly printerRepository: PrinterRepository) {}
 
-  async execute(props: CreatePrinterUseCaseProps): Promise<CreatePrinterUseCaseReponse> {
+  async execute(props: CreatePrinterUseCaseProps): Promise<CreatePrinterUseCaseResponse> {
     const findName = await this.printerRepository.findByName(props.name)
     const findSerialNumber = await this.printerRepository.findBySerialNumber(props.serialNumber)
 
@@ -47,6 +50,7 @@ export class CreatePrinterUseCase implements UseCase {
     const printer = Printer.create({
       ...props,
       modelSlug: Slug.createFromText(props.model),
+      contractId: props.contractId ? new UniqueEntityID(props.contractId) : null,
     })
 
     await this.printerRepository.create(printer)

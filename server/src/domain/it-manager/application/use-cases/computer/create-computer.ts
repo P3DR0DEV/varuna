@@ -12,6 +12,7 @@ type CreateComputerUseCaseProps = {
   operatingSystem: string
   type: 'notebook' | 'desktop' | 'server'
   ipAddress: string
+  tag?: string | null
   description: string
   serialNumber: string
   model: string

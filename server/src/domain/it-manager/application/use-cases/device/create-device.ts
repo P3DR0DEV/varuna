@@ -9,6 +9,7 @@ type CreateDeviceUseCaseProps = {
   serialNumber: string
   model: string
   invoiceNumber?: string | null
+  tag?: string | null
   acquisitionDate: Date
 }
 

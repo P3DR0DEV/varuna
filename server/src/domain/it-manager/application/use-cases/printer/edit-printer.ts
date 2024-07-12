@@ -60,6 +60,7 @@ export class EditPrinterUseCase implements UseCase {
     printer.invoiceNumber = props.invoiceNumber
     printer.observations = props.observations
     printer.endWarrantyDate = props.endWarrantyDate
+    printer.tag = props.tag
 
     await this.printerRepository.save(printer)
 

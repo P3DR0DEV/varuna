@@ -13,6 +13,7 @@ import { MobileRepository } from '../../repositories/mobile-repository'
 type CreateMobileUseCaseProps = {
   name: string
   type: MobileTypes
+  tag?: string | null
   operatingSystem: string
   departmentId: string
   number?: string | null

@@ -11,6 +11,7 @@ type EditDeviceUseCaseProps = {
   model: string
   acquisitionDate: Date
   serialNumber: string
+  tag?: string | null
   invoiceNumber?: string | null
   endWarrantyDate?: Date | null
 }
@@ -27,6 +28,7 @@ export class EditDeviceUseCase implements UseCase {
     serialNumber,
     invoiceNumber,
     endWarrantyDate,
+    tag,
   }: EditDeviceUseCaseProps): Promise<EditDeviceUseCaseResponse> {
     if (!id) {
       return failure(BadRequest('Id is required'))
@@ -43,6 +45,7 @@ export class EditDeviceUseCase implements UseCase {
     device.serialNumber = serialNumber
     device.invoiceNumber = invoiceNumber
     device.endWarrantyDate = endWarrantyDate
+    device.tag = tag
 
     await this.deviceRepository.save(device)
 

@@ -13,6 +13,7 @@ type EditMobileUseCaseProps = {
   id: string
   name: string
   type: MobileTypes
+  tag?: string | null 
   operatingSystem: string
   departmentId?: string | null
   number?: string | null
@@ -56,6 +57,7 @@ export class EditMobileUseCase implements UseCase {
     mobile.invoiceNumber = props.invoiceNumber
     mobile.model = props.model
     mobile.endWarrantyDate = props.endWarrantyDate
+    mobile.tag = props.tag
 
     return success({ mobile })
   }

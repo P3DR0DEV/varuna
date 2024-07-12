@@ -17,6 +17,7 @@ type EditComputerUseCaseRequest = {
   serialNumber: string
   model: string
   acquisitionDate: Date
+  tag?: string | null
   endWarrantyDate?: Date | null
   invoiceNumber?: string | null
   contractId?: string | null
@@ -57,6 +58,7 @@ export class EditComputerUseCase implements UseCase {
     if (computerWithSameIpAddress && computerWithSameIpAddress.id !== computer.id) {
       return failure(BadRequest('Computer with this hostname already exists'))
     }
+
     const slug = Slug.createFromText(operatingSystem)
 
     computer.hostname = hostname
@@ -69,7 +71,8 @@ export class EditComputerUseCase implements UseCase {
     computer.invoiceNumber = device.invoiceNumber
     computer.model = device.model
     computer.endWarrantyDate = device.endWarrantyDate
-
+    computer.tag = device.tag
+    
     await this.computerRepository.save(computer)
 
     return success({ computer })
