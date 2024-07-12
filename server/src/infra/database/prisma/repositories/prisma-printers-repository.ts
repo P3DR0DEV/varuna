@@ -18,6 +18,16 @@ export class PrismaPrintersRepository implements PrinterRepository {
     return PrismaPrintersMapper.toDomain(printer)
   }
 
+  async findByTag(tag: string): Promise<Printer | null> {
+    const printer = await this.prisma.printer.findUnique({ where: { tag } })
+
+    if (!printer) {
+      return null
+    }
+
+    return PrismaPrintersMapper.toDomain(printer)
+  }
+
   async findByName(name: string): Promise<Printer | null> {
     const printer = await this.prisma.printer.findUnique({ where: { name } })
 

@@ -8,6 +8,17 @@ import { PrismaDevicesMapper } from '../mappers/prisma-devices-mapper'
 export class PrismaDevicesRepository implements DeviceRepository {
   constructor(private prisma: PrismaClient) {}
 
+  async findByTag(tag: string): Promise<Device<DeviceProps> | null> {
+    const device = await this.prisma.device.findUnique({
+      where: { tag },
+    })
+
+    if (!device) {
+      return null
+    }
+
+    return PrismaDevicesMapper.toDomain(device)
+  }
   async findMany({ invoiceNumber, model }: { invoiceNumber?: string; model?: string }): Promise<Device<DeviceProps>[]> {
     const devices = await this.prisma.device.findMany({
       where: { invoiceNumber, model },

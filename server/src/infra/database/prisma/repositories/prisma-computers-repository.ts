@@ -20,6 +20,18 @@ export class PrismaComputersRepository implements ComputerRepository {
     return PrismaComputerMapper.toDomain(computer)
   }
 
+  async findByTag(tag: string): Promise<Computer | null> {
+    const computer = await this.prisma.computer.findUnique({
+      where: { tag },
+    })
+
+    if (!computer) {
+      return null
+    }
+
+    return PrismaComputerMapper.toDomain(computer)
+  }
+
   async findMany(operatingSystem?: string): Promise<Computer[]> {
     const computers = await this.prisma.computer.findMany({
       where: { operatingSystem },

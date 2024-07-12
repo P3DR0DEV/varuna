@@ -16,6 +16,15 @@ export class PrismaMobilesRepository implements MobileRepository {
     return mobiles.map(PrismaMobilesMapper.toDomain)
   }
 
+  async findByTag(tag: string): Promise<Mobile | null> {
+    const mobile = await this.prisma.mobile.findUnique({ where: { tag } })
+
+    if (!mobile) {
+      return null
+    }
+
+    return PrismaMobilesMapper.toDomain(mobile)
+  }
   async findById(id: string): Promise<Mobile | null> {
     const mobile = await this.prisma.mobile.findUnique({ where: { id } })
 
