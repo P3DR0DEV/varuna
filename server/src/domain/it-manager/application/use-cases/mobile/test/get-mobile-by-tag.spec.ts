@@ -1,6 +1,7 @@
-import { InMemoryMobileRepository } from "test/repositories/in-memory-mobile-repository"
-import { GetMobileByTagUseCase } from "../get-mobile-by-tag"
-import { makeMobile } from "test/factories/make-mobile"
+import { makeMobile } from 'test/factories/make-mobile'
+import { InMemoryMobileRepository } from 'test/repositories/in-memory-mobile-repository'
+
+import { GetMobileByTagUseCase } from '../get-mobile-by-tag'
 
 let sut: GetMobileByTagUseCase
 let mobileRepository: InMemoryMobileRepository
@@ -11,7 +12,7 @@ describe('Get mobile by tag', () => {
     sut = new GetMobileByTagUseCase(mobileRepository)
 
     const mobile = makeMobile({
-      tag: '010203'
+      tag: '010203',
     })
 
     mobileRepository.create(mobile)
@@ -19,7 +20,7 @@ describe('Get mobile by tag', () => {
 
   it('should be able to get mobile by tag', async () => {
     const result = await sut.execute({
-      tag: '010203'
+      tag: '010203',
     })
 
     expect(result.isSuccess()).toBe(true)
@@ -33,7 +34,7 @@ describe('Get mobile by tag', () => {
 
   it('should return a not found error if mobile not found', async () => {
     const result = await sut.execute({
-      tag: '010204'
+      tag: '010204',
     })
 
     expect(result.isFailure()).toBe(true)
@@ -45,9 +46,9 @@ describe('Get mobile by tag', () => {
     }
   })
 
-  it ('should return a bad request error if tag is not provided', async () => {
+  it('should return a bad request error if tag is not provided', async () => {
     const result = await sut.execute({
-      tag: ''
+      tag: '',
     })
 
     expect(result.isFailure()).toBe(true)
@@ -58,4 +59,4 @@ describe('Get mobile by tag', () => {
       expect(name).toEqual('BadRequestError')
     }
   })
-})  
+})

@@ -17,7 +17,7 @@ export class ComputerPresenter {
       contractId: computer.contractId,
       endWarrantyDate: computer.endWarrantyDate,
       invoiceNumber: computer.invoiceNumber,
-      tag: computer.tag
+      tag: computer.tag,
     }
   }
 }
@@ -35,5 +35,5 @@ export const computersSchema = z.object({
   contractId: z.string().nullish(),
   endWarrantyDate: z.coerce.date().nullish(),
   invoiceNumber: z.string().nullish(),
-  tag: z.string().nullish()
+  tag: z.string().nullish(),
 })

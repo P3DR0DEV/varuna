@@ -1,7 +1,7 @@
-import { InMemoryComputerRepository } from "test/repositories/in-memory-computer-repository"
-import { GetComputerByTagUseCase } from "../get-computer-by-tag"
-import { makeComputer } from "test/factories/make-computer"
+import { makeComputer } from 'test/factories/make-computer'
+import { InMemoryComputerRepository } from 'test/repositories/in-memory-computer-repository'
 
+import { GetComputerByTagUseCase } from '../get-computer-by-tag'
 
 let sut: GetComputerByTagUseCase
 let computerRepository: InMemoryComputerRepository

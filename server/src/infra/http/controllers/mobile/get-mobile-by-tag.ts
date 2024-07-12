@@ -1,9 +1,10 @@
-import { FastifyInstance } from "fastify"
-import { ZodTypeProvider } from "fastify-type-provider-zod"
-import z from "zod"
-import { MobilePresenter, mobileSchema } from "../../presenters/mobile-presenter"
-import { getMobileByTagUseCase } from "./factories/make-get-mobile-by-tag"
-import { errors } from "../_errors"
+import { FastifyInstance } from 'fastify'
+import { ZodTypeProvider } from 'fastify-type-provider-zod'
+import z from 'zod'
+
+import { MobilePresenter, mobileSchema } from '../../presenters/mobile-presenter'
+import { errors } from '../_errors'
+import { getMobileByTagUseCase } from './factories/make-get-mobile-by-tag'
 
 export async function getMobileByTag(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(

@@ -47,7 +47,6 @@ export class InMemoryPrinterRepository implements PrinterRepository {
     return printer
   }
 
-
   async findMany({ type, option }: { type?: PrinterTypes; option?: PrintingOptions }): Promise<Printer[]> {
     if (type && option) {
       return this.items.filter((item) => item.type === type && item.printing === option)
@@ -60,7 +59,7 @@ export class InMemoryPrinterRepository implements PrinterRepository {
     if (option) {
       return this.items.filter((item) => item.printing === option)
     }
-    
+
     return this.items
   }
 

@@ -6,7 +6,7 @@ import { PrinterRepository } from '../../repositories/printer-repository'
 
 type FetchAllPrintersUseCaseProps = {
   type?: PrinterTypes
-  option?: PrintingOptions  
+  option?: PrintingOptions
 }
 
 export type FetchAllPrintersUseCaseResponse = Either<Error, { printers: Printer[] }>
@@ -17,7 +17,7 @@ export class FetchAllPrintersUseCase implements UseCase {
   async execute({ type, option }: FetchAllPrintersUseCaseProps): Promise<FetchAllPrintersUseCaseResponse> {
     const printers = await this.printerRepository.findMany({
       type,
-      option
+      option,
     })
 
     return success({ printers })

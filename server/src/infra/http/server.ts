@@ -13,10 +13,10 @@ import { devicesRoutes } from './controllers/device'
 import { incidentRoutes } from './controllers/incident'
 import { licensesRoutes } from './controllers/license'
 import { mobileRoutes } from './controllers/mobile'
+import { printerRoutes } from './controllers/printer'
 import { serviceRoutes } from './controllers/service'
 import { userRoutes } from './controllers/user'
 import { errorHandler } from './error-handler'
-import { printerRoutes } from './controllers/printer'
 
 const app = fastify({ logger: { level: env.LOG_LEVEL } })
 

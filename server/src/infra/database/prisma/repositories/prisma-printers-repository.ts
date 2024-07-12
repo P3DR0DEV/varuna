@@ -67,7 +67,7 @@ export class PrismaPrintersRepository implements PrinterRepository {
       where: {
         type: type ? MapPrinterType.toPersistence(type) : undefined,
         printing: options ? MapPrinterOptions.toPersistence(options) : undefined,
-      }
+      },
     })
 
     return printers.map(PrismaPrintersMapper.toDomain)

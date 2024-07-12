@@ -1,5 +1,6 @@
-import { Printer } from "@/domain/it-manager/enterprise/entities/printer";
-import z from "zod";
+import z from 'zod'
+
+import { Printer } from '@/domain/it-manager/enterprise/entities/printer'
 
 export class PrinterPresenter {
   static toHttp(printer: Printer) {
@@ -15,7 +16,7 @@ export class PrinterPresenter {
       endWarrantyDate: printer.endWarrantyDate,
       type: printer.type,
       observations: printer.observations,
-      invoiceNumber: printer.invoiceNumber
+      invoiceNumber: printer.invoiceNumber,
     }
   }
 
@@ -26,7 +27,7 @@ export class PrinterPresenter {
       ip: printer.ipAddress,
       tag: printer.tag,
       type: printer.type,
-      printing: printer.printing
+      printing: printer.printing,
     }
   }
 }
@@ -43,7 +44,7 @@ export const printerSchema = z.object({
   endWarrantyDate: z.coerce.date().nullish(),
   type: z.enum(['inkjet', 'laser', 'thermal', 'dotmatrix']),
   observations: z.string().nullish(),
-  invoiceNumber: z.string().nullish()
+  invoiceNumber: z.string().nullish(),
 })
 
 export const printersToDashboardSchema = z.object({
@@ -52,5 +53,5 @@ export const printersToDashboardSchema = z.object({
   ip: z.string().ip({ version: 'v4' }).nullish(),
   tag: z.string().nullish(),
   type: z.enum(['inkjet', 'laser', 'thermal', 'dotmatrix']),
-  printing: z.enum(['colorful', 'monochrome'])
+  printing: z.enum(['colorful', 'monochrome']),
 })

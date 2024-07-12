@@ -1,4 +1,5 @@
 import { FastifyInstance } from 'fastify'
+
 import { createPrinter } from './create-printer'
 import { deletePrinter } from './delete-printer'
 import { editPrinter } from './edit-printer'
@@ -33,7 +34,7 @@ export async function printerRoutes(app: FastifyInstance) {
 
   /** PUT /printers/:id */
   editPrinter(app)
-  
+
   /** DELETE /printers/:id */
   deletePrinter(app)
 }

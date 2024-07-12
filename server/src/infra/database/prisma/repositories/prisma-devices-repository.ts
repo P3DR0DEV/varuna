@@ -19,6 +19,7 @@ export class PrismaDevicesRepository implements DeviceRepository {
 
     return PrismaDevicesMapper.toDomain(device)
   }
+
   async findMany({ invoiceNumber, model }: { invoiceNumber?: string; model?: string }): Promise<Device<DeviceProps>[]> {
     const devices = await this.prisma.device.findMany({
       where: { invoiceNumber, model },
