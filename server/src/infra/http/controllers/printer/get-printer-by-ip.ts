@@ -2,23 +2,23 @@ import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
 
-import { DevicePresenter, devicesSchema } from '../../presenters/device-presenter'
+import { PrinterPresenter, printerSchema } from '../../presenters/printer-presenter'
 import { errors } from '../_errors'
-import { getDeviceByTagUseCase } from './factories/make-get-device-by-tag'
+import { getPrinterByIpAddressUseCase } from './factories/make-get-printer-by-ip-address'
 
-export async function getDeviceByTag(app: FastifyInstance) {
+export async function getPrinterByIP(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
-    '/tag/:tag',
+    '/ip/:ip',
     {
       schema: {
-        tags: ['Devices'],
-        summary: 'Get device by tag',
+        tags: ['Printers'],
+        summary: 'Get printer by ip',
         params: z.object({
-          tag: z.string(),
+          ip: z.string().ip({ version: 'v4' }),
         }),
         response: {
           200: z.object({
-            device: devicesSchema,
+            printer: printerSchema,
           }),
           400: z.object({
             name: z.string(),
@@ -32,9 +32,9 @@ export async function getDeviceByTag(app: FastifyInstance) {
       },
     },
     async (request, reply) => {
-      const { tag } = request.params
+      const { ip } = request.params
 
-      const result = await getDeviceByTagUseCase.execute({ tag })
+      const result = await getPrinterByIpAddressUseCase.execute({ ipAddress: ip })
 
       if (result.isFailure()) {
         const { name, message } = result.reason
@@ -42,9 +42,9 @@ export async function getDeviceByTag(app: FastifyInstance) {
         throw new errors[name](message)
       }
 
-      const { device } = result.value
+      const { printer } = result.value
 
-      return reply.status(200).send({ device: DevicePresenter.toHttp(device) })
+      return reply.status(200).send({ printer: PrinterPresenter.toHttp(printer) })
     },
   )
 }

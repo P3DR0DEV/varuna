@@ -38,14 +38,6 @@ export class PrismaPrintersRepository implements PrinterRepository {
     return PrismaPrintersMapper.toDomain(printer)
   }
 
-  async findByType(type: PrinterTypes): Promise<Printer[]> {
-    const printers = await this.prisma.printer.findMany({
-      where: { type: MapPrinterType.toPersistence(type) },
-    })
-
-    return printers.map(PrismaPrintersMapper.toDomain)
-  }
-
   async findByIpAddress(ipAddress: string): Promise<Printer | null> {
     const printer = await this.prisma.printer.findUnique({
       where: { ipAddress },
@@ -56,14 +48,6 @@ export class PrismaPrintersRepository implements PrinterRepository {
     }
 
     return PrismaPrintersMapper.toDomain(printer)
-  }
-
-  async findByPrintingOptions(printing: PrintingOptions): Promise<Printer[]> {
-    const printers = await this.prisma.printer.findMany({
-      where: { printing: MapPrinterOptions.toPersistence(printing) },
-    })
-
-    return printers.map(PrismaPrintersMapper.toDomain)
   }
 
   async findBySerialNumber(serialNumber: string): Promise<Printer | null> {
@@ -78,8 +62,13 @@ export class PrismaPrintersRepository implements PrinterRepository {
     return PrismaPrintersMapper.toDomain(printer)
   }
 
-  async findMany(): Promise<Printer[]> {
-    const printers = await this.prisma.printer.findMany()
+  async findMany({ type, options }: { type?: PrinterTypes; options?: PrintingOptions }): Promise<Printer[]> {
+    const printers = await this.prisma.printer.findMany({
+      where: {
+        type: type ? MapPrinterType.toPersistence(type) : undefined,
+        printing: options ? MapPrinterOptions.toPersistence(options) : undefined,
+      },
+    })
 
     return printers.map(PrismaPrintersMapper.toDomain)
   }

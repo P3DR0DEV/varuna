@@ -12,7 +12,7 @@ export interface PrinterProps extends DeviceProps {
   type: PrinterTypes
   printing: PrintingOptions
   tag: string | null
-  ipAddress: string | null
+  ipAddress?: string | null
   observations?: string | null
 }
 
@@ -44,11 +44,11 @@ export class Printer extends Device<PrinterProps> {
     this.touch()
   }
 
-  get ipAddress(): string | null {
+  get ipAddress(): string | null | undefined {
     return this.props.ipAddress
   }
 
-  set ipAddress(_ipAddress: string | null) {
+  set ipAddress(_ipAddress: string | null | undefined) {
     this.props.ipAddress = _ipAddress
   }
 

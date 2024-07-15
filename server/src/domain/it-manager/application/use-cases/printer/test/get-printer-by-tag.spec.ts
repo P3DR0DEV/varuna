@@ -1,6 +1,7 @@
-import { InMemoryPrinterRepository } from "test/repositories/in-memory-printer-repository"
-import { GetPrinterByTagUseCase } from "../get-printer-by-tag"
-import { makePrinter } from "test/factories/make-printer"
+import { makePrinter } from 'test/factories/make-printer'
+import { InMemoryPrinterRepository } from 'test/repositories/in-memory-printer-repository'
+
+import { GetPrinterByTagUseCase } from '../get-printer-by-tag'
 
 let sut: GetPrinterByTagUseCase
 let printersRepository: InMemoryPrinterRepository
@@ -11,7 +12,7 @@ describe('Get printer by tag', () => {
     sut = new GetPrinterByTagUseCase(printersRepository)
 
     const printer = makePrinter({
-      tag: '010203'
+      tag: '010203',
     })
 
     printersRepository.create(printer)
@@ -19,7 +20,7 @@ describe('Get printer by tag', () => {
 
   it('should be able to get a printer by tag', async () => {
     const result = await sut.execute({
-      tag: '010203'
+      tag: '010203',
     })
 
     expect(result.isSuccess()).toBe(true)
@@ -33,7 +34,7 @@ describe('Get printer by tag', () => {
 
   it('should return a NotFoundError if printer not found', async () => {
     const result = await sut.execute({
-      tag: '010204'
+      tag: '010204',
     })
 
     expect(result.isFailure()).toBe(true)
@@ -47,7 +48,7 @@ describe('Get printer by tag', () => {
 
   it('should return a BadRequestError', async () => {
     const result = await sut.execute({
-      tag: ''
+      tag: '',
     })
 
     expect(result.isFailure()).toBe(true)
@@ -58,5 +59,4 @@ describe('Get printer by tag', () => {
       expect(name).toEqual('BadRequestError')
     }
   })
-
 })

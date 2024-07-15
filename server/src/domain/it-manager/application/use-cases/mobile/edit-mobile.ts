@@ -28,29 +28,29 @@ type EditMobileUseCaseResponse = Either<NotFoundError | BadRequestError, { mobil
 
 export class EditMobileUseCase implements UseCase {
   constructor(private readonly mobileRepository: MobileRepository) {}
-  
+
   async execute({ id, ...props }: EditMobileUseCaseProps): Promise<EditMobileUseCaseResponse> {
     if (!id) {
       return failure(BadRequest('ID is required'))
     }
-    
+
     const mobile = await this.mobileRepository.findById(id)
-    
+
     if (!mobile) {
       return failure(NotFound('Mobile not found'))
     }
-    
+
     const findName = await this.mobileRepository.findByName(props.name)
     const findTag = await this.mobileRepository.findByTag(props.tag ?? '')
-    
+
     if (findName && findName.id.toString() !== id) {
       return failure(BadRequest('Mobile already exists with this name'))
     }
-    
+
     if (findTag && findTag.id.toString() !== id) {
       return failure(BadRequest('Mobile already exists with this tag'))
     }
-    
+
     mobile.name = props.name
     mobile.acquisitionDate = props.acquisitionDate
     mobile.type = props.type
@@ -63,7 +63,7 @@ export class EditMobileUseCase implements UseCase {
     mobile.model = props.model
     mobile.endWarrantyDate = props.endWarrantyDate
     mobile.tag = props.tag
-    
+
     return success({ mobile })
   }
 }

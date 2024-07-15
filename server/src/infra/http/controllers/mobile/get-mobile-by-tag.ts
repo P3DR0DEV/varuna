@@ -2,23 +2,23 @@ import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
 
-import { DevicePresenter, devicesSchema } from '../../presenters/device-presenter'
+import { MobilePresenter, mobileSchema } from '../../presenters/mobile-presenter'
 import { errors } from '../_errors'
-import { getDeviceByTagUseCase } from './factories/make-get-device-by-tag'
+import { getMobileByTagUseCase } from './factories/make-get-mobile-by-tag'
 
-export async function getDeviceByTag(app: FastifyInstance) {
+export async function getMobileByTag(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     '/tag/:tag',
     {
       schema: {
-        tags: ['Devices'],
-        summary: 'Get device by tag',
+        tags: ['Mobiles'],
+        summary: 'Get mobile by tag',
         params: z.object({
           tag: z.string(),
         }),
         response: {
           200: z.object({
-            device: devicesSchema,
+            mobile: mobileSchema,
           }),
           400: z.object({
             name: z.string(),
@@ -26,7 +26,6 @@ export async function getDeviceByTag(app: FastifyInstance) {
           }),
           404: z.object({
             name: z.string(),
-            message: z.string(),
           }),
         },
       },
@@ -34,7 +33,7 @@ export async function getDeviceByTag(app: FastifyInstance) {
     async (request, reply) => {
       const { tag } = request.params
 
-      const result = await getDeviceByTagUseCase.execute({ tag })
+      const result = await getMobileByTagUseCase.execute({ tag })
 
       if (result.isFailure()) {
         const { name, message } = result.reason
@@ -42,9 +41,11 @@ export async function getDeviceByTag(app: FastifyInstance) {
         throw new errors[name](message)
       }
 
-      const { device } = result.value
+      const { mobile } = result.value
 
-      return reply.status(200).send({ device: DevicePresenter.toHttp(device) })
+      return reply.status(200).send({
+        mobile: MobilePresenter.toHttp(mobile),
+      })
     },
   )
 }

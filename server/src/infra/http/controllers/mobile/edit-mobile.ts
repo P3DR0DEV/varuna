@@ -23,6 +23,7 @@ export async function editMobile(app: FastifyInstance) {
           serialNumber: z.string(),
           model: z.string(),
           operatingSystem: z.string(),
+          tag: z.string().nullish(),
           number: z.string().nullish(),
           endWarrantyDate: z.coerce.date().nullish(),
           invoiceNumber: z.string().nullish(),

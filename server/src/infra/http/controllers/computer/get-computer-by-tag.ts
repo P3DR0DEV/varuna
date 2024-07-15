@@ -2,23 +2,23 @@ import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
 
-import { DevicePresenter, devicesSchema } from '../../presenters/device-presenter'
+import { ComputerPresenter, computersSchema } from '../../presenters/computer-presenter'
 import { errors } from '../_errors'
-import { getDeviceByTagUseCase } from './factories/make-get-device-by-tag'
+import { getComputerByTagUseCase } from './factories/make-get-computer-by-tag'
 
-export async function getDeviceByTag(app: FastifyInstance) {
+export async function getComputerByTag(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     '/tag/:tag',
     {
       schema: {
-        tags: ['Devices'],
-        summary: 'Get device by tag',
+        tags: ['Computers'],
+        summary: 'Get computer by tag',
         params: z.object({
           tag: z.string(),
         }),
         response: {
           200: z.object({
-            device: devicesSchema,
+            computer: computersSchema,
           }),
           400: z.object({
             name: z.string(),
@@ -34,7 +34,7 @@ export async function getDeviceByTag(app: FastifyInstance) {
     async (request, reply) => {
       const { tag } = request.params
 
-      const result = await getDeviceByTagUseCase.execute({ tag })
+      const result = await getComputerByTagUseCase.execute({ tag })
 
       if (result.isFailure()) {
         const { name, message } = result.reason
@@ -42,9 +42,11 @@ export async function getDeviceByTag(app: FastifyInstance) {
         throw new errors[name](message)
       }
 
-      const { device } = result.value
+      const { computer } = result.value
 
-      return reply.status(200).send({ device: DevicePresenter.toHttp(device) })
+      return reply.status(200).send({
+        computer: ComputerPresenter.toHttp(computer),
+      })
     },
   )
 }

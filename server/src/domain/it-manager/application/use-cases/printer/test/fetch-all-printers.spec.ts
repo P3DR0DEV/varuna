@@ -18,7 +18,7 @@ describe('Fetch all printers use case', () => {
   })
 
   it('should fetch all printers', async () => {
-    const result = await sut.execute()
+    const result = await sut.execute({})
 
     expect(result.isSuccess()).toBeTruthy()
 
