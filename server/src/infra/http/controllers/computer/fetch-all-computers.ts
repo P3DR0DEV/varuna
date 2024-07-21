@@ -3,7 +3,7 @@ import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
 
 import { ComputerPresenter, computersSchema } from '../../presenters/computer-presenter'
-import { InternalServerError } from '../_errors/internal-server-error'
+import { errors } from '../_errors'
 import { fetchAllComputersUseCase } from './factories/make-fetch-all-computers'
 
 export async function fetchAllComputers(app: FastifyInstance) {
@@ -33,7 +33,7 @@ export async function fetchAllComputers(app: FastifyInstance) {
       const result = await fetchAllComputersUseCase.execute({ operatingSystem })
 
       if (result.isFailure()) {
-        throw new InternalServerError('Internal Server Error')
+        throw new errors.InternalServerError('Unexpected error')
       }
 
       const { computers } = result.value

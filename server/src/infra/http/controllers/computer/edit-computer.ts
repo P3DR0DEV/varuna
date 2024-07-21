@@ -14,7 +14,7 @@ export async function editComputer(app: FastifyInstance) {
         summary: 'Edit computer',
         tags: ['Computers'],
         params: z.object({
-          id: z.string(),
+          id: z.string().uuid('Invalid ID type, must be a UUID'),
         }),
         body: z.object({
           acquisitionDate: z.coerce.date(),
@@ -26,7 +26,7 @@ export async function editComputer(app: FastifyInstance) {
           serialNumber: z.string(),
           type: z.enum(['server', 'notebook', 'desktop']),
           tag: z.string().nullish(),
-          contractId: z.string().nullish(),
+          contractId: z.string().uuid().nullish(),
           endWarrantyDate: z.coerce.date().nullish(),
           invoiceNumber: z.string().nullish(),
         }),
