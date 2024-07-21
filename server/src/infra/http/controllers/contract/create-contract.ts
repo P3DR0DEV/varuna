@@ -81,7 +81,7 @@ export async function createContract(app: FastifyInstance) {
 
       const result = await createContractUseCase.execute({ fileName, ...props })
 
-      // upload image to server
+      // TODO upload image to server
 
       if (result.isFailure()) {
         throw new errors.InternalServerError('Unexpected error')

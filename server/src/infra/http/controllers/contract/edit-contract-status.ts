@@ -14,7 +14,7 @@ export async function editContractStatus(app: FastifyInstance) {
         tags: ['Contract'],
         summary: 'Edit contract status',
         params: z.object({
-          id: z.string().uuid(),
+          id: z.string().uuid('Invalid ID type, must be a UUID'),
         }),
         body: z.object({
           status: z.enum(['active', 'inactive']),

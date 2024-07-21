@@ -14,8 +14,8 @@ export async function fetchAllContracts(app: FastifyInstance) {
         tags: ['Contract'],
         summary: 'Fetch all contracts',
         querystring: z.object({
-          userEmail: z.string().email().nullish(),
-          type: z.enum(['renting', 'borrowing']).nullish(),
+          userEmail: z.string().email().optional(),
+          type: z.enum(['renting', 'borrowing']).optional(),
         }),
         response: {
           200: z.object({
