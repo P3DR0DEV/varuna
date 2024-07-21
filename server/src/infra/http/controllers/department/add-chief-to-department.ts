@@ -14,10 +14,10 @@ export async function addChiefToDepartment(app: FastifyInstance) {
         tags: ['Department'],
         summary: 'Add chief to department',
         params: z.object({
-          id: z.string().uuid(),
+          id: z.string().uuid('Invalid ID type, must be a UUID'),
         }),
         body: z.object({
-          userId: z.string().uuid(),
+          userId: z.string().uuid('Invalid ID type, must be a UUID'),
         }),
         response: {
           200: z.object({

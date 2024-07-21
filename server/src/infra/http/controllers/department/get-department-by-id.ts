@@ -14,7 +14,7 @@ export async function getDepartmentById(app: FastifyInstance) {
         tags: ['Department'],
         summary: 'Get department by id',
         params: z.object({
-          id: z.string().uuid(),
+          id: z.string().uuid('Invalid ID type, must be a UUID'),
         }),
         response: {
           200: z.object({
