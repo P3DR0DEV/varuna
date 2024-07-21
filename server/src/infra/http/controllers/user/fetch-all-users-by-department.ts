@@ -14,7 +14,7 @@ export async function fetchAllUsersByDepartment(app: FastifyInstance) {
         summary: 'Fetch all users by department',
         tags: ['Users'],
         params: z.object({
-          departmentId: z.string(),
+          departmentId: z.string().uuid('Invalid ID type, must be a UUID'),
         }),
 
         response: {

@@ -14,7 +14,7 @@ export async function getUserById(app: FastifyInstance) {
         summary: 'Get user by id',
         tags: ['Users'],
         params: z.object({
-          id: z.string().uuid(),
+          id: z.string().uuid('Invalid ID type, must be a UUID'),
         }),
 
         response: {

@@ -14,9 +14,9 @@ export async function createRelation(app: FastifyInstance) {
         tags: ['User License'],
         summary: 'Create user license relation',
         body: z.object({
-          userId: z.string(),
-          licenseId: z.string(),
-          departmentId: z.string(),
+          userId: z.string().uuid('Invalid ID type, must be a UUID'),
+          licenseId: z.string().uuid('Invalid ID type, must be a UUID'),
+          departmentId: z.string().uuid('Invalid ID type, must be a UUID'),
         }),
         response: {
           201: z.object({

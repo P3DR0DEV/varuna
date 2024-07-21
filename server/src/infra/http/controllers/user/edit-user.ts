@@ -14,7 +14,7 @@ export async function editUser(app: FastifyInstance) {
         summary: 'Edit a user',
         tags: ['Users'],
         params: z.object({
-          id: z.string().uuid(),
+          id: z.string().uuid('Invalid ID type, must be a UUID'),
         }),
         body: z.object({
           name: z.string(),

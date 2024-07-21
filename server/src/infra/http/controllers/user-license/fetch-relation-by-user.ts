@@ -14,7 +14,7 @@ export async function fetchRelationByUser(app: FastifyInstance) {
         tags: ['User License'],
         summary: 'Fetch relation by user',
         params: z.object({
-          id: z.string().uuid(),
+          id: z.string().uuid('Invalid ID type, must be a UUID'),
         }),
         response: {
           200: z.object({

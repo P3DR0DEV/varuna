@@ -14,8 +14,8 @@ export async function createWorkstation(app: FastifyInstance) {
         tags: ['Workstation'],
         summary: 'Create workstation',
         body: z.object({
-          computerId: z.string(),
-          departmentId: z.string(),
+          computerId: z.string().uuid('Invalid ID type, must be a UUID'),
+          departmentId: z.string().uuid('Invalid ID type, must be a UUID'),
         }),
         response: {
           201: z.object({ workstation: workstationSchema }),

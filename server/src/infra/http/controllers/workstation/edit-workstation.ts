@@ -14,11 +14,11 @@ export async function editWorkstation(app: FastifyInstance) {
         tags: ['Workstation'],
         summary: 'Edit workstation',
         params: z.object({
-          id: z.string().uuid(),
+          id: z.string().uuid('Invalid ID type, must be a UUID'),
         }),
         body: z.object({
-          computerId: z.string(),
-          departmentId: z.string(),
+          computerId: z.string().uuid('Invalid ID type, must be a UUID'),
+          departmentId: z.string().uuid('Invalid ID type, must be a UUID'),
         }),
         response: {
           201: z.object({ workstation: workstationSchema }),
