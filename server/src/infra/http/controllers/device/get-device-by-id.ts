@@ -14,7 +14,7 @@ export async function getDeviceById(app: FastifyInstance) {
         tags: ['Devices'],
         summary: 'Get a device by id',
         params: z.object({
-          id: z.string().uuid(),
+          id: z.string().uuid('Invalid ID type, must be a UUID'),
         }),
         response: {
           200: z.object({

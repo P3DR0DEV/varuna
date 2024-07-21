@@ -14,7 +14,7 @@ export async function editDevice(app: FastifyInstance) {
         tags: ['Devices'],
         summary: 'Edit a device',
         params: z.object({
-          id: z.string().uuid(),
+          id: z.string().uuid('Invalid ID type, must be a UUID'),
         }),
         body: z.object({
           serialNumber: z.string(),
