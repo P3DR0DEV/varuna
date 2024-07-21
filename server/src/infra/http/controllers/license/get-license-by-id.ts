@@ -14,7 +14,7 @@ export async function getLicenseById(app: FastifyInstance) {
         tags: ['License'],
         summary: 'Get License By Id',
         params: z.object({
-          id: z.string().uuid(),
+          id: z.string().uuid('Invalid ID type, must be a UUID'),
         }),
         response: {
           200: z.object({

@@ -14,7 +14,7 @@ export async function getLicenseByName(app: FastifyInstance) {
         tags: ['License'],
         summary: 'Get License By name',
         params: z.object({
-          name: z.string().uuid(),
+          name: z.string(),
         }),
         response: {
           200: z.object({

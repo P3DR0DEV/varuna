@@ -14,7 +14,7 @@ export async function editLicense(app: FastifyInstance) {
         tags: ['License'],
         summary: 'Edit license',
         params: z.object({
-          id: z.string(),
+          id: z.string().uuid('Invalid ID type, must be a UUID'),
         }),
         body: z.object({
           name: z.string(),
