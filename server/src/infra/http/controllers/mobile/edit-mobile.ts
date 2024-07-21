@@ -14,7 +14,7 @@ export async function editMobile(app: FastifyInstance) {
         tags: ['Mobiles'],
         summary: 'Edit mobile',
         params: z.object({
-          id: z.string().uuid(),
+          id: z.string().uuid('Invalid ID type, must be a UUID'),
         }),
         body: z.object({
           name: z.string(),

@@ -5,16 +5,7 @@ import z from 'zod'
 import { PrinterPresenter } from '../../presenters/printer-presenter'
 import { errors } from '../_errors'
 import { editPrinterUseCase } from './factories/make-edit-printer'
-// serialNumber: string
-// model: string
-// modelSlug: Slug
-// tag?: string | null
-// acquisitionDate: Date
-// endWarrantyDate?: Date | null
-// invoiceNumber?: string | null
-// contractId?: UniqueEntityID | null
-// createdAt: Date
-// updatedAt?: Date | null
+
 export async function editPrinter(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().put(
     '/:id',
@@ -23,7 +14,7 @@ export async function editPrinter(app: FastifyInstance) {
         tags: ['Printers'],
         summary: 'Edit Printer',
         params: z.object({
-          id: z.string().uuid(),
+          id: z.string().uuid('Invalid ID type, must be a UUID'),
         }),
         body: z.object({
           name: z.string(),

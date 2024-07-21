@@ -13,7 +13,7 @@ export async function deletePrinter(app: FastifyInstance) {
         tags: ['Printers'],
         summary: 'Delete a printer',
         params: z.object({
-          id: z.string(),
+          id: z.string().uuid('Invalid ID type, must be a UUID'),
         }),
         response: {
           200: z.object({
