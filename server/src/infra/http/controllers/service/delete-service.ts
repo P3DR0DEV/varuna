@@ -13,7 +13,7 @@ export async function deleteService(app: FastifyInstance) {
         tags: ['Services'],
         summary: 'Delete a service',
         params: z.object({
-          id: z.string().uuid(),
+          id: z.string().uuid('Invalid ID type, must be a UUID'),
         }),
         response: {
           200: z.object({

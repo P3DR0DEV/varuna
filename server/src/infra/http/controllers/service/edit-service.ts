@@ -14,7 +14,7 @@ export async function editService(app: FastifyInstance) {
         tags: ['Services'],
         summary: 'Edit a service',
         params: z.object({
-          id: z.string().uuid(),
+          id: z.string().uuid('Invalid ID type, must be a UUID'),
         }),
         body: z.object({
           description: z.string(),
