@@ -8,8 +8,8 @@ export default defineConfig({
     swc.vite({
       module: {
         type: 'es6',
-      }
-    })
+      },
+    }),
   ],
   test: {
     globals: true,
