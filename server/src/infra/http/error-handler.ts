@@ -36,6 +36,13 @@ export const errorHandler: FastifyErrorHandler = (error, request, reply) => {
     })
   }
 
+  if (error.name === 'ZodError') {
+    return reply.status(400).send({
+      name: error.name,
+      message: JSON.parse(error.message)[0].message,
+    })
+  }
+
   return reply.status(500).send({
     name: error.name,
     message: error.message,
