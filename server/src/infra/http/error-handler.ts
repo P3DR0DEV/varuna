@@ -1,5 +1,4 @@
 import { FastifyInstance } from 'fastify'
-import { ZodError } from 'zod'
 
 import { BadRequestError } from './controllers/_errors/bad-request'
 import { InternalServerError } from './controllers/_errors/internal-server-error'
@@ -27,14 +26,6 @@ export const errorHandler: FastifyErrorHandler = (error, request, reply) => {
     return reply.status(400).send({
       name: error.name,
       message: error.message,
-    })
-  }
-
-  if (error instanceof ZodError) {
-    return reply.status(400).send({
-      name: error.name,
-      message: `Error during Validation`,
-      errors: error.flatten().fieldErrors,
     })
   }
 
