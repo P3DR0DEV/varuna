@@ -14,10 +14,10 @@ export class ComputerPresenter {
       operatingSystem: computer.operatingSystem,
       serialNumber: computer.serialNumber,
       type: computer.type,
-      contractId: computer.contractId,
-      endWarrantyDate: computer.endWarrantyDate,
-      invoiceNumber: computer.invoiceNumber,
-      tag: computer.tag,
+      contractId: computer.contractId ?? null,
+      endWarrantyDate: computer.endWarrantyDate ?? null,
+      invoiceNumber: computer.invoiceNumber ?? null,
+      tag: computer.tag ?? null,
     }
   }
 }
