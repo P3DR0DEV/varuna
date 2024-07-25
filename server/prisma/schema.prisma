@@ -147,7 +147,7 @@ model Device {
   serialNumber    String    @unique @map("serial_number")
   model           String
   tag             String?   @unique
-  modelSlug       String    @unique @map("model_slug")
+  modelSlug       String    @map("model_slug")
   acquisitionDate DateTime  @map("acquisition_date")
   endWarrantyDate DateTime? @map("end_warranty_date")
   invoiceNumber   String?   @map("invoice_number")
