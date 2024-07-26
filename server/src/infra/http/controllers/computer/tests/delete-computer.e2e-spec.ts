@@ -1,7 +1,6 @@
 import request from 'supertest'
 import { ComputerFactory } from 'test/factories/make-computer'
 
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { app } from '@/infra/http/app'
 import { prisma } from '@/infra/lib/prisma'
 
@@ -29,5 +28,4 @@ describe('Delete computer (E2E)', () => {
       message: 'Computer deleted successfully',
     })
   })
-
 })
