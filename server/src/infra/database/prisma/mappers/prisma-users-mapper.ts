@@ -31,7 +31,7 @@ export class PrismaUsersMapper {
       badge: user.badge,
       phone: user.phone?.value,
       workstationId: user.workstationId?.toString(),
-      departmentId: user.departmentId.toString(),
+      departmentId: user.departmentId?.toString(),
     }
   }
 }
