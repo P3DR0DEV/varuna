@@ -13,7 +13,7 @@ export function makeUser(override: Partial<UserProps> = {}, id?: UniqueEntityID)
 
   const user = User.create(
     {
-      departmentId: new UniqueEntityID(),
+      departmentId: null,
       name: faker.person.fullName(),
       email: faker.internet.email(),
       phone: Phone.format(phoneNumber),
