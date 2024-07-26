@@ -6,6 +6,7 @@
   - [X] licença 
   - [X] usuario-licença
 - [X] O sistema deve permitir o cadastro de contratos
+  - [ ] Enviar arquivo para o servidor
 - [X] O sistema deve permitir o cadastro de dispositivos (computador, impressora, dispositivos móveis)
   - [X] computador
   - [X] dispositivos móveis
