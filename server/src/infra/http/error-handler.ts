@@ -1,4 +1,5 @@
 import { FastifyInstance } from 'fastify'
+import { ZodError } from 'zod'
 
 import { BadRequestError } from './controllers/_errors/bad-request'
 import { InternalServerError } from './controllers/_errors/internal-server-error'
@@ -7,7 +8,14 @@ import { UnauthorizedError } from './controllers/_errors/unauthorized'
 
 type FastifyErrorHandler = FastifyInstance['errorHandler']
 
-export const errorHandler: FastifyErrorHandler = (error, request, reply) => {
+export const errorHandler: FastifyErrorHandler = (error, _, reply) => {
+  if (error instanceof ZodError) {
+    return reply.status(400).send({
+      name: error.name,
+      errors: error.flatten().fieldErrors,
+    })
+  }
+
   if (error instanceof UnauthorizedError) {
     return reply.status(401).send({
       name: error.name,
@@ -33,13 +41,6 @@ export const errorHandler: FastifyErrorHandler = (error, request, reply) => {
     return reply.status(500).send({
       name: error.name,
       message: error.message,
-    })
-  }
-
-  if (error.name === 'ZodError') {
-    return reply.status(400).send({
-      name: error.name,
-      message: JSON.parse(error.message)[0].message,
     })
   }
 
