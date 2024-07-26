@@ -10,7 +10,7 @@ export class UserPresenter {
       email: user.email,
       phone: user.phone ? user.phone.value : null,
       badge: user.badge,
-      departmentId: user.departmentId.toString(),
+      departmentId: user.departmentId ? user.departmentId.toString() : null,
       workstationId: user.workstationId ? user.workstationId.toString() : null,
     }
   }
@@ -22,6 +22,6 @@ export const usersSchema = z.object({
   email: z.string().email(),
   phone: z.string().nullable(),
   badge: z.string(),
-  departmentId: z.string(),
+  departmentId: z.string().nullable(),
   workstationId: z.string().nullable(),
 })
