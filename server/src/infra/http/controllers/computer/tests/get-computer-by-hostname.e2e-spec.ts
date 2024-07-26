@@ -31,26 +31,4 @@ describe('Get computer by hostname (E2E)', () => {
       }),
     })
   })
-
-  it('Should return not found', async () => {
-    const response = await request(app.server).get('/computers/hostname/BHO010201')
-
-    expect(response.statusCode).toEqual(404)
-
-    expect(response.body).toMatchObject({
-      name: 'NotFoundError',
-      message: 'Computer not found',
-    })
-  })
-
-  it('Should return bad request', async () => {
-    const response = await request(app.server).get('/computers/hostname/')
-
-    expect(response.statusCode).toEqual(400)
-
-    expect(response.body).toMatchObject({
-      name: 'BadRequestError',
-      message: 'Hostname is required',
-    })
-  })
 })

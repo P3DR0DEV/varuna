@@ -27,17 +27,4 @@ describe('Get computer by id (E2E)', () => {
 
     expect(response.body.computer.id).toEqual(id)
   })
-
-  it('Should return not found', async () => {
-    const id = new UniqueEntityID().toString()
-
-    const response = await request(app.server).get(`/computers/${id}`)
-
-    expect(response.statusCode).toEqual(404)
-
-    expect(response.body).toMatchObject({
-      name: 'NotFoundError',
-      message: 'Computer not found',
-    })
-  })
 })

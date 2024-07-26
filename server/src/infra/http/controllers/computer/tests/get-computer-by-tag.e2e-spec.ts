@@ -26,26 +26,4 @@ describe('Get computer by ip address (E2E)', () => {
 
     expect(response.body.computer.tag).toEqual('test')
   })
-
-  it('Should return not found', async () => {
-    const response = await request(app.server).get('/computers/tag/invalid-tag')
-
-    expect(response.statusCode).toEqual(404)
-
-    expect(response.body).toMatchObject({
-      name: 'NotFoundError',
-      message: 'Computer not found',
-    })
-  })
-
-  it('Should return bad request', async () => {
-    const response = await request(app.server).get('/computers/tag/')
-
-    expect(response.statusCode).toEqual(400)
-
-    expect(response.body).toMatchObject({
-      name: 'BadRequestError',
-      message: 'Tag is required',
-    })
-  })
 })

@@ -32,11 +32,6 @@ export async function createComputer(app: FastifyInstance) {
           201: z.object({
             computer: computersSchema,
           }),
-
-          400: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
         },
       },
     },
