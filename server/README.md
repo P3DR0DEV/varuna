@@ -33,10 +33,25 @@
 ### TODO
 
 - [ ] Implementar testes E2E
+  - [X] User
+  - [X] Computer
+  - [ ] Contract
+  - [ ] Department
+  - [ ] Device
+  - [ ] Incident
+  - [ ] License
+  - [ ] Mobile
+  - [ ] Printer
+  - [ ] Service
+  - [ ] User-License
+  - [ ] Workstation
+
 - [X] Criar Servidor utilizando Fastify
   - [X] Crud
   - [ ] Monitoramento de servidores
   - [ ] autenticação
+
+- [ ] Melhorar respostas de erros
 
 
 ### Diagrama Relacional
