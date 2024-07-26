@@ -18,8 +18,8 @@ export async function createUser(app: FastifyInstance) {
           email: z.string().email(),
           phone: z.string().optional(),
           badge: z.string(),
-          departmentId: z.string(),
-          workstationId: z.string().nullish(),
+          departmentId: z.string().uuid('Invalid ID type, must be a UUID').nullish(),
+          workstationId: z.string().uuid('Invalid ID type, must be a UUID').nullish(),
         }),
 
         response: {

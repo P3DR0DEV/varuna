@@ -9,7 +9,7 @@ export interface UserProps {
   email: string
   phone: Phone | null
   badge: string
-  departmentId: UniqueEntityID
+  departmentId: UniqueEntityID | null
   workstationId: UniqueEntityID | null
   createdAt: Date
   updatedAt?: Date | null
@@ -52,7 +52,7 @@ export class User extends Entity<UserProps> {
     this.touch()
   }
 
-  get departmentId(): UniqueEntityID {
+  get departmentId(): UniqueEntityID | null {
     return this.props.departmentId
   }
 
@@ -69,12 +69,16 @@ export class User extends Entity<UserProps> {
     this.props.updatedAt = new Date()
   }
 
-  static create(props: Optional<UserProps, 'createdAt' | 'phone' | 'workstationId'>, id?: UniqueEntityID): User {
+  static create(
+    props: Optional<UserProps, 'createdAt' | 'phone' | 'workstationId' | 'departmentId'>,
+    id?: UniqueEntityID,
+  ): User {
     const user = new User(
       {
         ...props,
         createdAt: props.createdAt ?? new Date(),
         workstationId: props.workstationId ?? null,
+        departmentId: props.departmentId ?? null,
         phone: props.phone ?? null,
       },
       id,
