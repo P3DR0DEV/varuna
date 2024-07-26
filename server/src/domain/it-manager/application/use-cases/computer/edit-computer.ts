@@ -49,20 +49,20 @@ export class EditComputerUseCase implements UseCase {
 
     const computerWithSameHostname = await this.computerRepository.findByHostname(hostname)
 
-    if (computerWithSameHostname && computerWithSameHostname.id !== computer.id) {
-      return failure(BadRequest('Computer with this hostname already exists'))
+    if (computerWithSameHostname && computerWithSameHostname.id.toString() !== computer.id.toString()) {
+      return failure(BadRequest('A computer with this hostname already exists'))
     }
 
     const computerWithSameIpAddress = await this.computerRepository.findByIpAddress(ipAddress)
 
-    if (computerWithSameIpAddress && computerWithSameIpAddress.id !== computer.id) {
-      return failure(BadRequest('Computer with this hostname already exists'))
+    if (computerWithSameIpAddress && computerWithSameIpAddress.id.toString() !== computer.id.toString()) {
+      return failure(BadRequest('A computer with this ip already exists'))
     }
 
     const computerWithSameTag = await this.computerRepository.findByTag(device.tag || '')
 
-    if (computerWithSameTag && computerWithSameTag.id !== computer.id) {
-      return failure(BadRequest('Computer with this tag already exists'))
+    if (computerWithSameTag && computerWithSameTag.id.toString() !== computer.id.toString()) {
+      return failure(BadRequest('A computer with this tag already exists'))
     }
 
     const slug = Slug.createFromText(operatingSystem)
