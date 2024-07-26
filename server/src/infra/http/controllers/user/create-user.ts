@@ -26,11 +26,6 @@ export async function createUser(app: FastifyInstance) {
           201: z.object({
             user: usersSchema,
           }),
-
-          400: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
         },
       },
     },

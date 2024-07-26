@@ -21,14 +21,6 @@ export async function fetchAllUsersByDepartment(app: FastifyInstance) {
           200: z.object({
             users: z.array(usersSchema),
           }),
-          400: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
-          404: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
         },
       },
     },

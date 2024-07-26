@@ -21,16 +21,6 @@ export async function getUserByBadge(app: FastifyInstance) {
           200: z.object({
             user: usersSchema,
           }),
-
-          400: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
-
-          404: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
         },
       },
     },

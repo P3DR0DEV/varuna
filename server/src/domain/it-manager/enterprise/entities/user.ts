@@ -56,7 +56,7 @@ export class User extends Entity<UserProps> {
     return this.props.departmentId
   }
 
-  set departmentId(departmentId: UniqueEntityID) {
+  set departmentId(departmentId: UniqueEntityID | null) {
     this.props.departmentId = departmentId
     this.touch()
   }

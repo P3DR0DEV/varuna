@@ -21,22 +21,13 @@ export async function editUser(app: FastifyInstance) {
           email: z.string().email(),
           phone: z.string().nullable(),
           badge: z.string(),
-          departmentId: z.string(),
+          departmentId: z.string().nullish(),
           workstationId: z.string().nullish(),
         }),
 
         response: {
           200: z.object({
             user: usersSchema,
-          }),
-
-          404: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
-          500: z.object({
-            name: z.string(),
-            message: z.string(),
           }),
         },
       },
