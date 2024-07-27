@@ -28,7 +28,6 @@ describe('Edit User (E2E)', () => {
       departmentId: user.departmentId?.toString(),
     })
 
-    console.log(response.body)
     expect(response.statusCode).toEqual(200)
 
     expect(response.body.user).toEqual({

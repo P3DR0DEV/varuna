@@ -20,7 +20,6 @@ export async function createDepartment(app: FastifyInstance) {
         }),
         response: {
           201: z.object({ department: departmentSchema }),
-          400: z.object({ name: z.string(), message: z.string() }),
         },
       },
     },

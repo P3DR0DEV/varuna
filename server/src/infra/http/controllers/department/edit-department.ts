@@ -20,20 +20,12 @@ export async function editDepartment(app: FastifyInstance) {
           name: z.string(),
           description: z.string(),
           slug: z.string(),
-          email: z.string().email().nullable(),
-          chiefId: z.string().uuid().nullable(),
+          email: z.string().email().nullish(),
+          chiefId: z.string().uuid().nullish(),
         }),
         response: {
           200: z.object({
             department: departmentSchema,
-          }),
-          400: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
-          404: z.object({
-            name: z.string(),
-            message: z.string(),
           }),
         },
       },

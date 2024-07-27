@@ -47,7 +47,7 @@ export class Department extends Entity<DepartmentProps> {
     return this.props.email
   }
 
-  set email(email: string | null) {
+  set email(email: string | null | undefined) {
     this.props.email = email
     this.touch()
   }

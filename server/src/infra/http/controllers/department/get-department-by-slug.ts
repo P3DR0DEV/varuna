@@ -20,14 +20,6 @@ export async function getDepartmentBySlug(app: FastifyInstance) {
           200: z.object({
             department: departmentSchema,
           }),
-          400: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
-          404: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
         },
       },
     },

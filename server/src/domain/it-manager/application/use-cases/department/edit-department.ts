@@ -12,9 +12,9 @@ interface EditDepartmentProps {
   id: string
   name: string
   description: string
-  email: string | null
+  email?: string | null
   slug: string
-  chiefId: string | null
+  chiefId?: string | null
 }
 
 type EditDepartmentUseCaseResponse = Either<BadRequestError | NotFoundError, { department: Department }>
@@ -40,7 +40,9 @@ export class EditDepartmentUseCase implements UseCase {
       return failure(NotFound('Department not found'))
     }
 
+    let difference = false
     if (department.slug.value !== slug) {
+      difference = true
       const departmentWithSameSlug = await this.departmentRepository.findBySlug(slug)
 
       if (departmentWithSameSlug && departmentWithSameSlug.id.toString() !== id) {
@@ -51,8 +53,8 @@ export class EditDepartmentUseCase implements UseCase {
     department.name = name
     department.description = description
     department.chiefId = chiefId ? new UniqueEntityID(chiefId) : department.chiefId
-    department.slug = Slug.createFromText(name)
-    department.email = email
+    department.slug = difference ? Slug.createFromText(slug) : department.slug
+    department.email = email || department.email
 
     await this.departmentRepository.save(department)
 
