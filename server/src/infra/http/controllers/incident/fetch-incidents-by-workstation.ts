@@ -20,14 +20,6 @@ export async function fetchIncidentsByWorkstation(app: FastifyInstance) {
           200: z.object({
             incidents: z.array(incidentsSchema),
           }),
-          400: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
-          404: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
         },
       },
     },

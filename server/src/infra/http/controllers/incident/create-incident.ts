@@ -14,13 +14,12 @@ export async function createIncident(app: FastifyInstance) {
         tags: ['Incidents'],
         summary: 'Create a new incident',
         body: z.object({
-          deviceId: z.string().uuid(),
-          workstationId: z.string().uuid(),
           description: z.string(),
+          workstationId: z.string().uuid('Invalid ID type, must be a UUID'),
+          deviceId: z.string().uuid('Invalid ID type, must be a UUID').nullish(),
         }),
         response: {
           201: z.object({ incident: incidentsSchema }),
-          400: z.object({ name: z.string(), message: z.string() }),
         },
       },
     },

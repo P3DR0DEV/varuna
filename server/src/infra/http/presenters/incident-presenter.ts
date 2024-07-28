@@ -8,8 +8,8 @@ export class IncidentPresenter {
       id: incident.id.toString(),
       description: incident.description,
       workstationId: incident.workstationId.toString(),
-      deviceId: incident.deviceId?.toString(),
-      fixedAt: incident.fixedAt,
+      deviceId: (incident.deviceId && incident.deviceId.toString()) || null,
+      fixedAt: incident.fixedAt || null,
     }
   }
 }
