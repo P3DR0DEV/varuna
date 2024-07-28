@@ -37,9 +37,9 @@
   - [X] User
   - [X] Computer
   - [ ] Contract
-  - [ ] Department
-  - [ ] Device
-  - [ ] Incident
+  - [X] Department
+  - [X] Device
+  - [X] Incident
   - [ ] License
   - [ ] Mobile
   - [ ] Printer
@@ -50,7 +50,7 @@
 - [X] Criar Servidor utilizando Fastify
   - [X] Crud
   - [ ] Monitoramento de servidores
-  - [ ] autenticação
+  - [ ] Autenticação
 
 - [ ] Melhorar respostas de erros
 
