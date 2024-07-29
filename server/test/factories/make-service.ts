@@ -5,6 +5,8 @@ import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Service, ServiceProps } from '@/domain/it-manager/enterprise/entities/service'
 import { PrismaServiceMapper } from '@/infra/database/prisma/mappers/prisma-services-mapper'
 
+import { ComputerFactory } from './make-computer'
+
 export function makeService(override: Partial<ServiceProps> = {}, id?: UniqueEntityID) {
   const service = Service.create(
     {
@@ -25,7 +27,10 @@ export class ServiceFactory {
   constructor(private prisma: PrismaClient) {}
 
   async createService(data: Partial<ServiceProps> = {}) {
-    const service = makeService(data)
+    const computerFactory = new ComputerFactory(this.prisma)
+
+    const computer = await computerFactory.createPrismaComputer()
+    const service = makeService({ ...data, ipAddress: computer.ipAddress })
 
     await this.prisma.service.create({
       data: PrismaServiceMapper.toPersistence(service),

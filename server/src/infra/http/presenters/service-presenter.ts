@@ -18,6 +18,6 @@ export const serviceSchema = z.object({
   id: z.string().uuid(),
   name: z.string(),
   description: z.string(),
-  url: z.string().url(),
+  url: z.string(),
   type: z.enum(['application', 'database', 'infra']),
 })

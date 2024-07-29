@@ -24,10 +24,6 @@ export async function createService(app: FastifyInstance) {
           201: z.object({
             service: serviceSchema,
           }),
-          404: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
         },
       },
     },
