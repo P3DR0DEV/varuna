@@ -20,8 +20,8 @@ export async function createMobile(app: FastifyInstance) {
           serialNumber: z.string(),
           model: z.string(),
           operatingSystem: z.string(),
-          departmentId: z.string(),
           tag: z.string().nullish(),
+          departmentId: z.string().nullish(),
           numberProvider: z.string().nullish(),
           endWarrantyDate: z.coerce.date().nullish(),
           number: z.string().nullish(),
@@ -31,14 +31,6 @@ export async function createMobile(app: FastifyInstance) {
         response: {
           201: z.object({
             mobile: mobileSchema,
-          }),
-          400: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
-          404: z.object({
-            name: z.string(),
-            message: z.string(),
           }),
         },
       },
