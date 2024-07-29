@@ -43,7 +43,7 @@
   - [ ] License
   - [ ] Mobile
   - [ ] Printer
-  - [ ] Service
+  - [X] Service
   - [ ] User-License
   - [ ] Workstation
 

@@ -30,7 +30,7 @@ export class ServiceFactory {
     const computerFactory = new ComputerFactory(this.prisma)
 
     const computer = await computerFactory.createPrismaComputer()
-    const service = makeService({ ...data, ipAddress: computer.ipAddress })
+    const service = makeService({ ipAddress: computer.ipAddress, ...data })
 
     await this.prisma.service.create({
       data: PrismaServiceMapper.toPersistence(service),
