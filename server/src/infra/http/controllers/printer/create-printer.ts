@@ -27,12 +27,8 @@ export async function createPrinter(app: FastifyInstance) {
           ipAddress: z.string().ip({ version: 'v4' }).nullish(),
         }),
         response: {
-          200: z.object({
+          201: z.object({
             printer: printerSchema,
-          }),
-          400: z.object({
-            name: z.string(),
-            message: z.string(),
           }),
         },
       },
@@ -49,8 +45,8 @@ export async function createPrinter(app: FastifyInstance) {
       }
 
       const { printer } = result.value
-
-      return reply.status(200).send({ printer: PrinterPresenter.toHttp(printer) })
+      
+      return reply.status(201).send({ printer: PrinterPresenter.toHttp(printer) })
     },
   )
 }

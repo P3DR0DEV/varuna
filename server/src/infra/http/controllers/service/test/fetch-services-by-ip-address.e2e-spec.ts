@@ -29,8 +29,6 @@ describe('Fetch Services By Ip (E2E)', () => {
 
     const response = await request(app.server).get('/services/ip/237.84.2.178')
 
-    console.log(response.body)
-
     expect(response.body.services).toHaveLength(3)
   })
 })

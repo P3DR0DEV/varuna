@@ -14,8 +14,8 @@ export async function fetchAllPrinters(app: FastifyInstance) {
         tags: ['Printers'],
         summary: 'Fetch All Printers',
         querystring: z.object({
-          type: z.enum(['laser', 'inkjet', 'thermal', 'dotmatrix']),
-          option: z.enum(['colorful', 'monochrome']),
+          type: z.enum(['laser', 'inkjet', 'thermal', 'dotmatrix']).nullish(),
+          option: z.enum(['colorful', 'monochrome']).nullish(),
         }),
         response: {
           200: z.object({
