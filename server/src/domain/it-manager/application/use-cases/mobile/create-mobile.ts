@@ -35,7 +35,7 @@ export class CreateMobileUseCase implements UseCase {
   async execute(props: CreateMobileUseCaseProps): Promise<CreateMobileUseCaseResponse> {
     if (props.departmentId) {
       const department = await this.departmentRepository.findById(props.departmentId)
-  
+
       if (!department) {
         return failure(NotFound('Department not found'))
       }
@@ -57,7 +57,7 @@ export class CreateMobileUseCase implements UseCase {
     const mobile = Mobile.create({
       ...props,
       modelSlug: Slug.createFromText(props.model),
-      departmentId: props.departmentId ? new UniqueEntityID(props.departmentId): null,
+      departmentId: props.departmentId ? new UniqueEntityID(props.departmentId) : null,
       operatingSystem: Slug.createFromText(props.operatingSystem),
       number,
       numberProvider: props.numberProvider ?? null,

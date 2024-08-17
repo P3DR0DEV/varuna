@@ -1,5 +1,6 @@
-import request from "supertest"
-import { app } from "@/infra/http/app"
+import request from 'supertest'
+
+import { app } from '@/infra/http/app'
 
 describe('Create Mobile (E2E)', () => {
   beforeAll(async () => {
@@ -28,13 +29,14 @@ describe('Create Mobile (E2E)', () => {
 
     expect(response.body.mobile).toEqual(
       expect.objectContaining({
-      name: 'RH001',
-      type: 'cellphone',
-      serialNumber: 'MXL001',
-      tag: 'BHO010203',
-      numberProvider: 'Vivo',
-      number: '31999999999',
-      invoiceNumber: '123456',
-    }))
+        name: 'RH001',
+        type: 'cellphone',
+        serialNumber: 'MXL001',
+        tag: 'BHO010203',
+        numberProvider: 'Vivo',
+        number: '31999999999',
+        invoiceNumber: '123456',
+      }),
+    )
   })
 })

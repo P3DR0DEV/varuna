@@ -20,14 +20,6 @@ export async function getMobileById(app: FastifyInstance) {
           200: z.object({
             mobile: mobileSchema,
           }),
-          400: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
-          404: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
         },
       },
     },

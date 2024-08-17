@@ -9,7 +9,7 @@ type FetchAllMobilesUseCaseResponse = Either<unknown, { mobiles: Mobile[] }>
 export class FetchAllMobilesUseCase implements UseCase {
   constructor(private readonly mobileRepository: MobileRepository) {}
 
-  async execute({ type }: { type?: MobileTypes }): Promise<FetchAllMobilesUseCaseResponse> {
+  async execute({ type }: { type?: MobileTypes | null }): Promise<FetchAllMobilesUseCaseResponse> {
     const mobiles = await this.mobileRepository.findMany(type)
 
     return success({ mobiles })
