@@ -28,8 +28,6 @@ describe('Edit printer (E2E)', () => {
       acquisitionDate: printer.acquisitionDate,
     })
 
-    console.log(response.body)
-
     expect(response.status).toBe(200)
 
     expect(response.body.printer).toMatchObject({

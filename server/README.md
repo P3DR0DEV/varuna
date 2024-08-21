@@ -41,8 +41,8 @@
   - [X] Device
   - [X] Incident
   - [ ] License
-  - [ ] Mobile
-  - [ ] Printer
+  - [X] Mobile
+  - [X] Printer
   - [X] Service
   - [ ] User-License
   - [ ] Workstation
