@@ -11,7 +11,7 @@ type CreateLicenseUseCaseProps = {
   quantity: number
   enterpriseName: string
   price: number
-  status?: 'active' | 'inactive'
+  status?: 'active' | 'inactive' | null
   expiresAt?: Date | null
 }
 

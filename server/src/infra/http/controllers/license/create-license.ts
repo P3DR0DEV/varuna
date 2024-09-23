@@ -18,7 +18,7 @@ export function createLicense(app: FastifyInstance) {
           quantity: z.coerce.number(),
           enterpriseName: z.string(),
           price: z.coerce.number(),
-          status: z.enum(['active', 'inactive']),
+          status: z.enum(['active', 'inactive']).nullish(),
           userLicenseId: z.string().nullish(),
         }),
         response: {

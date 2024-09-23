@@ -10,7 +10,7 @@ export interface LicenseProps {
   enterpriseName: string
   price: number
   createdAt: Date
-  status: 'active' | 'inactive'
+  status: 'active' | 'inactive' | null
   userLicenseId: UniqueEntityID | null
   expiresAt: Date | null
   updatedAt?: Date | null
@@ -68,11 +68,16 @@ export class License extends Entity<LicenseProps> {
     this.touch()
   }
 
-  get status(): 'active' | 'inactive' {
+  get status(): 'active' | 'inactive' | null {
     return this.props.status
   }
 
-  set status(_status: 'active' | 'inactive') {
+  set status(_status: 'active' | 'inactive' | null) {
+    if (_status === null) {
+      this.props.status = 'inactive'
+      this.touch()
+      return
+    }
     this.props.status = _status
     this.touch()
   }
