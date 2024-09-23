@@ -7,6 +7,7 @@
   - [X] usuario-licença
 - [X] O sistema deve permitir o cadastro de contratos
   - [ ] Enviar arquivo para o servidor
+    - [ ] O usuário poderá cadastrar um bucket de arquivos ou salvar localmente
 - [X] O sistema deve permitir o cadastro de dispositivos (computador, impressora, dispositivos móveis)
   - [X] computador
   - [X] dispositivos móveis
@@ -45,7 +46,7 @@
   - [X] Printer
   - [X] Service
   - [ ] User-License
-  - [ ] Workstation
+  - [X] Workstation
 
 - [X] Criar Servidor utilizando Fastify
   - [X] Crud

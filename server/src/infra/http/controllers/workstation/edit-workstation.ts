@@ -8,7 +8,7 @@ import { editWorkstationUseCase } from './factories/make-edit-workstation'
 
 export async function editWorkstation(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().put(
-    '/',
+    '/:id',
     {
       schema: {
         tags: ['Workstation'],
