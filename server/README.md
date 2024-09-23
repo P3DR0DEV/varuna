@@ -45,7 +45,7 @@
   - [X] Mobile
   - [X] Printer
   - [X] Service
-  - [ ] User-License
+  - [X] User-License
   - [X] Workstation
 
 - [X] Criar Servidor utilizando Fastify

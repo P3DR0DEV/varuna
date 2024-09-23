@@ -4,7 +4,7 @@ import z from 'zod'
 
 import { UserLicensePresenter, userLicenseSchema } from '../../presenters/user-license-presenter'
 import { errors } from '../_errors'
-import { getUserLicenseByLicenseUseCase } from './factories/make-get-user-license-by-license'
+import { getUserLicenseByIdUseCase } from './factories/make-get-user-license-by-id'
 
 export async function getRelationById(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
@@ -34,8 +34,8 @@ export async function getRelationById(app: FastifyInstance) {
     async (request, reply) => {
       const { id } = request.params
 
-      const result = await getUserLicenseByLicenseUseCase.execute({
-        licenseId: id,
+      const result = await getUserLicenseByIdUseCase.execute({
+        id,
       })
 
       if (result.isFailure()) {
