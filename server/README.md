@@ -40,7 +40,7 @@
   - [X] Department
   - [X] Device
   - [X] Incident
-  - [ ] License
+  - [X] License
   - [X] Mobile
   - [X] Printer
   - [X] Service
