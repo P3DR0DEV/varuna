@@ -1,3 +1,5 @@
+import 'dotenv/config'
+
 import { z } from 'zod'
 
 import { InternalServerError } from '@/core/errors/internal-server-error'
@@ -6,7 +8,7 @@ export const envSchema = z.object({
   DATABASE_URL: z.string(),
   PORT: z.coerce.number().default(3333),
   LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error', 'silent']).default('info'),
-  BASE_URL: z.string().default('http://localhost:3333'),
+  BASE_FILE_URL: z.string().default('http://localhost:3333'),
 })
 
 const _env = envSchema.safeParse(process.env)
