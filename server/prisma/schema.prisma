@@ -58,14 +58,14 @@ model User {
   email         String   @unique
   badge         String   @unique
   phone         String?
-  departmentId  String   @map("department_id")
-  workstationId String?
+  departmentId  String?  @map("department_id")
+  workstationId String?  @map("workstation_id")
   createdAt     DateTime @default(now()) @map("created_at")
   updatedAt     DateTime @updatedAt @map("updated_at")
 
   userLicense UserLicense[]
   workstation Workstation?  @relation(fields: [workstationId], references: [id])
-  department  Department    @relation(name: "part-of", fields: [departmentId], references: [id])
+  department  Department?   @relation(name: "part-of", fields: [departmentId], references: [id])
   chiefOn     Department?   @relation(name: "chief-on")
 
   @@map("users")
@@ -147,7 +147,7 @@ model Device {
   serialNumber    String    @unique @map("serial_number")
   model           String
   tag             String?   @unique
-  modelSlug       String    @unique @map("model_slug")
+  modelSlug       String    @map("model_slug")
   acquisitionDate DateTime  @map("acquisition_date")
   endWarrantyDate DateTime? @map("end_warranty_date")
   invoiceNumber   String?   @map("invoice_number")
@@ -167,7 +167,7 @@ model Computer {
   serialNumber    String         @unique @map("serial_number")
   model           String
   tag             String?        @unique
-  modelSlug       String         @unique @map("model_slug")
+  modelSlug       String         @map("model_slug")
   acquisitionDate DateTime       @map("acquisition_date")
   endWarrantyDate DateTime?      @map("end_warranty_date")
   invoiceNumber   String?        @map("invoice_number")
@@ -192,7 +192,7 @@ model Printer {
   serialNumber    String          @unique @map("serial_number")
   model           String
   tag             String?         @unique
-  modelSlug       String          @unique @map("model_slug")
+  modelSlug       String          @map("model_slug")
   acquisitionDate DateTime        @map("acquisition_date")
   endWarrantyDate DateTime?       @map("end_warranty_date")
   invoiceNumber   String?         @map("invoice_number")

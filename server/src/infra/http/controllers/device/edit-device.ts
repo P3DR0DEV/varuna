@@ -29,14 +29,6 @@ export async function editDevice(app: FastifyInstance) {
           200: z.object({
             device: devicesSchema,
           }),
-          400: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
-          404: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
         },
       },
     },

@@ -13,18 +13,10 @@ export async function updateIncidentStatusToFixed(app: FastifyInstance) {
         tags: ['Incidents'],
         summary: 'Set incident as fixed',
         params: z.object({
-          id: z.string(),
+          id: z.string().uuid('Invalid ID type, must be a UUID'),
         }),
         response: {
           200: z.object({
-            message: z.string(),
-          }),
-          400: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
-          404: z.object({
-            name: z.string(),
             message: z.string(),
           }),
         },

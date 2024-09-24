@@ -14,7 +14,7 @@ export async function fetchAllServices(app: FastifyInstance) {
         tags: ['Services'],
         summary: 'Fetch all services',
         querystring: z.object({
-          type: z.enum(['application', 'database', 'infra']),
+          type: z.enum(['application', 'database', 'infra']).optional(),
         }),
         response: {
           200: z.object({

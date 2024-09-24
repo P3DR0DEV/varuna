@@ -24,6 +24,6 @@ export const licenseSchema = z.object({
   expiresAt: z.coerce.date().nullable(),
   enterpriseName: z.string(),
   price: z.coerce.number(),
-  status: z.enum(['active', 'inactive']),
+  status: z.enum(['active', 'inactive']).nullish(),
   userLicenseId: z.string().nullable(),
 })

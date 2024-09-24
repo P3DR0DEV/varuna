@@ -1,14 +1,21 @@
+import { InMemoryDepartmentRepository } from 'test/repositories/in-memory-department-repository'
 import { InMemoryUsersRepository } from 'test/repositories/in-memory-users-repository'
+import { InMemoryWorkstationRepository } from 'test/repositories/in-memory-workstation-repository'
 
 import { CreateUserUseCase } from '../create-user'
 
 let usersRepository: InMemoryUsersRepository
+let workstationsRepository: InMemoryWorkstationRepository
+let departmentsRepository: InMemoryDepartmentRepository
 let sut: CreateUserUseCase
 
 describe('Register user use case', () => {
   beforeEach(() => {
     usersRepository = new InMemoryUsersRepository()
-    sut = new CreateUserUseCase(usersRepository)
+    workstationsRepository = new InMemoryWorkstationRepository()
+    departmentsRepository = new InMemoryDepartmentRepository()
+
+    sut = new CreateUserUseCase(usersRepository, workstationsRepository, departmentsRepository)
   })
 
   it('should be able to register a user', async () => {
@@ -17,7 +24,6 @@ describe('Register user use case', () => {
       email: 'any_email@example.com',
       phone: '(11) 11111-1111',
       badge: 'any_badge',
-      departmentId: 'any_department_id',
     })
 
     expect(result.isSuccess()).toBeTruthy()
@@ -68,6 +74,40 @@ describe('Register user use case', () => {
     if (result.isFailure()) {
       const { reason } = result
       expect(reason.name).toEqual('BadRequestError')
+    }
+  })
+
+  it('should return a NotFoundError when department not found', async () => {
+    const result = await sut.execute({
+      name: 'any_name',
+      email: 'any_email@example.com',
+      phone: '(11) 11111-1111',
+      badge: 'any_badge',
+      departmentId: 'any_department_id',
+    })
+
+    expect(result.isFailure()).toBeTruthy()
+
+    if (result.isFailure()) {
+      const { reason } = result
+      expect(reason.name).toEqual('NotFoundError')
+    }
+  })
+
+  it('should return a NotFoundError when workstation not found', async () => {
+    const result = await sut.execute({
+      name: 'any_name',
+      email: 'any_email@example.com',
+      phone: '(11) 11111-1111',
+      badge: 'any_badge',
+      workstationId: 'any_workstation_id',
+    })
+
+    expect(result.isFailure()).toBeTruthy()
+
+    if (result.isFailure()) {
+      const { reason } = result
+      expect(reason.name).toEqual('NotFoundError')
     }
   })
 })

@@ -7,18 +7,18 @@ import { getRelationById } from './get-relation-by-id'
 import { getRelationByLicense } from './get-relation-by-license'
 
 export async function userLicenseRoutes(app: FastifyInstance) {
-  /** POST /user-license/ */
+  /** POST /user-licenses/ */
   createRelation(app)
 
-  /** GET /user-license/:id  */
+  /** GET /user-licenses/:id  */
   getRelationById(app)
 
-  /** GET /user-license/user/:id */
+  /** GET /user-licenses/user/:id */
   fetchRelationByUser(app)
 
-  /** GET /user-license/license/:id */
+  /** GET /user-licenses/license/:id */
   getRelationByLicense(app)
 
-  /** DELETE /user-license/ */
+  /** DELETE /user-licenses/ */
   deleteRelation(app)
 }

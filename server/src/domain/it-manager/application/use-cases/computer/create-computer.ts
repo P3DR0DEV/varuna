@@ -32,8 +32,16 @@ export class CreateComputerUseCase implements UseCase {
     const findHostname = await this.computerRepository.findByHostname(props.hostname)
     const findTag = await this.computerRepository.findByTag(props.tag ?? '')
 
-    if (findIp || findHostname || findTag) {
-      return failure(BadRequest('Computer already exists with this IP, hostname or tag'))
+    if (findIp) {
+      return failure(BadRequest('Computer already exists with this IP'))
+    }
+
+    if (findHostname) {
+      return failure(BadRequest('Computer already exists with this hostname'))
+    }
+
+    if (findTag) {
+      return failure(BadRequest('Computer already exists with this tag'))
     }
 
     const computer = Computer.create({

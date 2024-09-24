@@ -14,7 +14,7 @@ export async function editIncident(app: FastifyInstance) {
         tags: ['Incidents'],
         summary: 'Edit an incident',
         params: z.object({
-          id: z.string(),
+          id: z.string().uuid('Invalid ID type, must be a UUID'),
         }),
         body: z.object({
           description: z.string(),

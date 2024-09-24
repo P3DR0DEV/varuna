@@ -20,10 +20,6 @@ export async function fetchAllComputers(app: FastifyInstance) {
           200: z.object({
             computers: z.array(computersSchema),
           }),
-          500: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
         },
       },
     },

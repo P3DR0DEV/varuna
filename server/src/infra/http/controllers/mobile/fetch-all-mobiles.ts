@@ -14,7 +14,7 @@ export function fetchAllMobiles(app: FastifyInstance) {
         tags: ['Mobiles'],
         summary: 'Fetch all mobiles',
         querystring: z.object({
-          type: z.enum(['cellphone', 'tablet']),
+          type: z.enum(['cellphone', 'tablet']).nullish(),
         }),
         response: {
           200: z.object({ mobiles: z.array(mobileSchema) }),

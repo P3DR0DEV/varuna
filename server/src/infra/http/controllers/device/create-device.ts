@@ -22,7 +22,6 @@ export async function createDevice(app: FastifyInstance) {
         }),
         response: {
           201: z.object({ device: devicesSchema }),
-          400: z.object({ name: z.string(), message: z.string() }),
         },
       },
     },

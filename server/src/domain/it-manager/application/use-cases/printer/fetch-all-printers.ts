@@ -5,8 +5,8 @@ import { Printer, PrinterTypes, PrintingOptions } from '@/domain/it-manager/ente
 import { PrinterRepository } from '../../repositories/printer-repository'
 
 type FetchAllPrintersUseCaseProps = {
-  type?: PrinterTypes
-  option?: PrintingOptions
+  type?: PrinterTypes | null
+  option?: PrintingOptions | null
 }
 
 export type FetchAllPrintersUseCaseResponse = Either<Error, { printers: Printer[] }>

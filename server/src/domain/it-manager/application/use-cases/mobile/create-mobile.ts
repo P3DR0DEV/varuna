@@ -15,7 +15,7 @@ type CreateMobileUseCaseProps = {
   type: MobileTypes
   tag?: string | null
   operatingSystem: string
-  departmentId: string
+  departmentId?: string | null
   number?: string | null
   numberProvider?: string | null
   serialNumber: string
@@ -33,10 +33,12 @@ export class CreateMobileUseCase implements UseCase {
   ) {}
 
   async execute(props: CreateMobileUseCaseProps): Promise<CreateMobileUseCaseResponse> {
-    const department = await this.departmentRepository.findById(props.departmentId)
+    if (props.departmentId) {
+      const department = await this.departmentRepository.findById(props.departmentId)
 
-    if (!department) {
-      return failure(NotFound('Department not found'))
+      if (!department) {
+        return failure(NotFound('Department not found'))
+      }
     }
 
     const number = props.number ? Phone.format(props.number, 'pt-BR') : null
@@ -55,7 +57,7 @@ export class CreateMobileUseCase implements UseCase {
     const mobile = Mobile.create({
       ...props,
       modelSlug: Slug.createFromText(props.model),
-      departmentId: new UniqueEntityID(props.departmentId),
+      departmentId: props.departmentId ? new UniqueEntityID(props.departmentId) : null,
       operatingSystem: Slug.createFromText(props.operatingSystem),
       number,
       numberProvider: props.numberProvider ?? null,

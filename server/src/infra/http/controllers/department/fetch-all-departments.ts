@@ -17,10 +17,6 @@ export async function fetchAllDepartments(app: FastifyInstance) {
           200: z.object({
             departments: z.array(departmentSchema),
           }),
-          500: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
         },
       },
     },

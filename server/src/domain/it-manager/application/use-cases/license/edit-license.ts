@@ -13,7 +13,7 @@ type EditLicenseUseCaseProps = {
   quantity: number
   enterpriseName: string
   price: number
-  status?: 'active' | 'inactive'
+  status?: 'active' | 'inactive' | null
   expiresAt?: Date | null
 }
 
@@ -46,7 +46,7 @@ export class EditLicenseUseCase implements UseCase {
       return failure(BadRequest('One license with this name already exists, you can update his quantity'))
     }
 
-    license.name = name
+    license.name = Slug.createFromText(name).value
     license.quantity = quantity
     license.enterpriseName = enterpriseName
     license.price = price

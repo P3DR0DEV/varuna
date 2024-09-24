@@ -6,6 +6,8 @@
   - [X] licença 
   - [X] usuario-licença
 - [X] O sistema deve permitir o cadastro de contratos
+  - [ ] Enviar arquivo para o servidor
+    - [ ] O usuário poderá cadastrar um bucket de arquivos ou salvar localmente
 - [X] O sistema deve permitir o cadastro de dispositivos (computador, impressora, dispositivos móveis)
   - [X] computador
   - [X] dispositivos móveis
@@ -32,12 +34,29 @@
 
 ### TODO
 
-- [ ] Implementar testes E2E
+- [X] Implementar testes E2E
+  - [X] User
+  - [X] Computer
+  - [X] Contract
+  - [X] Department
+  - [X] Device
+  - [X] Incident
+  - [X] License
+  - [X] Mobile
+  - [X] Printer
+  - [X] Service
+  - [X] User-License
+  - [X] Workstation
+
 - [X] Criar Servidor utilizando Fastify
   - [X] Crud
   - [ ] Monitoramento de servidores
-  - [ ] autenticação
+  - [ ] Autenticação
 
+- [ ] Melhorar respostas de erros
+- [ ] Implementar Escolha de usuário para onde salvar o arquivo de contrato (local ou r3) [PADRÃO LOCAL]
+- [ ] Implementar upload de arquivo de contrato
+- [ ] Separar schemas de cada controller
 
 ### Diagrama Relacional
 

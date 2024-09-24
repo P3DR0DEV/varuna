@@ -6,7 +6,7 @@ import { Phone } from '@/domain/it-manager/enterprise/entities/value-objects/pho
 
 export class PrismaUsersMapper {
   static toDomain(raw: PrismaUser): User {
-    const departmentId = new UniqueEntityID(raw.departmentId)
+    const departmentId = raw.departmentId ? new UniqueEntityID(raw.departmentId) : null
     const workstationId = raw.workstationId ? new UniqueEntityID(raw.workstationId) : null
     const phone = raw.phone ? Phone.format(raw.phone) : null
 
@@ -31,7 +31,7 @@ export class PrismaUsersMapper {
       badge: user.badge,
       phone: user.phone?.value,
       workstationId: user.workstationId?.toString(),
-      departmentId: user.departmentId.toString(),
+      departmentId: user.departmentId?.toString(),
     }
   }
 }

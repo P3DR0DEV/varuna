@@ -19,14 +19,6 @@ export async function deleteService(app: FastifyInstance) {
           200: z.object({
             message: z.string(),
           }),
-          400: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
-          404: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
         },
       },
     },
