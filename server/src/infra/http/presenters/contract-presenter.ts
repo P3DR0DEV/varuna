@@ -10,7 +10,7 @@ export class ContractPresenter {
       description: contract.description,
       type: contract.type,
       userEmail: contract.userEmail,
-      url: `${env.BASE_URL}/${contract.fileName}`,
+      url: `${env.BASE_FILE_URL}/${contract.fileName}`,
       fileName: contract.fileName,
       status: contract.status,
       endsAt: contract.endsAt,

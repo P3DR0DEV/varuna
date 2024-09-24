@@ -9,7 +9,7 @@ type CreateContractUseCaseProps = {
   type: ContractTypes
   userEmail: string
   fileName: string
-  status?: 'active' | 'inactive'
+  status?: 'active' | 'inactive' | null
   endsAt?: Date | null
   updatedAt?: Date | null
 }
@@ -20,7 +20,7 @@ export class CreateContractUseCase implements UseCase {
   constructor(private readonly contractRepository: ContractRepository) {}
 
   async execute(props: CreateContractUseCaseProps): Promise<CreateContractUseCaseResponse> {
-    const contract = Contract.create(props)
+    const contract = Contract.create({ ...props, status: props.status ?? 'active' })
 
     await this.contractRepository.create(contract)
 

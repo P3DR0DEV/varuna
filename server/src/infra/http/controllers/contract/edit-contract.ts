@@ -1,51 +1,33 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { ContractPresenter, contractSchema } from '../../presenters/contract-presenter'
+import { ContractPresenter } from '../../presenters/contract-presenter'
 import { errors } from '../_errors'
 import { editContractUseCase } from './factories/make-edit-contract'
+import { editContractSchema } from './schemas'
 
 export async function editContract(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().put(
     '/:id',
     {
-      schema: {
-        tags: ['Contract'],
-        summary: 'Edit contract',
-        params: z.object({
-          id: z.string().uuid('Invalid ID type, must be a UUID'),
-        }),
-        body: z.object({
-          description: z.string(),
-          type: z.enum(['renting', 'borrowing']),
-          userEmail: z.string(),
-          fileName: z.string(),
-          status: z.enum(['active', 'inactive']),
-          endsAt: z.coerce.date().nullable(),
-        }),
-
-        response: {
-          200: z.object({
-            contract: contractSchema,
-          }),
-          400: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
-          404: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
-        },
-      },
+      schema: editContractSchema,
     },
 
     async (request, reply) => {
       const { id } = request.params
-      const props = request.body
 
-      const result = await editContractUseCase.execute({ id, ...props })
+      // TODO Handle file upload
+      const { file, description, endsAt, type, userEmail, status } = request.body
+
+      const result = await editContractUseCase.execute({
+        id,
+        description: description.value,
+        endsAt: endsAt.value,
+        type: type.value,
+        userEmail: userEmail.value,
+        status: status.value,
+        fileName: file.filename,
+      })
 
       if (result.isFailure()) {
         const { message, name } = result.reason
