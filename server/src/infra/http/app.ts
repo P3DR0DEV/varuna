@@ -1,4 +1,5 @@
 import fastifyCors from '@fastify/cors'
+import fastifyMultipart from '@fastify/multipart'
 import fastifySwagger from '@fastify/swagger'
 import fastifySwaggerUI from '@fastify/swagger-ui'
 import { fastify } from 'fastify'
@@ -44,6 +45,14 @@ app.register(fastifySwaggerUI, {
 
 app.register(fastifyCors, {
   origin: '*',
+})
+
+// Register multipart plugin to handle file uploads
+app.register(fastifyMultipart, {
+  attachFieldsToBody: true,
+  limits: {
+    fileSize: 1024 * 1024 * 5, // 5MB
+  },
 })
 
 app.get('/', async () => {

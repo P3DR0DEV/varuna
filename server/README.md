@@ -34,10 +34,10 @@
 
 ### TODO
 
-- [ ] Implementar testes E2E
+- [X] Implementar testes E2E
   - [X] User
   - [X] Computer
-  - [ ] Contract
+  - [X] Contract
   - [X] Department
   - [X] Device
   - [X] Incident
@@ -54,7 +54,9 @@
   - [ ] Autenticação
 
 - [ ] Melhorar respostas de erros
-
+- [ ] Implementar Escolha de usuário para onde salvar o arquivo de contrato (local ou r3) [PADRÃO LOCAL]
+- [ ] Implementar upload de arquivo de contrato
+- [ ] Separar schemas de cada controller
 
 ### Diagrama Relacional
 
