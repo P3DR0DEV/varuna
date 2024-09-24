@@ -1,41 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { ComputerPresenter, computersSchema } from '../../presenters/computer-presenter'
+import { ComputerPresenter } from '../../presenters/computer-presenter'
 import { errors } from '../_errors'
 import { editComputerUseCase } from './factories/make-edit-computer'
+import { editComputerSchema } from './schemas'
 
 export async function editComputer(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().put(
     '/:id',
     {
-      schema: {
-        summary: 'Edit computer',
-        tags: ['Computers'],
-        params: z.object({
-          id: z.string().uuid('Invalid ID type, must be a UUID'),
-        }),
-        body: z.object({
-          acquisitionDate: z.coerce.date(),
-          description: z.string(),
-          hostname: z.string(),
-          ipAddress: z.string(),
-          model: z.string(),
-          operatingSystem: z.string(),
-          serialNumber: z.string(),
-          type: z.enum(['server', 'notebook', 'desktop']),
-          tag: z.string().nullish(),
-          contractId: z.string().uuid().nullish(),
-          endWarrantyDate: z.coerce.date().nullish(),
-          invoiceNumber: z.string().nullish(),
-        }),
-        response: {
-          200: z.object({
-            computer: computersSchema,
-          }),
-        },
-      },
+      schema: editComputerSchema,
     },
     async (request, reply) => {
       const { id } = request.params

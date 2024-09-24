@@ -1,24 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { DepartmentPresenter, departmentSchema } from '../../presenters/department-presenter'
+import { DepartmentPresenter } from '../../presenters/department-presenter'
 import { errors } from '../_errors'
 import { fetchAllDepartmentsUseCase } from './factories/make-fetch-all-departments'
+import { fetchAllDepartmentsSchema } from './schemas'
 
 export async function fetchAllDepartments(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     '/',
     {
-      schema: {
-        tags: ['Department'],
-        summary: 'Fetch all departments',
-        response: {
-          200: z.object({
-            departments: z.array(departmentSchema),
-          }),
-        },
-      },
+      schema: fetchAllDepartmentsSchema,
     },
     async (request, reply) => {
       const result = await fetchAllDepartmentsUseCase.execute()

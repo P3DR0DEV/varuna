@@ -1,30 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { DepartmentPresenter, departmentSchema } from '../../presenters/department-presenter'
+import { DepartmentPresenter } from '../../presenters/department-presenter'
 import { errors } from '../_errors'
 import { addChiefToDepartmentUseCase } from './factories/make-add-chief-to-department'
+import { addChiefToDepartmentSchema } from './schemas'
 
 export async function addChiefToDepartment(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().patch(
     '/:id/chief',
     {
-      schema: {
-        tags: ['Department'],
-        summary: 'Add chief to department',
-        params: z.object({
-          id: z.string().uuid('Invalid ID type, must be a UUID'),
-        }),
-        body: z.object({
-          userId: z.string().uuid('Invalid ID type, must be a UUID'),
-        }),
-        response: {
-          200: z.object({
-            department: departmentSchema,
-          }),
-        },
-      },
+      schema: addChiefToDepartmentSchema,
     },
     async (request, reply) => {
       const { id } = request.params

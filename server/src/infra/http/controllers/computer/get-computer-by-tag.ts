@@ -1,27 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { ComputerPresenter, computersSchema } from '../../presenters/computer-presenter'
+import { ComputerPresenter } from '../../presenters/computer-presenter'
 import { errors } from '../_errors'
 import { getComputerByTagUseCase } from './factories/make-get-computer-by-tag'
+import { getComputerByTagSchema } from './schemas'
 
 export async function getComputerByTag(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     '/tag/:tag',
     {
-      schema: {
-        tags: ['Computers'],
-        summary: 'Get computer by tag',
-        params: z.object({
-          tag: z.string(),
-        }),
-        response: {
-          200: z.object({
-            computer: computersSchema,
-          }),
-        },
-      },
+      schema: getComputerByTagSchema,
     },
     async (request, reply) => {
       const { tag } = request.params

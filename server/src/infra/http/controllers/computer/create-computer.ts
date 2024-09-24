@@ -1,39 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { ComputerPresenter, computersSchema } from '../../presenters/computer-presenter'
+import { ComputerPresenter } from '../../presenters/computer-presenter'
 import { errors } from '../_errors'
 import { createComputerUseCase } from './factories/make-create-computer'
+import { createComputerSchema } from './schemas'
 
 export async function createComputer(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
     '/',
     {
-      schema: {
-        summary: 'Create a new computer',
-        tags: ['Computers'],
-        body: z.object({
-          acquisitionDate: z.coerce.date(),
-          description: z.string(),
-          hostname: z.string(),
-          ipAddress: z.string().ip({ version: 'v4' }),
-          model: z.string(),
-          operatingSystem: z.string(),
-          serialNumber: z.string(),
-          type: z.enum(['server', 'notebook', 'desktop']),
-          tag: z.string().nullish(),
-          contractId: z.string().uuid().nullish(),
-          endWarrantyDate: z.coerce.date().nullish(),
-          invoiceNumber: z.string(),
-        }),
-
-        response: {
-          201: z.object({
-            computer: computersSchema,
-          }),
-        },
-      },
+      schema: createComputerSchema,
     },
     async (request, reply) => {
       const props = request.body

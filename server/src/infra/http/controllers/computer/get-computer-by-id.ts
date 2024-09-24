@@ -1,27 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { ComputerPresenter, computersSchema } from '../../presenters/computer-presenter'
+import { ComputerPresenter } from '../../presenters/computer-presenter'
 import { errors } from '../_errors'
 import { getComputerByIdUseCase } from './factories/make-get-computer-by-id'
+import { getComputerByIdSchema } from './schemas'
 
 export async function getComputerById(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     '/:id',
     {
-      schema: {
-        summary: 'Get a computer by id',
-        tags: ['Computers'],
-        params: z.object({
-          id: z.string().uuid('Invalid ID type, must be a UUID'),
-        }),
-        response: {
-          200: z.object({
-            computer: computersSchema,
-          }),
-        },
-      },
+      schema: getComputerByIdSchema,
     },
     async (request, reply) => {
       const { id } = request.params
