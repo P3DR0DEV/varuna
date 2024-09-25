@@ -1,29 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { DevicePresenter, devicesSchema } from '../../presenters/device-presenter'
+import { DevicePresenter } from '../../presenters/device-presenter'
 import { errors } from '../_errors'
 import { createDeviceUseCase } from './factories/make-create-device'
+import { createDeviceSchema } from './schemas'
 
 export async function createDevice(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
     '/',
     {
-      schema: {
-        tags: ['Devices'],
-        summary: 'Create a new device',
-        body: z.object({
-          serialNumber: z.string(),
-          model: z.string(),
-          acquisitionDate: z.coerce.date(),
-          invoiceNumber: z.string().nullish(),
-          tag: z.string().nullish(),
-        }),
-        response: {
-          201: z.object({ device: devicesSchema }),
-        },
-      },
+      schema: createDeviceSchema,
     },
     async (request, reply) => {
       const props = request.body

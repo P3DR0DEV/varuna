@@ -1,28 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { DevicePresenter, devicesSchema } from '../../presenters/device-presenter'
+import { DevicePresenter } from '../../presenters/device-presenter'
 import { errors } from '../_errors'
 import { fetchAllDevicesUseCase } from './factories/make-fetch-all-devices'
+import { fetchAllDevicesSchema } from './schemas'
 
 export async function fetchAllDevices(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     '/',
     {
-      schema: {
-        tags: ['Devices'],
-        summary: 'Fetch all devices',
-        querystring: z.object({
-          model: z.string().optional(),
-          invoiceNumber: z.string().optional(),
-        }),
-        response: {
-          200: z.object({
-            devices: z.array(devicesSchema),
-          }),
-        },
-      },
+      schema: fetchAllDevicesSchema,
     },
     async (request, reply) => {
       const { model, invoiceNumber } = request.query

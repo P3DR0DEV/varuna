@@ -1,35 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { LicensePresenter, licenseSchema } from '../../presenters/license-presenter'
+import { LicensePresenter } from '../../presenters/license-presenter'
 import { errors } from '../_errors'
 import { getLicenseByIdUseCase } from './factories/make-get-license-by-id'
+import { getLicenseByIdSchema } from './schemas'
 
 export async function getLicenseById(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     '/:id',
     {
-      schema: {
-        tags: ['License'],
-        summary: 'Get License By Id',
-        params: z.object({
-          id: z.string().uuid('Invalid ID type, must be a UUID'),
-        }),
-        response: {
-          200: z.object({
-            license: licenseSchema,
-          }),
-          400: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
-          404: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
-        },
-      },
+      schema: getLicenseByIdSchema,
     },
     async (request, reply) => {
       const { id } = request.params

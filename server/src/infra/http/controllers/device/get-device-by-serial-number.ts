@@ -1,27 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { DevicePresenter, devicesSchema } from '../../presenters/device-presenter'
+import { DevicePresenter } from '../../presenters/device-presenter'
 import { errors } from '../_errors'
 import { getDeviceBySerialNumberUseCase } from './factories/make-get-device-by-serial-number'
+import { getDeviceBySerialNumberSchema } from './schemas'
 
 export async function getDeviceBySerialNumber(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     '/serial-number/:serialNumber',
     {
-      schema: {
-        tags: ['Devices'],
-        summary: 'Get a device by serial number',
-        params: z.object({
-          serialNumber: z.string(),
-        }),
-        response: {
-          200: z.object({
-            device: devicesSchema,
-          }),
-        },
-      },
+      schema: getDeviceBySerialNumberSchema,
     },
     async (request, reply) => {
       const { serialNumber } = request.params

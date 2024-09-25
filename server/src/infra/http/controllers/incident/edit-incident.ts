@@ -1,41 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { IncidentPresenter, incidentsSchema } from '../../presenters/incident-presenter'
+import { IncidentPresenter } from '../../presenters/incident-presenter'
 import { errors } from '../_errors'
 import { editIncidentUseCase } from './factories/make-edit-incident'
+import { editIncidentSchema } from './schemas'
 
 export async function editIncident(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().put(
     '/:id',
     {
-      schema: {
-        tags: ['Incidents'],
-        summary: 'Edit an incident',
-        params: z.object({
-          id: z.string().uuid('Invalid ID type, must be a UUID'),
-        }),
-        body: z.object({
-          description: z.string(),
-          workstationId: z.string().uuid(),
-          deviceId: z.string().uuid().nullable(),
-          fixedAt: z.coerce.date().nullable(),
-        }),
-        response: {
-          200: z.object({
-            incident: incidentsSchema,
-          }),
-          400: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
-          404: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
-        },
-      },
+      schema: editIncidentSchema,
     },
     async (request, reply) => {
       const { id } = request.params

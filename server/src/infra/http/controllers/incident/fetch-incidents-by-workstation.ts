@@ -1,27 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { IncidentPresenter, incidentsSchema } from '../../presenters/incident-presenter'
+import { IncidentPresenter } from '../../presenters/incident-presenter'
 import { errors } from '../_errors'
 import { fetchIncidentsByWorkstationUseCase } from './factories/make-fetch-incidents-by-workstation'
+import { fetchIncidentsByWorkstationSchema } from './schemas'
 
 export async function fetchIncidentsByWorkstation(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     '/workstation/:id',
     {
-      schema: {
-        tags: ['Incidents'],
-        summary: 'Fetch incidents by workstation id',
-        params: z.object({
-          id: z.string().uuid(),
-        }),
-        response: {
-          200: z.object({
-            incidents: z.array(incidentsSchema),
-          }),
-        },
-      },
+      schema: fetchIncidentsByWorkstationSchema,
     },
     async (request, reply) => {
       const { id } = request.params

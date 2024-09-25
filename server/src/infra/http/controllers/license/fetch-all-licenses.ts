@@ -1,27 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { LicensePresenter, licenseSchema } from '../../presenters/license-presenter'
+import { LicensePresenter } from '../../presenters/license-presenter'
 import { errors } from '../_errors'
 import { fetchAllLicensesUseCase } from './factories/make-fetch-all-licenses'
+import { fetchAllLicensesSchema } from './schemas'
 
 export async function fetchAllLicenses(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     '/',
     {
-      schema: {
-        tags: ['License'],
-        summary: 'Fetch All Licenses',
-        querystring: z.object({
-          enterpriseName: z.string().optional(),
-        }),
-        response: {
-          200: z.object({
-            licenses: z.array(licenseSchema),
-          }),
-        },
-      },
+      schema: fetchAllLicensesSchema,
     },
     async (request, reply) => {
       const { enterpriseName } = request.query
