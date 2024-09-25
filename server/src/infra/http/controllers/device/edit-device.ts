@@ -1,36 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { DevicePresenter, devicesSchema } from '../../presenters/device-presenter'
+import { DevicePresenter } from '../../presenters/device-presenter'
 import { errors } from '../_errors'
 import { editDeviceUseCase } from './factories/make-edit-device'
+import { editDeviceSchema } from './schemas'
 
 export async function editDevice(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().put(
     '/:id',
     {
-      schema: {
-        tags: ['Devices'],
-        summary: 'Edit a device',
-        params: z.object({
-          id: z.string().uuid('Invalid ID type, must be a UUID'),
-        }),
-        body: z.object({
-          serialNumber: z.string(),
-          model: z.string(),
-          acquisitionDate: z.coerce.date(),
-          tag: z.string().nullish(),
-          invoiceNumber: z.string().nullish(),
-          contractId: z.string().nullish(),
-          endWarrantyDate: z.coerce.date().nullish(),
-        }),
-        response: {
-          200: z.object({
-            device: devicesSchema,
-          }),
-        },
-      },
+      schema: editDeviceSchema,
     },
     async (request, reply) => {
       const { id } = request.params

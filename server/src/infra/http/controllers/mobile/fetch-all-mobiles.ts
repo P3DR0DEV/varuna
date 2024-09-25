@@ -1,25 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { MobilePresenter, mobileSchema } from '../../presenters/mobile-presenter'
+import { MobilePresenter } from '../../presenters/mobile-presenter'
 import { errors } from '../_errors'
 import { fetchAllMobilesUseCase } from './factories/make-fetch-all-mobiles'
+import { fetchAllMobilesSchema } from './schemas'
 
 export function fetchAllMobiles(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     '/',
     {
-      schema: {
-        tags: ['Mobiles'],
-        summary: 'Fetch all mobiles',
-        querystring: z.object({
-          type: z.enum(['cellphone', 'tablet']).nullish(),
-        }),
-        response: {
-          200: z.object({ mobiles: z.array(mobileSchema) }),
-        },
-      },
+      schema: fetchAllMobilesSchema,
     },
     async (request, reply) => {
       const { type } = request.query

@@ -1,26 +1,15 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
 import { errors } from '../_errors'
 import { deleteIncidentUseCase } from './factories/make-delete-incident'
+import { deleteIncidentSchema } from './schemas'
 
 export async function deleteIncident(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().delete(
     '/:id',
     {
-      schema: {
-        tags: ['Incidents'],
-        summary: 'Delete an incident',
-        params: z.object({
-          id: z.string().uuid('Invalid ID type, must be a UUID'),
-        }),
-        response: {
-          200: z.object({
-            message: z.string(),
-          }),
-        },
-      },
+      schema: deleteIncidentSchema,
     },
     async (request, reply) => {
       const { id } = request.params

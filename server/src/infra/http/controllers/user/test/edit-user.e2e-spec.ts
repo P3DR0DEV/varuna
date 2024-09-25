@@ -20,13 +20,15 @@ describe('Edit User (E2E)', () => {
 
     const id = user.id.toString()
 
-    const response = await request(app.server).put(`/users/${id}`).send({
-      name: 'updatedName',
-      badge: user.badge,
-      email: 'updatedEmail@email.com',
-      phone: user.phone?.value,
-      departmentId: user.departmentId?.toString(),
-    })
+    const response = await request(app.server)
+      .put(`/users/${id}`)
+      .send({
+        name: 'updatedName',
+        badge: user.badge,
+        email: 'updatedEmail@email.com',
+        phone: user.phone?.value,
+        departmentId: user.departmentId?.toString() ?? null,
+      })
 
     expect(response.statusCode).toEqual(200)
 

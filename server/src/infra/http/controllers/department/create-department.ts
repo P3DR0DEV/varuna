@@ -1,27 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { DepartmentPresenter, departmentSchema } from '../../presenters/department-presenter'
+import { DepartmentPresenter } from '../../presenters/department-presenter'
 import { errors } from '../_errors'
 import { createDepartmentUseCase } from './factories/make-create-department'
+import { createDepartmentSchema } from './schemas'
 
 export async function createDepartment(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
     '/',
     {
-      schema: {
-        tags: ['Department'],
-        summary: 'Create a new department',
-        body: z.object({
-          name: z.string(),
-          description: z.string(),
-          email: z.string().email().nullish(),
-        }),
-        response: {
-          201: z.object({ department: departmentSchema }),
-        },
-      },
+      schema: createDepartmentSchema,
     },
     async (request, reply) => {
       const props = request.body

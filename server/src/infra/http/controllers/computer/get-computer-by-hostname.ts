@@ -1,27 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { ComputerPresenter, computersSchema } from '../../presenters/computer-presenter'
+import { ComputerPresenter } from '../../presenters/computer-presenter'
 import { errors } from '../_errors'
 import { getComputerByHostnameUseCase } from './factories/make-get-computer-by-hostname'
+import { getComputerByHostnameSchema } from './schemas'
 
 export async function getComputerByHostname(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     '/hostname/:hostname',
     {
-      schema: {
-        summary: 'Get a computer by hostname',
-        tags: ['Computers'],
-        params: z.object({
-          hostname: z.string(),
-        }),
-        response: {
-          200: z.object({
-            computer: computersSchema,
-          }),
-        },
-      },
+      schema: getComputerByHostnameSchema,
     },
     async (request, reply) => {
       const { hostname } = request.params

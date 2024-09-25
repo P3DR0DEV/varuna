@@ -1,27 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { DepartmentPresenter, departmentSchema } from '../../presenters/department-presenter'
+import { DepartmentPresenter } from '../../presenters/department-presenter'
 import { errors } from '../_errors'
 import { getDepartmentBySlugUseCase } from './factories/make-get-department-by-slug'
+import { getDepartmentBySlugSchema } from './schemas'
 
 export async function getDepartmentBySlug(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     '/:slug',
     {
-      schema: {
-        tags: ['Department'],
-        summary: 'Get department by slug',
-        params: z.object({
-          slug: z.string(),
-        }),
-        response: {
-          200: z.object({
-            department: departmentSchema,
-          }),
-        },
-      },
+      schema: getDepartmentBySlugSchema,
     },
     async (request, reply) => {
       const { slug } = request.params

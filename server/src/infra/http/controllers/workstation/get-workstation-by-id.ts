@@ -1,35 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { WorkstationPresenter, workstationSchema } from '../../presenters/workstation-presenter'
+import { WorkstationPresenter } from '../../presenters/workstation-presenter'
 import { errors } from '../_errors'
 import { getWorkstationByIdUseCase } from './factories/make-get-workstation-by-id'
+import { getWorkstationByIdSchema } from './schemas'
 
 export async function getWorkstationById(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     '/:id',
     {
-      schema: {
-        tags: ['Workstation'],
-        summary: 'Get workstation by id',
-        params: z.object({
-          id: z.string().uuid('Invalid ID type, must be a UUID'),
-        }),
-        response: {
-          200: z.object({
-            workstation: workstationSchema,
-          }),
-          400: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
-          404: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
-        },
-      },
+      schema: getWorkstationByIdSchema,
     },
     async (request, reply) => {
       const { id } = request.params

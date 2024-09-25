@@ -1,28 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { WorkstationPresenter, workstationSchema } from '../../presenters/workstation-presenter'
+import { WorkstationPresenter } from '../../presenters/workstation-presenter'
 import { errors } from '../_errors'
 import { createWorkstationUseCase } from './factories/make-create-workstation'
+import { createWorkstationSchema } from './schemas'
 
 export async function createWorkstation(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
     '/',
     {
-      schema: {
-        tags: ['Workstation'],
-        summary: 'Create workstation',
-        body: z.object({
-          computerId: z.string().uuid('Invalid ID type, must be a UUID'),
-          departmentId: z.string().uuid('Invalid ID type, must be a UUID'),
-        }),
-        response: {
-          201: z.object({ workstation: workstationSchema }),
-          400: z.object({ name: z.string(), message: z.string() }),
-          404: z.object({ name: z.string(), message: z.string() }),
-        },
-      },
+      schema: createWorkstationSchema,
     },
     async (request, reply) => {
       const props = request.body
