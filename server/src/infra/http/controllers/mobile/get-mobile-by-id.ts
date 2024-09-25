@@ -1,27 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { MobilePresenter, mobileSchema } from '../../presenters/mobile-presenter'
+import { MobilePresenter } from '../../presenters/mobile-presenter'
 import { errors } from '../_errors'
 import { getMobileByIdUseCase } from './factories/make-get-mobile-by-id'
+import { getMobileByIdSchema } from './schemas'
 
 export async function getMobileById(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     '/:id',
     {
-      schema: {
-        tags: ['Mobiles'],
-        summary: 'Get mobile by id',
-        params: z.object({
-          id: z.string().uuid('Invalid ID type, must be a UUID'),
-        }),
-        response: {
-          200: z.object({
-            mobile: mobileSchema,
-          }),
-        },
-      },
+      schema: getMobileByIdSchema,
     },
     async (request, reply) => {
       const { id } = request.params

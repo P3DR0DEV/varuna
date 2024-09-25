@@ -1,27 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { PrinterPresenter, printerSchema } from '../../presenters/printer-presenter'
+import { PrinterPresenter } from '../../presenters/printer-presenter'
 import { errors } from '../_errors'
 import { getPrinterByNameUseCase } from './factories/make-get-printer-by-name'
+import { getPrinterByNameSchema } from './schemas'
 
 export async function getPrinterByName(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     '/name/:name',
     {
-      schema: {
-        tags: ['Printers'],
-        summary: 'Get printer by name',
-        params: z.object({
-          name: z.string(),
-        }),
-        response: {
-          200: z.object({
-            printer: printerSchema,
-          }),
-        },
-      },
+      schema: getPrinterByNameSchema,
     },
     async (request, reply) => {
       const { name } = request.params

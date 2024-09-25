@@ -1,28 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { PrinterPresenter, printersToDashboardSchema } from '../../presenters/printer-presenter'
+import { PrinterPresenter } from '../../presenters/printer-presenter'
 import { errors } from '../_errors'
 import { fetchAllPrintersUseCase } from './factories/make-fetch-all-printers'
+import { fetchAllPrintersSchema } from './schemas'
 
 export async function fetchAllPrinters(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     '/',
     {
-      schema: {
-        tags: ['Printers'],
-        summary: 'Fetch All Printers',
-        querystring: z.object({
-          type: z.enum(['laser', 'inkjet', 'thermal', 'dotmatrix']).nullish(),
-          option: z.enum(['colorful', 'monochrome']).nullish(),
-        }),
-        response: {
-          200: z.object({
-            printers: z.array(printersToDashboardSchema),
-          }),
-        },
-      },
+      schema: fetchAllPrintersSchema,
     },
     async (request, reply) => {
       const { type, option } = request.query

@@ -1,28 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { UserPresenter, usersSchema } from '../../presenters/user-presenter'
+import { UserPresenter } from '../../presenters/user-presenter'
 import { errors } from '../_errors'
 import { getUserByEmailUseCase } from './factories/make-get-user-by-email'
+import { getUserByEmailSchema } from './schemas'
 
 export async function getUserByEmail(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     '/email/:email',
     {
-      schema: {
-        summary: 'Get user by email',
-        tags: ['Users'],
-        params: z.object({
-          email: z.string().email(),
-        }),
-
-        response: {
-          200: z.object({
-            user: usersSchema,
-          }),
-        },
-      },
+      schema: getUserByEmailSchema,
     },
     async (request, reply) => {
       const { email } = request.params

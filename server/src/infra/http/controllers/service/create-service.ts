@@ -1,31 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { ServicePresenter, serviceSchema } from '../../presenters/service-presenter'
+import { ServicePresenter } from '../../presenters/service-presenter'
 import { errors } from '../_errors'
 import { createServiceUseCase } from './factories/make-create-service'
+import { createServiceSchema } from './schemas'
 
 export async function createService(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
     '/',
     {
-      schema: {
-        tags: ['Services'],
-        summary: 'Create a new service',
-        body: z.object({
-          name: z.string(),
-          description: z.string(),
-          ipAddress: z.string().ip({ version: 'v4' }),
-          port: z.coerce.number(),
-          type: z.enum(['application', 'database', 'infra']),
-        }),
-        response: {
-          201: z.object({
-            service: serviceSchema,
-          }),
-        },
-      },
+      schema: createServiceSchema,
     },
     async (request, reply) => {
       const props = request.body

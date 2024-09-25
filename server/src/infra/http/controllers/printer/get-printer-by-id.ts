@@ -1,27 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { PrinterPresenter, printerSchema } from '../../presenters/printer-presenter'
+import { PrinterPresenter } from '../../presenters/printer-presenter'
 import { errors } from '../_errors'
 import { getPrintersByIdUseCase } from './factories/make-get-printer-by-id'
+import { getPrinterByIdSchema } from './schemas'
 
 export async function getPrinterById(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     '/:id',
     {
-      schema: {
-        tags: ['Printers'],
-        summary: 'Get printer by id',
-        params: z.object({
-          id: z.string().uuid('Invalid ID type, must be a UUID'),
-        }),
-        response: {
-          200: z.object({
-            printer: printerSchema,
-          }),
-        },
-      },
+      schema: getPrinterByIdSchema,
     },
     async (request, reply) => {
       const { id } = request.params

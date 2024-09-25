@@ -1,34 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { ServicePresenter, serviceSchema } from '../../presenters/service-presenter'
+import { ServicePresenter } from '../../presenters/service-presenter'
 import { errors } from '../_errors'
 import { editServiceUseCase } from './factories/make-edit-service'
+import { editServiceSchema } from './schemas'
 
 export async function editService(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().put(
     '/:id',
     {
-      schema: {
-        tags: ['Services'],
-        summary: 'Edit a service',
-        params: z.object({
-          id: z.string().uuid('Invalid ID type, must be a UUID'),
-        }),
-        body: z.object({
-          description: z.string(),
-          ipAddress: z.string(),
-          name: z.string(),
-          port: z.coerce.number(),
-          type: z.enum(['application', 'infra', 'database']),
-        }),
-        response: {
-          200: z.object({
-            service: serviceSchema,
-          }),
-        },
-      },
+      schema: editServiceSchema,
     },
     async (request, reply) => {
       const { id } = request.params

@@ -1,28 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { UserPresenter, usersSchema } from '../../presenters/user-presenter'
+import { UserPresenter } from '../../presenters/user-presenter'
 import { errors } from '../_errors'
 import { getUserByIdUseCase } from './factories/make-get-user-by-id'
+import { getUserByIdSchema } from './schemas'
 
 export async function getUserById(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     '/:id',
     {
-      schema: {
-        summary: 'Get user by id',
-        tags: ['Users'],
-        params: z.object({
-          id: z.string().uuid('Invalid ID type, must be a UUID'),
-        }),
-
-        response: {
-          200: z.object({
-            user: usersSchema,
-          }),
-        },
-      },
+      schema: getUserByIdSchema,
     },
     async (request, reply) => {
       const { id } = request.params

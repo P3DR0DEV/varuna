@@ -1,27 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { ServicePresenter, serviceSchema } from '../../presenters/service-presenter'
+import { ServicePresenter } from '../../presenters/service-presenter'
 import { errors } from '../_errors'
 import { fetchAllServicesUseCase } from './factories/make-fetch-all-services'
+import { fetchAllServicesSchema } from './schemas'
 
 export async function fetchAllServices(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     '/',
     {
-      schema: {
-        tags: ['Services'],
-        summary: 'Fetch all services',
-        querystring: z.object({
-          type: z.enum(['application', 'database', 'infra']).optional(),
-        }),
-        response: {
-          200: z.object({
-            services: z.array(serviceSchema),
-          }),
-        },
-      },
+      schema: fetchAllServicesSchema,
     },
     async (request, reply) => {
       const { type } = request.query

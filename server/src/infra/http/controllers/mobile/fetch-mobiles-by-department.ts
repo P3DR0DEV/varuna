@@ -1,27 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { MobilePresenter, mobileSchema } from '../../presenters/mobile-presenter'
+import { MobilePresenter } from '../../presenters/mobile-presenter'
 import { errors } from '../_errors'
 import { fetchMobilesByDepartmentUseCase } from './factories/make-fetch-mobiles-by-department'
+import { fetchMobilesByDepartmentSchema } from './schemas'
 
 export async function fetchMobilesByDepartment(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     '/department/:id',
     {
-      schema: {
-        tags: ['Mobiles'],
-        summary: 'Fetch mobiles by department',
-        params: z.object({
-          id: z.string().uuid('Invalid ID type, must be a UUID'),
-        }),
-        response: {
-          200: z.object({
-            mobiles: z.array(mobileSchema),
-          }),
-        },
-      },
+      schema: fetchMobilesByDepartmentSchema,
     },
     async (request, reply) => {
       const { id } = request.params

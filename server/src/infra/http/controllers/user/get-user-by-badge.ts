@@ -1,28 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { UserPresenter, usersSchema } from '../../presenters/user-presenter'
+import { UserPresenter } from '../../presenters/user-presenter'
 import { errors } from '../_errors'
 import { getUserByBadgeUseCase } from './factories/make-get-user-by-badge'
+import { getUserByBadgeSchema } from './schemas'
 
 export async function getUserByBadge(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     '/badge/:badge',
     {
-      schema: {
-        summary: 'Get user by badge',
-        tags: ['Users'],
-        params: z.object({
-          badge: z.string(),
-        }),
-
-        response: {
-          200: z.object({
-            user: usersSchema,
-          }),
-        },
-      },
+      schema: getUserByBadgeSchema,
     },
     async (request, reply) => {
       const { badge } = request.params

@@ -1,36 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { UserPresenter, usersSchema } from '../../presenters/user-presenter'
+import { UserPresenter } from '../../presenters/user-presenter'
 import { errors } from '../_errors'
 import { editUserUseCase } from './factories/make-edit-user'
+import { editUserSchema } from './schemas'
 
 export async function editUser(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().put(
     '/:id',
     {
-      schema: {
-        summary: 'Edit a user',
-        tags: ['Users'],
-        params: z.object({
-          id: z.string().uuid('Invalid ID type, must be a UUID'),
-        }),
-        body: z.object({
-          name: z.string(),
-          email: z.string().email(),
-          phone: z.string().nullable(),
-          badge: z.string(),
-          departmentId: z.string().nullish(),
-          workstationId: z.string().nullish(),
-        }),
-
-        response: {
-          200: z.object({
-            user: usersSchema,
-          }),
-        },
-      },
+      schema: editUserSchema,
     },
     async (request, reply) => {
       const { id } = request.params
