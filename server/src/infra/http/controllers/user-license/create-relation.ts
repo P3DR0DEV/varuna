@@ -1,37 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
-import { UserLicensePresenter, userLicenseSchema } from '../../presenters/user-license-presenter'
+import { UserLicensePresenter } from '../../presenters/user-license-presenter'
 import { errors } from '../_errors'
 import { createUserLicenseUseCase } from './factories/make-create-user-license'
+import { createUserLicenseRelationSchema } from './schemas'
 
 export async function createRelation(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
     '/',
     {
-      schema: {
-        tags: ['User License'],
-        summary: 'Create user license relation',
-        body: z.object({
-          userId: z.string().uuid('Invalid ID type, must be a UUID'),
-          licenseId: z.string().uuid('Invalid ID type, must be a UUID'),
-          departmentId: z.string().uuid('Invalid ID type, must be a UUID'),
-        }),
-        response: {
-          201: z.object({
-            relation: userLicenseSchema,
-          }),
-          400: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
-          404: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
-        },
-      },
+      schema: createUserLicenseRelationSchema,
     },
     async (request, reply) => {
       const { userId, licenseId, departmentId } = request.body

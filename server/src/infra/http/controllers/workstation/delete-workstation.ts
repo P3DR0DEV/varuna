@@ -1,34 +1,15 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
 
 import { errors } from '../_errors'
 import { deleteWorkstationUseCase } from './factories/make-delete-workstation'
+import { deleteWorkstationSchema } from './schemas'
 
 export async function deleteWorkstation(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().delete(
     '/:id',
     {
-      schema: {
-        tags: ['Workstation'],
-        summary: 'Delete workstation',
-        params: z.object({
-          id: z.string().uuid(),
-        }),
-        response: {
-          200: z.object({
-            message: z.string(),
-          }),
-          400: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
-          404: z.object({
-            name: z.string(),
-            message: z.string(),
-          }),
-        },
-      },
+      schema: deleteWorkstationSchema,
     },
     async (request, reply) => {
       const { id } = request.params
