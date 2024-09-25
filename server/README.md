@@ -4,14 +4,14 @@
 - [X] O sistema deve permitir o cadastro de usuários
 - [X] O sistema deve permitir o cadastro de licenças (licença, usuários de licença)
   - [X] licença 
-  - [X] usuario-licença
+  - [X] usuário-licença
 - [X] O sistema deve permitir o cadastro de contratos
   - [ ] Enviar arquivo para o servidor
     - [ ] O usuário poderá cadastrar um bucket de arquivos ou salvar localmente
 - [X] O sistema deve permitir o cadastro de dispositivos (computador, impressora, dispositivos móveis)
   - [X] computador
   - [X] dispositivos móveis
-  - [X] dispositivos genericos
+  - [X] dispositivos genéricos
   - [X] impressoras
 - [X] O sistema deve permitir o cadastro de endereços de serviços
 - [X] O sistema deve permitir o cadastro de estação de trabalho
@@ -56,7 +56,7 @@
 - [ ] Melhorar respostas de erros
 - [ ] Implementar Escolha de usuário para onde salvar o arquivo de contrato (local ou r3) [PADRÃO LOCAL]
 - [ ] Implementar upload de arquivo de contrato
-- [ ] Separar schemas de cada controller
+- [X] Separar schemas de cada controller
 
 ### Diagrama Relacional
 
