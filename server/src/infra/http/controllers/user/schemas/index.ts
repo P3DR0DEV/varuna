@@ -46,7 +46,6 @@ export const editUserSchema = {
     phone: z.string().nullable(),
     badge: z.string(),
     departmentId: z.string().nullable(),
-    workstationId: z.string().nullable(),
   }),
 
   response: {
