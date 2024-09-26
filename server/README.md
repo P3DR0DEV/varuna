@@ -54,7 +54,7 @@
   - [ ] Autenticação
 
 - [ ] Melhorar respostas de erros
-- [ ] Implementar Escolha de usuário para onde salvar o arquivo de contrato (local ou r3) [PADRÃO LOCAL]
+- [ ] Implementar Escolha de usuário para onde salvar o arquivo de contrato (local ou r2) [PADRÃO LOCAL]
 - [ ] Implementar upload de arquivo de contrato
 - [X] Separar schemas de cada controller
 
