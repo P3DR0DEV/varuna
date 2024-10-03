@@ -47,6 +47,7 @@
   - [X] Service
   - [X] User-License
   - [X] Workstation
+  - [ ] File Storage Method
 
 - [X] Criar Servidor utilizando Fastify
   - [X] Crud
@@ -54,7 +55,7 @@
   - [ ] Autenticação
 
 - [ ] Melhorar respostas de erros
-- [ ] Implementar Escolha de usuário para onde salvar o arquivo de contrato (local ou r2) [PADRÃO LOCAL]
+- [X] Implementar Escolha de usuário para onde salvar o arquivo de contrato (local ou r2) [PADRÃO LOCAL]
 - [ ] Implementar upload de arquivo de contrato
 - [X] Separar schemas de cada controller
 
