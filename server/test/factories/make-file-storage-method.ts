@@ -1,11 +1,12 @@
 import { faker } from '@faker-js/faker'
-import { PrismaClient } from '@prisma/client'
+import type { PrismaClient } from '@prisma/client'
 
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import {
   FileStorageMethod,
   type FileStorageMethodProps,
 } from '@/domain/it-manager/enterprise/entities/file-storage-method'
+import { PrismaFileStorageMethodMapper } from '@/infra/database/prisma/mappers/prisma-file-storage-method-mapper'
 
 export function makeFileStorageMethod(override: Partial<FileStorageMethodProps> = {}, id?: UniqueEntityID) {
   const method = FileStorageMethod.create(
@@ -24,15 +25,15 @@ export function makeFileStorageMethod(override: Partial<FileStorageMethodProps> 
   return method
 }
 
-// export class FileStorageMethodFactory {
-//   constructor(private prisma: PrismaClient) {}
+export class FileStorageMethodFactory {
+  constructor(private prisma: PrismaClient) {}
 
-//   async createStorageMethod(data: Partial<FileStorageMethodProps> = {}) {
-//     const method = makeFileStorageMethod(data)
+  async createStorageMethod(data: Partial<FileStorageMethodProps> = {}) {
+    const method = makeFileStorageMethod(data)
 
-//     // Mapper.toPersistence(device)
-//     await this.prisma.storageMethod.create({ data: method })
+    // Mapper.toPersistence(device)
+    await this.prisma.fileStorageMethod.create({ data: PrismaFileStorageMethodMapper.toPersistence(method) })
 
-//     return method
-//   }
-// }
+    return method
+  }
+}

@@ -2,9 +2,11 @@ import { Entity } from '@/core/entities/entity'
 import type { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import type { Optional } from '@/core/types/optional'
 
+export type fileStorageMethod = 'r2' | 'local'
+
 export interface FileStorageMethodProps {
   userId: UniqueEntityID
-  method: 'r2' | 'local'
+  method: fileStorageMethod
   endpoint: string | null
   accessKeyId: string | null
   secretAccessKey: string | null
