@@ -2,7 +2,7 @@ import { Entity } from '@/core/entities/entity'
 import type { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import type { Optional } from '@/core/types/optional'
 
-interface FileStorageMethodProps {
+export interface FileStorageMethodProps {
   userId: UniqueEntityID
   method: 'r2' | 'local'
   endpoint: string | null
@@ -76,8 +76,9 @@ export class FileStorageMethod extends Entity<FileStorageMethodProps> {
   }
 
   static create(props: Optional<FileStorageMethodProps, 'createdAt'>, id?: UniqueEntityID) {
+    // set r2 props to null
     if (props.method === 'local') {
-      return new FileStorageMethod(
+      const method = new FileStorageMethod(
         {
           method: props.method,
           userId: props.userId,
@@ -89,14 +90,17 @@ export class FileStorageMethod extends Entity<FileStorageMethodProps> {
         },
         id,
       )
+      return method
     }
 
-    return new FileStorageMethod(
+    const method = new FileStorageMethod(
       {
         ...props,
         createdAt: props.createdAt ?? new Date(),
       },
       id,
     )
+
+    return method
   }
 }

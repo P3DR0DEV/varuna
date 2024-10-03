@@ -1,10 +1,11 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { BadRequest } from '@/core/errors/bad-request'
+import { BadRequest, type BadRequestError } from '@/core/errors/bad-request'
+import { NotFound, type NotFoundError } from '@/core/errors/not-found'
 import { type Either, failure, success } from '@/core/types/either'
 import { FileStorageMethod } from '@/domain/it-manager/enterprise/entities/file-storage-method'
-import { BadRequestError } from '@/infra/http/controllers/_errors/bad-request'
 
 import type { FileStorageMethodRepository } from '../../repositories/file-storage-method-repository'
+import type { UsersRepository } from '../../repositories/users-repository'
 
 interface CreateFileStorageMethodUseCaseProps {
   userId: string
@@ -13,16 +14,26 @@ interface CreateFileStorageMethodUseCaseProps {
   accessKeyId: string | null
   secretAccessKey: string | null
   bucket: string | null
-  createdAt: Date
-  updatedAt?: Date | null
 }
 
-type CreateFileStorageMethodUseCaseResponse = Either<BadRequestError, { fileStorageMethod: FileStorageMethod }>
+type CreateFileStorageMethodUseCaseResponse = Either<
+  BadRequestError | NotFoundError,
+  { fileStorageMethod: FileStorageMethod }
+>
 
-export class CreateFileStorageMethod {
-  constructor(private readonly repository: FileStorageMethodRepository) {}
+export class CreateFileStorageMethodUseCase {
+  constructor(
+    private readonly repository: FileStorageMethodRepository,
+    private readonly usersRepository: UsersRepository,
+  ) {}
 
   async execute(props: CreateFileStorageMethodUseCaseProps): Promise<CreateFileStorageMethodUseCaseResponse> {
+    const user = await this.usersRepository.findById(props.userId)
+
+    if (!user) {
+      return failure(NotFound('User not found'))
+    }
+
     const existingFileStorageMethod = await this.repository.findByUser(props.userId)
 
     if (existingFileStorageMethod) {

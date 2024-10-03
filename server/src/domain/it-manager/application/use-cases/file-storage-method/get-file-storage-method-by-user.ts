@@ -4,24 +4,34 @@ import { type Either, failure, success } from '@/core/types/either'
 import type { FileStorageMethod } from '@/domain/it-manager/enterprise/entities/file-storage-method'
 
 import type { FileStorageMethodRepository } from '../../repositories/file-storage-method-repository'
+import type { UsersRepository } from '../../repositories/users-repository'
 
-interface FindFileStorageMethodByUserUseCaseProps {
+interface GetFileStorageMethodByUserUseCaseProps {
   userId: string
 }
 
-type FindFileStorageMethodByUserUseCaseResponse = Either<
+type GetFileStorageMethodByUserUseCaseResponse = Either<
   NotFoundError | BadRequestError,
   { fileStorageMethod: FileStorageMethod }
 >
 
-export class FindFileStorageMethodByUserUseCase {
-  constructor(private readonly repository: FileStorageMethodRepository) {}
+export class GetFileStorageMethodByUserUseCase {
+  constructor(
+    private readonly repository: FileStorageMethodRepository,
+    private readonly usersRepository: UsersRepository,
+  ) {}
 
   async execute({
     userId,
-  }: FindFileStorageMethodByUserUseCaseProps): Promise<FindFileStorageMethodByUserUseCaseResponse> {
+  }: GetFileStorageMethodByUserUseCaseProps): Promise<GetFileStorageMethodByUserUseCaseResponse> {
     if (!userId) {
       return failure(BadRequest('Missing parameters'))
+    }
+
+    const user = await this.usersRepository.findById(userId)
+
+    if (!user) {
+      return failure(NotFound('User not found'))
     }
 
     const fileStorageMethod = await this.repository.findByUser(userId)
