@@ -17,6 +17,7 @@ export function makeFileStorageMethod(override: Partial<FileStorageMethodProps> 
       accessKeyId: faker.string.uuid(),
       secretAccessKey: faker.internet.password(),
       bucket: faker.internet.domainName(),
+      publicEndpoint: faker.internet.url(),
       ...override,
     },
     id,
