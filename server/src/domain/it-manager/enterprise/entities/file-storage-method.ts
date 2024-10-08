@@ -8,6 +8,7 @@ export interface FileStorageMethodProps {
   userId: UniqueEntityID
   method: fileStorageMethod
   endpoint: string | null
+  publicEndpoint: string | null
   accessKeyId: string | null
   secretAccessKey: string | null
   bucket: string | null
@@ -22,6 +23,15 @@ export class FileStorageMethod extends Entity<FileStorageMethodProps> {
 
   set method(method: 'r2' | 'local') {
     this.props.method = method
+    this.touch()
+  }
+
+  get publicEndpoint(): string | null {
+    return this.props.publicEndpoint
+  }
+
+  set publicEndpoint(publicEndpoint: string | null) {
+    this.props.publicEndpoint = publicEndpoint
     this.touch()
   }
 
@@ -89,6 +99,7 @@ export class FileStorageMethod extends Entity<FileStorageMethodProps> {
           accessKeyId: null,
           secretAccessKey: null,
           bucket: null,
+          publicEndpoint: null,
         },
         id,
       )

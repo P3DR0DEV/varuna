@@ -27,6 +27,7 @@ describe('Create FileStorageMethod', () => {
       accessKeyId: 'any_access_key_id',
       secretAccessKey: 'any_secret_access_key',
       bucket: 'any_bucket',
+      publicEndpoint: 'https://pub-any_endpoint.com',
     })
 
     expect(result.isSuccess()).toBeTruthy()
@@ -58,6 +59,7 @@ describe('Create FileStorageMethod', () => {
       accessKeyId: 'any_access_key_id',
       secretAccessKey: 'any_secret_access_key',
       bucket: 'any_bucket',
+      publicEndpoint: 'https://pub-any_endpoint.com',
     })
 
     expect(result.isSuccess()).toBeTruthy()

@@ -32,6 +32,7 @@ describe('Get FileStorageMethod By User', () => {
       endpoint: null,
       method: 'local',
       secretAccessKey: null,
+      publicEndpoint: null,
     })
 
     expect(result.isSuccess()).toBeTruthy()

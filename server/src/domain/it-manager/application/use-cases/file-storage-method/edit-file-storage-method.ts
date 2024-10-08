@@ -10,6 +10,7 @@ interface EditFileStorageMethodUseCaseProps {
   method: 'r2' | 'local'
   userId: string
   endpoint: string | null
+  publicEndpoint: string | null
   accessKeyId: string | null
   secretAccessKey: string | null
   bucket: string | null
@@ -46,6 +47,7 @@ export class EditFileStorageMethodUseCase {
     fileStorageMethod.accessKeyId = props.accessKeyId
     fileStorageMethod.secretAccessKey = props.secretAccessKey
     fileStorageMethod.bucket = props.bucket
+    fileStorageMethod.publicEndpoint = props.publicEndpoint
 
     await this.repository.save(fileStorageMethod)
 

@@ -11,6 +11,7 @@ interface CreateFileStorageMethodUseCaseProps {
   userId: string
   method: 'r2' | 'local'
   endpoint: string | null
+  publicEndpoint: string | null
   accessKeyId: string | null
   secretAccessKey: string | null
   bucket: string | null

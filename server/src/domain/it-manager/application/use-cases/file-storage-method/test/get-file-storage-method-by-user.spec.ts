@@ -40,6 +40,7 @@ describe('Get FileStorageMethod By User', () => {
           accessKeyId: method.accessKeyId,
           secretAccessKey: method.secretAccessKey,
           bucket: method.bucket,
+          publicEndpoint: method.publicEndpoint,
         }),
       )
     }
