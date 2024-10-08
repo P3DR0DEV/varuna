@@ -9,6 +9,10 @@ export const envSchema = z.object({
   PORT: z.coerce.number().default(3333),
   LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error', 'silent']).default('info'),
   BASE_FILE_URL: z.string().default('http://localhost:3333'),
+  S3_ENDPOINT: z.string(),
+  S3_ACCESS_KEY_ID: z.string(),
+  S3_SECRET_ACCESS_KEY: z.string(),
+  S3_BUCKET: z.string(),
 })
 
 const _env = envSchema.safeParse(process.env)

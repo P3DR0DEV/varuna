@@ -3,6 +3,7 @@ import path from 'node:path'
 
 import { PutObjectCommand } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
+import axios from 'axios'
 
 import { BadRequest, type BadRequestError } from '@/core/errors/bad-request'
 import { type Either, failure, success } from '@/core/types/either'
@@ -31,7 +32,7 @@ export class UploadFileUseCase {
 
     // Generate a unique file name
     const random = Math.floor(Math.random() * 1000000)
-    const fileName = `profilePic-${random}_${Slug.createFromText(name).value}.${file.type.split('/')[1]}`
+    const fileName = `contract-${random}_${Slug.createFromText(name).value}.${file.type.split('/')[1]}`
 
     const filePath = path.join(uploadsDir, fileName)
 
@@ -68,7 +69,7 @@ export class UploadFileUseCase {
     }
 
     const random = Math.floor(Math.random() * 1000000)
-    const fileKey = `profilePic-${random}_${Slug.createFromText(name).value}.${file.type.split('/')[1]}`
+    const fileKey = `contract-${random}_${Slug.createFromText(name).value}.${file.type.split('/')[1]}`
     const fileType = file.type
 
     const r2 = createS3Client({
@@ -88,11 +89,23 @@ export class UploadFileUseCase {
       { expiresIn: 600 }, // 10 minutes
     )
 
-    await fetch(signedUrl, {
-      method: 'PUT',
-      body: file,
-    })
+    const buffer = Buffer.from(await file.arrayBuffer())
 
-    return success(fileKey)
+    try {
+      const response = await axios.put(signedUrl, buffer, {
+        headers: {
+          'Content-Type': fileType,
+        },
+      })
+
+      if (response.status !== 200) {
+        throw new Error('Failed to upload file')
+      }
+
+      return success(fileKey)
+    } catch (error) {
+      console.log({ error })
+      throw error
+    }
   }
 }
