@@ -15,6 +15,7 @@ export const createContractSchema = {
       endsAt: z.object({ value: z.coerce.date() }),
       type: z.object({ value: z.enum(['renting', 'borrowing']) }),
       userEmail: z.object({ value: z.string().email() }),
+      userId: z.object({ value: z.string().uuid() }),
       file: z.any(),
     })
     .refine(
