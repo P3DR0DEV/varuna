@@ -63,10 +63,11 @@ model User {
   createdAt     DateTime @default(now()) @map("created_at")
   updatedAt     DateTime @updatedAt @map("updated_at")
 
-  userLicense UserLicense[]
-  workstation Workstation?  @relation(fields: [workstationId], references: [id])
-  department  Department?   @relation(name: "part-of", fields: [departmentId], references: [id])
-  chiefOn     Department?   @relation(name: "chief-on")
+  userLicense       UserLicense[]
+  workstation       Workstation?       @relation(fields: [workstationId], references: [id])
+  department        Department?        @relation(name: "part-of", fields: [departmentId], references: [id])
+  chiefOn           Department?        @relation(name: "chief-on")
+  fileStorageMethod FileStorageMethod?
 
   @@map("users")
 }
@@ -281,4 +282,26 @@ model Service {
   updatedAt   DateTime      @updatedAt @map("updated_at")
 
   @@map("services")
+}
+
+enum FILE_STORAGE_METHODS {
+  LOCAL
+  R2
+}
+
+model FileStorageMethod {
+  id              String               @id @default(uuid())
+  method          FILE_STORAGE_METHODS
+  endpoint        String?
+  accessKeyId     String?
+  secretAccessKey String?
+  bucket          String?
+  publicEndpoint  String?
+  createdAt       DateTime             @default(now()) @map("created_at")
+  updatedAt       DateTime?            @updatedAt @map("updated_at")
+
+  userId String @unique @map("user_id")
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@map("file_storage_methods")
 }

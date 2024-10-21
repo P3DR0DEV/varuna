@@ -1,11 +1,10 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 
-import { generateFileName } from '@/infra/util/generate-file-name'
-
 import { ContractPresenter } from '../../presenters/contract-presenter'
 import { errors } from '../_errors'
 import { createContractUseCase } from './factories/make-create-contract'
+import { createUploadsUseCase } from './factories/make-create-uploads'
 import { createContractSchema } from './schemas'
 
 export async function createContract(app: FastifyInstance) {
@@ -15,9 +14,15 @@ export async function createContract(app: FastifyInstance) {
       schema: createContractSchema,
     },
     async (request, reply) => {
-      const { file, description, endsAt, type, userEmail, status } = request.body
+      const { file, description, endsAt, type, userEmail, status, userId } = request.body
 
-      const fileName = generateFileName(file)
+      const createUploads = await createUploadsUseCase.execute({ file, userId: userId.value })
+
+      if (createUploads.isFailure()) {
+        throw new errors.InternalServerError('Unexpected error')
+      }
+
+      const fileName = createUploads.value
 
       const result = await createContractUseCase.execute({
         fileName,
@@ -27,8 +32,6 @@ export async function createContract(app: FastifyInstance) {
         userEmail: userEmail.value,
         status: status.value,
       })
-
-      // TODO Handle file upload
 
       if (result.isFailure()) {
         throw new errors.InternalServerError('Unexpected error')
