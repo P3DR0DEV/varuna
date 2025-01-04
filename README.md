@@ -48,5 +48,4 @@ pnpm dev
 
 # Autor
 
-Pedro Henrique Campos Mendes
-https://www.linkedin.com/in/pedro-cmendes
+[Pedro Henrique Campos Mendes](https://www.linkedin.com/in/pedro-cmendes)
