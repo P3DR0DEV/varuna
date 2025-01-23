@@ -1,13 +1,15 @@
 {
   "name": "server",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint \"./{src,test}/**/*.ts\" --fix",
+    "lint": "biome format --write ./src",
     "db:migrate": "prisma migrate dev",
     "db:seed": "prisma db seed",
     "db:studio": "prisma studio",
+    "prebuild": "prisma generate && prisma migrate deploy",
+    "postbuild": "npx prisma db seed",
     "build": "tsup src --format esm",
     "start": "node dist/infra/http/server.mjs --env-file .env",
     "dev": "tsx watch --env-file .env.local src/infra/http/server.ts",
@@ -19,18 +21,26 @@
     "test:e2e:watch": "vitest --config ./vitest.config.e2e.mts"
   },
   "prisma": {
-    "seed": "ts-node --esm ./prisma/seed.ts"
+    "seed": "node ./prisma/seed.mjs"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "varuna",
+    "biome",
+    "fastify",
+    "prisma",
+    "vitest",
+    "typescript",
+    "aws",
+    "IT"
+  ],
+  "author": "Pedro Mendes",
   "license": "ISC",
   "devDependencies": {
-    "@eslint/js": "^9.11.1",
+    "@biomejs/biome": "1.9.4",
     "@faker-js/faker": "^8.4.1",
     "@types/node": "^20.16.6",
     "@types/supertest": "^6.0.2",
     "@vitest/coverage-v8": "^2.1.1",
-    "eslint": "8.57.0",
     "fastify-type-provider-zod": "^2.1.0",
     "prisma": "^5.20.0",
     "supertest": "^7.0.0",
@@ -50,7 +60,6 @@
     "@fastify/swagger": "^8.15.0",
     "@fastify/swagger-ui": "^3.1.0",
     "@prisma/client": "5.20.0",
-    "@rotrenanoliveira/eslint-config": "^1.1.0",
     "axios": "^1.7.7",
     "dotenv": "^16.4.5",
     "fastify": "^4.28.1",
