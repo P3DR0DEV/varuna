@@ -1,8 +1,8 @@
-import { Either, success } from '@/core/types/either'
-import { UseCase } from '@/core/use-cases/use-case'
-import { Department } from '@/domain/it-manager/enterprise/entities/department'
+import { type Either, success } from '@/core/types/either'
+import type { UseCase } from '@/core/use-cases/use-case'
+import type { Department } from '@/domain/it-manager/enterprise/entities/department'
 
-import { DepartmentRepository } from '../../repositories/department-repository'
+import type { DepartmentRepository } from '../../repositories/department-repository'
 
 type FetchAllDepartmentsUseCaseResponse = Either<unknown, { departments: Department[] }>
 

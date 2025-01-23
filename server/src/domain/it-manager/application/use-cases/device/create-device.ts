@@ -1,9 +1,9 @@
-import { BadRequest, BadRequestError } from '@/core/errors/bad-request'
-import { Either, failure, success } from '@/core/types/either'
-import { UseCase } from '@/core/use-cases/use-case'
-import { Device, DeviceProps } from '@/domain/it-manager/enterprise/entities/device'
+import { BadRequest, type BadRequestError } from '@/core/errors/bad-request'
+import { type Either, failure, success } from '@/core/types/either'
+import type { UseCase } from '@/core/use-cases/use-case'
+import { Device, type DeviceProps } from '@/domain/it-manager/enterprise/entities/device'
 
-import { DeviceRepository } from '../../repositories/device-repository'
+import type { DeviceRepository } from '../../repositories/device-repository'
 
 type CreateDeviceUseCaseProps = {
   serialNumber: string

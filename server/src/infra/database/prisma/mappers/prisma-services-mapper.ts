@@ -1,7 +1,7 @@
-import { Prisma, Service as PrismaService, SERVICE_TYPES } from '@prisma/client'
+import type { Prisma, Service as PrismaService, SERVICE_TYPES } from '@prisma/client'
 
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { Service, ServiceTypes } from '@/domain/it-manager/enterprise/entities/service'
+import { Service, type ServiceTypes } from '@/domain/it-manager/enterprise/entities/service'
 
 export class PrismaServiceMapper {
   static toPersistence(service: Service): Prisma.ServiceUncheckedCreateInput {

@@ -1,4 +1,4 @@
-import type { FILE_STORAGE_METHODS, FileStorageMethod as PrismaFileStorageMethod, Prisma } from '@prisma/client'
+import type { FILE_STORAGE_METHODS, Prisma, FileStorageMethod as PrismaFileStorageMethod } from '@prisma/client'
 
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { FileStorageMethod, type fileStorageMethod } from '@/domain/it-manager/enterprise/entities/file-storage-method'

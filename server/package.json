@@ -23,16 +23,7 @@
   "prisma": {
     "seed": "node ./prisma/seed.mjs"
   },
-  "keywords": [
-    "varuna",
-    "biome",
-    "fastify",
-    "prisma",
-    "vitest",
-    "typescript",
-    "aws",
-    "IT"
-  ],
+  "keywords": ["varuna", "biome", "fastify", "prisma", "vitest", "typescript", "aws", "IT"],
   "author": "Pedro Mendes",
   "license": "ISC",
   "devDependencies": {

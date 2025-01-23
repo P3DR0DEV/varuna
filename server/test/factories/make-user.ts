@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker'
-import { PrismaClient } from '@prisma/client'
+import type { PrismaClient } from '@prisma/client'
 
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { User, UserProps } from '@/domain/it-manager/enterprise/entities/user'
+import type { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { User, type UserProps } from '@/domain/it-manager/enterprise/entities/user'
 import { Phone } from '@/domain/it-manager/enterprise/entities/value-objects/phone'
 import { PrismaUsersMapper } from '@/infra/database/prisma/mappers/prisma-users-mapper'
 

@@ -1,4 +1,4 @@
-import { FastifyInstance } from 'fastify'
+import type { FastifyInstance } from 'fastify'
 
 import { createIncident } from './create-incident'
 import { deleteIncident } from './delete-incident'

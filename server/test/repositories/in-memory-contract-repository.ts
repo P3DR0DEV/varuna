@@ -1,5 +1,5 @@
-import { ContractRepository } from '@/domain/it-manager/application/repositories/contract-repository'
-import { Contract, ContractStatus, ContractTypes } from '@/domain/it-manager/enterprise/entities/contract'
+import type { ContractRepository } from '@/domain/it-manager/application/repositories/contract-repository'
+import type { Contract, ContractStatus, ContractTypes } from '@/domain/it-manager/enterprise/entities/contract'
 
 export class InMemoryContractRepository implements ContractRepository {
   public items: Contract[] = []

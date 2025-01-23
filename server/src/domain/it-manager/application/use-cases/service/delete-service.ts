@@ -1,9 +1,9 @@
-import { BadRequest, BadRequestError } from '@/core/errors/bad-request'
-import { NotFound, NotFoundError } from '@/core/errors/not-found'
-import { Either, failure, success } from '@/core/types/either'
-import { UseCase } from '@/core/use-cases/use-case'
+import { BadRequest, type BadRequestError } from '@/core/errors/bad-request'
+import { NotFound, type NotFoundError } from '@/core/errors/not-found'
+import { type Either, failure, success } from '@/core/types/either'
+import type { UseCase } from '@/core/use-cases/use-case'
 
-import { ServiceRepository } from '../../repositories/service-repository'
+import type { ServiceRepository } from '../../repositories/service-repository'
 
 type DeleteServiceUseCaseProps = {
   id: string

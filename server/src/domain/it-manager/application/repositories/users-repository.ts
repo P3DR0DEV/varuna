@@ -1,4 +1,4 @@
-import { User } from '@/domain/it-manager/enterprise/entities/user'
+import type { User } from '@/domain/it-manager/enterprise/entities/user'
 
 export interface UsersRepository {
   findMany(): Promise<User[]>

@@ -1,9 +1,9 @@
-import { BadRequest, BadRequestError } from '@/core/errors/bad-request'
-import { NotFound, NotFoundError } from '@/core/errors/not-found'
-import { Either, failure, success } from '@/core/types/either'
-import { Contract, ContractStatus } from '@/domain/it-manager/enterprise/entities/contract'
+import { BadRequest, type BadRequestError } from '@/core/errors/bad-request'
+import { NotFound, type NotFoundError } from '@/core/errors/not-found'
+import { type Either, failure, success } from '@/core/types/either'
+import type { Contract, ContractStatus } from '@/domain/it-manager/enterprise/entities/contract'
 
-import { ContractRepository } from '../../repositories/contract-repository'
+import type { ContractRepository } from '../../repositories/contract-repository'
 
 type EditContractStatusUseCaseProps = {
   id: string

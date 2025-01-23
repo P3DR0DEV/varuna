@@ -1,7 +1,7 @@
-import { Contract as PrismaContract, CONTRACT_TYPES, DATA_STATUS, Prisma } from '@prisma/client'
+import type { CONTRACT_TYPES, DATA_STATUS, Prisma, Contract as PrismaContract } from '@prisma/client'
 
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { Contract, ContractStatus, ContractTypes } from '@/domain/it-manager/enterprise/entities/contract'
+import { Contract, type ContractStatus, type ContractTypes } from '@/domain/it-manager/enterprise/entities/contract'
 
 export class PrismaContractsMapper {
   static toDomain(contract: PrismaContract): Contract {

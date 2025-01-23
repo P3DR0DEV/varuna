@@ -1,9 +1,9 @@
-import { Either, success } from '@/core/types/either'
-import { UseCase } from '@/core/use-cases/use-case'
-import { Device, DeviceProps } from '@/domain/it-manager/enterprise/entities/device'
+import { type Either, success } from '@/core/types/either'
+import type { UseCase } from '@/core/use-cases/use-case'
+import type { Device, DeviceProps } from '@/domain/it-manager/enterprise/entities/device'
 import { Slug } from '@/domain/it-manager/enterprise/entities/value-objects/slug'
 
-import { DeviceRepository } from '../../repositories/device-repository'
+import type { DeviceRepository } from '../../repositories/device-repository'
 
 type FetchAllDevicesUseCaseResponse = Either<unknown, { devices: Device<DeviceProps>[] }>
 

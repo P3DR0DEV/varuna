@@ -1,4 +1,4 @@
-import { FastifyInstance } from 'fastify'
+import type { FastifyInstance } from 'fastify'
 
 import { createLicense } from './create-license'
 import { editLicense } from './edit-license'

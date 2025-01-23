@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker'
-import { PrismaClient } from '@prisma/client'
+import type { PrismaClient } from '@prisma/client'
 
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { Device, DeviceProps } from '@/domain/it-manager/enterprise/entities/device'
+import type { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Device, type DeviceProps } from '@/domain/it-manager/enterprise/entities/device'
 import { PrismaDevicesMapper } from '@/infra/database/prisma/mappers/prisma-devices-mapper'
 
 export function makeDevice(override: Partial<DeviceProps> = {}, id?: UniqueEntityID) {

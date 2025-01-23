@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker'
-import { PrismaClient } from '@prisma/client'
+import type { PrismaClient } from '@prisma/client'
 
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { Incident, IncidentProps } from '@/domain/it-manager/enterprise/entities/incident'
+import { Incident, type IncidentProps } from '@/domain/it-manager/enterprise/entities/incident'
 import { PrismaIncidentsMapper } from '@/infra/database/prisma/mappers/prisma-incidents-mapper'
 
 export function makeIncident(override: Partial<IncidentProps> = {}, id?: UniqueEntityID) {

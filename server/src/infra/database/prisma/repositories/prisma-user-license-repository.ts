@@ -1,7 +1,7 @@
-import { PrismaClient } from '@prisma/client'
+import type { PrismaClient } from '@prisma/client'
 
-import { UserLicenseRepository } from '@/domain/it-manager/application/repositories/user-license-repository'
-import { UserLicense } from '@/domain/it-manager/enterprise/entities/user-license'
+import type { UserLicenseRepository } from '@/domain/it-manager/application/repositories/user-license-repository'
+import type { UserLicense } from '@/domain/it-manager/enterprise/entities/user-license'
 
 import { PrismaUserLicenseMapper } from '../mappers/prisma-user-license-mapper'
 

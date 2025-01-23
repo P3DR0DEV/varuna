@@ -1,4 +1,4 @@
-import { Contract, ContractStatus, ContractTypes } from '@/domain/it-manager/enterprise/entities/contract'
+import type { Contract, ContractStatus, ContractTypes } from '@/domain/it-manager/enterprise/entities/contract'
 
 export interface ContractRepository {
   findById(id: string): Promise<Contract | null>

@@ -1,7 +1,7 @@
-import { PrismaClient } from '@prisma/client'
+import type { PrismaClient } from '@prisma/client'
 
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { Workstation, WorkstationProps } from '@/domain/it-manager/enterprise/entities/workstation'
+import { Workstation, type WorkstationProps } from '@/domain/it-manager/enterprise/entities/workstation'
 import { PrismaWorkstationMapper } from '@/infra/database/prisma/mappers/prisma-workstation-mapper'
 
 export function makeWorkstation(override: Partial<WorkstationProps> = {}, id?: UniqueEntityID) {

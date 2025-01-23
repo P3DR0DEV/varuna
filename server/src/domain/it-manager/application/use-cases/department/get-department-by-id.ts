@@ -1,10 +1,10 @@
-import { BadRequest, BadRequestError } from '@/core/errors/bad-request'
-import { NotFound, NotFoundError } from '@/core/errors/not-found'
-import { Either, failure, success } from '@/core/types/either'
-import { UseCase } from '@/core/use-cases/use-case'
-import { Department } from '@/domain/it-manager/enterprise/entities/department'
+import { BadRequest, type BadRequestError } from '@/core/errors/bad-request'
+import { NotFound, type NotFoundError } from '@/core/errors/not-found'
+import { type Either, failure, success } from '@/core/types/either'
+import type { UseCase } from '@/core/use-cases/use-case'
+import type { Department } from '@/domain/it-manager/enterprise/entities/department'
 
-import { DepartmentRepository } from '../../repositories/department-repository'
+import type { DepartmentRepository } from '../../repositories/department-repository'
 
 type GetDepartmentByIdUseCaseProps = {
   id: string

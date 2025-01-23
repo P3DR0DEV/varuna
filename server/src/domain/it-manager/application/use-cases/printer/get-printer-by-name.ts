@@ -1,10 +1,10 @@
-import { BadRequest, BadRequestError } from '@/core/errors/bad-request'
-import { NotFound, NotFoundError } from '@/core/errors/not-found'
-import { Either, failure, success } from '@/core/types/either'
-import { UseCase } from '@/core/use-cases/use-case'
-import { Printer } from '@/domain/it-manager/enterprise/entities/printer'
+import { BadRequest, type BadRequestError } from '@/core/errors/bad-request'
+import { NotFound, type NotFoundError } from '@/core/errors/not-found'
+import { type Either, failure, success } from '@/core/types/either'
+import type { UseCase } from '@/core/use-cases/use-case'
+import type { Printer } from '@/domain/it-manager/enterprise/entities/printer'
 
-import { PrinterRepository } from '../../repositories/printer-repository'
+import type { PrinterRepository } from '../../repositories/printer-repository'
 
 type GetPrinterByNameUseCaseProps = {
   name: string

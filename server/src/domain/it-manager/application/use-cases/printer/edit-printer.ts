@@ -1,11 +1,11 @@
-import { BadRequest, BadRequestError } from '@/core/errors/bad-request'
-import { NotFound, NotFoundError } from '@/core/errors/not-found'
-import { Either, failure, success } from '@/core/types/either'
-import { Optional } from '@/core/types/optional'
-import { UseCase } from '@/core/use-cases/use-case'
-import { Printer, PrinterProps } from '@/domain/it-manager/enterprise/entities/printer'
+import { BadRequest, type BadRequestError } from '@/core/errors/bad-request'
+import { NotFound, type NotFoundError } from '@/core/errors/not-found'
+import { type Either, failure, success } from '@/core/types/either'
+import type { Optional } from '@/core/types/optional'
+import type { UseCase } from '@/core/use-cases/use-case'
+import type { Printer, PrinterProps } from '@/domain/it-manager/enterprise/entities/printer'
 
-import { PrinterRepository } from '../../repositories/printer-repository'
+import type { PrinterRepository } from '../../repositories/printer-repository'
 
 type EditPrinterUseCaseProps = {
   id: string

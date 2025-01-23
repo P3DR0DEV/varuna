@@ -1,13 +1,13 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { BadRequest, BadRequestError } from '@/core/errors/bad-request'
-import { NotFound, NotFoundError } from '@/core/errors/not-found'
-import { Either, failure, success } from '@/core/types/either'
-import { UseCase } from '@/core/use-cases/use-case'
-import { Workstation } from '@/domain/it-manager/enterprise/entities/workstation'
+import { BadRequest, type BadRequestError } from '@/core/errors/bad-request'
+import { NotFound, type NotFoundError } from '@/core/errors/not-found'
+import { type Either, failure, success } from '@/core/types/either'
+import type { UseCase } from '@/core/use-cases/use-case'
+import type { Workstation } from '@/domain/it-manager/enterprise/entities/workstation'
 
-import { ComputerRepository } from '../../repositories/computer-repository'
-import { DepartmentRepository } from '../../repositories/department-repository'
-import { WorkstationRepository } from '../../repositories/workstation-repository'
+import type { ComputerRepository } from '../../repositories/computer-repository'
+import type { DepartmentRepository } from '../../repositories/department-repository'
+import type { WorkstationRepository } from '../../repositories/workstation-repository'
 
 type EditWorkstationUseCaseProps = {
   id: string

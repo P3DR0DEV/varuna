@@ -1,8 +1,8 @@
 import { Entity } from '@/core/entities/entity'
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { Optional } from '@/core/types/optional'
+import type { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import type { Optional } from '@/core/types/optional'
 
-import { Phone } from './value-objects/phone'
+import type { Phone } from './value-objects/phone'
 
 export interface UserProps {
   name: string

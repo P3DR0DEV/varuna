@@ -1,8 +1,8 @@
-import { Either, success } from '@/core/types/either'
-import { UseCase } from '@/core/use-cases/use-case'
-import { Workstation } from '@/domain/it-manager/enterprise/entities/workstation'
+import { type Either, success } from '@/core/types/either'
+import type { UseCase } from '@/core/use-cases/use-case'
+import type { Workstation } from '@/domain/it-manager/enterprise/entities/workstation'
 
-import { WorkstationRepository } from '../../repositories/workstation-repository'
+import type { WorkstationRepository } from '../../repositories/workstation-repository'
 
 type FetchAllWorkstationsUseCaseResponse = Either<unknown, { workstations: Workstation[] }>
 

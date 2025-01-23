@@ -1,7 +1,7 @@
-import { PrismaClient } from '@prisma/client'
+import type { PrismaClient } from '@prisma/client'
 
-import { MobileRepository } from '@/domain/it-manager/application/repositories/mobile-repository'
-import { Mobile, MobileTypes } from '@/domain/it-manager/enterprise/entities/mobile'
+import type { MobileRepository } from '@/domain/it-manager/application/repositories/mobile-repository'
+import type { Mobile, MobileTypes } from '@/domain/it-manager/enterprise/entities/mobile'
 
 import { MapMobileType, PrismaMobilesMapper } from '../mappers/prisma-mobiles-mapper'
 

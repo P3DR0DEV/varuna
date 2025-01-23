@@ -1,7 +1,7 @@
-import { Computer as PrismaComputer, COMPUTER_TYPES, Prisma } from '@prisma/client'
+import type { COMPUTER_TYPES, Prisma, Computer as PrismaComputer } from '@prisma/client'
 
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { Computer, ComputerTypes } from '@/domain/it-manager/enterprise/entities/computer'
+import { Computer, type ComputerTypes } from '@/domain/it-manager/enterprise/entities/computer'
 import { Slug } from '@/domain/it-manager/enterprise/entities/value-objects/slug'
 
 export class PrismaComputerMapper {

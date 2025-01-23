@@ -1,4 +1,4 @@
-import { UserLicense } from '@/domain/it-manager/enterprise/entities/user-license'
+import type { UserLicense } from '@/domain/it-manager/enterprise/entities/user-license'
 
 export interface UserLicenseRepository {
   findByUserId(userId: string): Promise<UserLicense[]>

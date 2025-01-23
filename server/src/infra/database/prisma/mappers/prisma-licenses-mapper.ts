@@ -1,4 +1,4 @@
-import { DATA_STATUS, License as PrismaLicense, Prisma } from '@prisma/client'
+import type { DATA_STATUS, Prisma, License as PrismaLicense } from '@prisma/client'
 
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { License } from '@/domain/it-manager/enterprise/entities/license'

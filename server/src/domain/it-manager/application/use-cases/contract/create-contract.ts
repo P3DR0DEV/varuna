@@ -1,8 +1,8 @@
-import { Either, success } from '@/core/types/either'
-import { UseCase } from '@/core/use-cases/use-case'
-import { Contract, ContractTypes } from '@/domain/it-manager/enterprise/entities/contract'
+import { type Either, success } from '@/core/types/either'
+import type { UseCase } from '@/core/use-cases/use-case'
+import { Contract, type ContractTypes } from '@/domain/it-manager/enterprise/entities/contract'
 
-import { ContractRepository } from '../../repositories/contract-repository'
+import type { ContractRepository } from '../../repositories/contract-repository'
 
 type CreateContractUseCaseProps = {
   description: string

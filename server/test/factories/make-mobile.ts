@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker'
-import { PrismaClient } from '@prisma/client'
+import type { PrismaClient } from '@prisma/client'
 
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { Mobile, MobileProps } from '@/domain/it-manager/enterprise/entities/mobile'
+import type { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Mobile, type MobileProps } from '@/domain/it-manager/enterprise/entities/mobile'
 import { Slug } from '@/domain/it-manager/enterprise/entities/value-objects/slug'
 import { PrismaMobilesMapper } from '@/infra/database/prisma/mappers/prisma-mobiles-mapper'
 

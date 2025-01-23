@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker'
-import { PrismaClient } from '@prisma/client'
+import type { PrismaClient } from '@prisma/client'
 
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { License, LicenseProps } from '@/domain/it-manager/enterprise/entities/license'
+import type { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { License, type LicenseProps } from '@/domain/it-manager/enterprise/entities/license'
 import { PrismaLicensesMapper } from '@/infra/database/prisma/mappers/prisma-licenses-mapper'
 
 export function makeLicense(override: Partial<LicenseProps> = {}, id?: UniqueEntityID) {

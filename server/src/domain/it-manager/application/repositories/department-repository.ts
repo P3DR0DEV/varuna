@@ -1,4 +1,4 @@
-import { Department } from '@/domain/it-manager/enterprise/entities/department'
+import type { Department } from '@/domain/it-manager/enterprise/entities/department'
 
 export interface DepartmentRepository {
   findMany(): Promise<Department[]>

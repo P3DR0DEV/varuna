@@ -1,5 +1,5 @@
-import { readFileSync } from 'fs'
-import { resolve } from 'path'
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 import { makeFileStorageMethod } from 'test/factories/make-file-storage-method'
 import { makeUser } from 'test/factories/make-user'
 import { InMemoryFileStorageMethodRepository } from 'test/repositories/in-memory-file-storage-method-repository'

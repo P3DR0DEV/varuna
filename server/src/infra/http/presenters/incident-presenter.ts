@@ -1,6 +1,6 @@
 import z from 'zod'
 
-import { Incident } from '@/domain/it-manager/enterprise/entities/incident'
+import type { Incident } from '@/domain/it-manager/enterprise/entities/incident'
 
 export class IncidentPresenter {
   static toHttp(incident: Incident) {
@@ -8,7 +8,7 @@ export class IncidentPresenter {
       id: incident.id.toString(),
       description: incident.description,
       workstationId: incident.workstationId.toString(),
-      deviceId: (incident.deviceId && incident.deviceId.toString()) || null,
+      deviceId: incident.deviceId?.toString() || null,
       fixedAt: incident.fixedAt || null,
     }
   }

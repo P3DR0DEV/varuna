@@ -1,8 +1,8 @@
-import { Either, success } from '@/core/types/either'
-import { UseCase } from '@/core/use-cases/use-case'
-import { Service, ServiceTypes } from '@/domain/it-manager/enterprise/entities/service'
+import { type Either, success } from '@/core/types/either'
+import type { UseCase } from '@/core/use-cases/use-case'
+import type { Service, ServiceTypes } from '@/domain/it-manager/enterprise/entities/service'
 
-import { ServiceRepository } from '../../repositories/service-repository'
+import type { ServiceRepository } from '../../repositories/service-repository'
 
 type FetchAllServicesUseCaseResponse = Either<Error, { services: Service[] }>
 

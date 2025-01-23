@@ -1,6 +1,6 @@
 import z from 'zod'
 
-import { Service } from '@/domain/it-manager/enterprise/entities/service'
+import type { Service } from '@/domain/it-manager/enterprise/entities/service'
 
 export class ServicePresenter {
   static toHttp(service: Service) {

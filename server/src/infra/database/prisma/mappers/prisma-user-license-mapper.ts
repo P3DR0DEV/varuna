@@ -1,4 +1,4 @@
-import { Prisma, UserLicense as PrismaUserLicense } from '@prisma/client'
+import type { Prisma, UserLicense as PrismaUserLicense } from '@prisma/client'
 
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { UserLicense } from '@/domain/it-manager/enterprise/entities/user-license'

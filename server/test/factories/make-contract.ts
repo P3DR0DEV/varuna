@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker'
-import { PrismaClient } from '@prisma/client'
+import type { PrismaClient } from '@prisma/client'
 
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { Contract, ContractProps } from '@/domain/it-manager/enterprise/entities/contract'
+import type { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Contract, type ContractProps } from '@/domain/it-manager/enterprise/entities/contract'
 import { PrismaContractsMapper } from '@/infra/database/prisma/mappers/prisma-contracts-mapper'
 
 export function makeContract(override: Partial<ContractProps> = {}, id?: UniqueEntityID) {

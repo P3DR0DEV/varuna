@@ -1,7 +1,7 @@
-import { PrismaClient } from '@prisma/client'
+import type { PrismaClient } from '@prisma/client'
 
-import { DepartmentRepository } from '@/domain/it-manager/application/repositories/department-repository'
-import { Department } from '@/domain/it-manager/enterprise/entities/department'
+import type { DepartmentRepository } from '@/domain/it-manager/application/repositories/department-repository'
+import type { Department } from '@/domain/it-manager/enterprise/entities/department'
 
 import { PrismaDepartmentMapper } from '../mappers/prisma-departments-mapper'
 

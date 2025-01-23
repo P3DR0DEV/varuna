@@ -1,4 +1,4 @@
-import { FastifyInstance } from 'fastify'
+import type { FastifyInstance } from 'fastify'
 
 import { createUser } from './create-user'
 import { deleteUser } from './delete-user'

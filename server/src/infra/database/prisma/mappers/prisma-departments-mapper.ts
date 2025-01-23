@@ -1,4 +1,4 @@
-import { Department as PrismaDepartment, Prisma } from '@prisma/client'
+import type { Prisma, Department as PrismaDepartment } from '@prisma/client'
 
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Department } from '@/domain/it-manager/enterprise/entities/department'

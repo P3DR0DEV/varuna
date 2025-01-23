@@ -1,5 +1,5 @@
-import { IncidentRepository } from '@/domain/it-manager/application/repositories/incident-repository'
-import { Incident } from '@/domain/it-manager/enterprise/entities/incident'
+import type { IncidentRepository } from '@/domain/it-manager/application/repositories/incident-repository'
+import type { Incident } from '@/domain/it-manager/enterprise/entities/incident'
 
 export class InMemoryIncidentRepository implements IncidentRepository {
   public items: Incident[] = []

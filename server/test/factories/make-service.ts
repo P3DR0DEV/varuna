@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker'
-import { PrismaClient } from '@prisma/client'
+import type { PrismaClient } from '@prisma/client'
 
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { Service, ServiceProps } from '@/domain/it-manager/enterprise/entities/service'
+import type { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Service, type ServiceProps } from '@/domain/it-manager/enterprise/entities/service'
 import { PrismaServiceMapper } from '@/infra/database/prisma/mappers/prisma-services-mapper'
 
 import { ComputerFactory } from './make-computer'

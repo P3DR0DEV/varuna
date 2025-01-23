@@ -1,7 +1,7 @@
-import { PrismaClient } from '@prisma/client'
+import type { PrismaClient } from '@prisma/client'
 
-import { WorkstationRepository } from '@/domain/it-manager/application/repositories/workstation-repository'
-import { Workstation } from '@/domain/it-manager/enterprise/entities/workstation'
+import type { WorkstationRepository } from '@/domain/it-manager/application/repositories/workstation-repository'
+import type { Workstation } from '@/domain/it-manager/enterprise/entities/workstation'
 
 import { PrismaWorkstationMapper } from '../mappers/prisma-workstation-mapper'
 

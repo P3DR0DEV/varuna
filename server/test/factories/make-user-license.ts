@@ -1,7 +1,7 @@
-import { PrismaClient } from '@prisma/client'
+import type { PrismaClient } from '@prisma/client'
 
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { UserLicense, UserLicenseProps } from '@/domain/it-manager/enterprise/entities/user-license'
+import { UserLicense, type UserLicenseProps } from '@/domain/it-manager/enterprise/entities/user-license'
 import { PrismaUserLicenseMapper } from '@/infra/database/prisma/mappers/prisma-user-license-mapper'
 
 export function makeUserLicense(override: Partial<UserLicenseProps> = {}, id?: UniqueEntityID) {

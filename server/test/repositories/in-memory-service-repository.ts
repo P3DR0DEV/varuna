@@ -1,5 +1,5 @@
-import { ServiceRepository } from '@/domain/it-manager/application/repositories/service-repository'
-import { Service, ServiceTypes } from '@/domain/it-manager/enterprise/entities/service'
+import type { ServiceRepository } from '@/domain/it-manager/application/repositories/service-repository'
+import type { Service, ServiceTypes } from '@/domain/it-manager/enterprise/entities/service'
 
 export class InMemoryServiceRepository implements ServiceRepository {
   public items: Service[] = []

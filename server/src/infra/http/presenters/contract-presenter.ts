@@ -1,6 +1,6 @@
 import z from 'zod'
 
-import { Contract } from '@/domain/it-manager/enterprise/entities/contract'
+import type { Contract } from '@/domain/it-manager/enterprise/entities/contract'
 import { env } from '@/env'
 
 export class ContractPresenter {

@@ -1,7 +1,7 @@
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { Optional } from '@/core/types/optional'
+import type { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import type { Optional } from '@/core/types/optional'
 
-import { Device, DeviceProps } from './device'
+import { Device, type DeviceProps } from './device'
 import { Slug } from './value-objects/slug'
 
 export type PrinterTypes = 'laser' | 'thermal' | 'inkjet' | 'dotmatrix'

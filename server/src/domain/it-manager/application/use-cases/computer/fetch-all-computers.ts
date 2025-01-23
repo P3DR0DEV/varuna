@@ -1,9 +1,9 @@
-import { Either, success } from '@/core/types/either'
-import { UseCase } from '@/core/use-cases/use-case'
-import { Computer } from '@/domain/it-manager/enterprise/entities/computer'
+import { type Either, success } from '@/core/types/either'
+import type { UseCase } from '@/core/use-cases/use-case'
+import type { Computer } from '@/domain/it-manager/enterprise/entities/computer'
 import { Slug } from '@/domain/it-manager/enterprise/entities/value-objects/slug'
 
-import { ComputerRepository } from '../../repositories/computer-repository'
+import type { ComputerRepository } from '../../repositories/computer-repository'
 
 type FetchAllComputersUseCaseProps = { operatingSystem?: string | null }
 type FetchAllComputersUseCaseResponse = Either<unknown, { computers: Computer[] }>

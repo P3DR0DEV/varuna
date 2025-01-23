@@ -1,9 +1,9 @@
-import { BadRequest, BadRequestError } from '@/core/errors/bad-request'
-import { NotFound, NotFoundError } from '@/core/errors/not-found'
-import { Either, failure, success } from '@/core/types/either'
-import { Mobile } from '@/domain/it-manager/enterprise/entities/mobile'
+import { BadRequest, type BadRequestError } from '@/core/errors/bad-request'
+import { NotFound, type NotFoundError } from '@/core/errors/not-found'
+import { type Either, failure, success } from '@/core/types/either'
+import type { Mobile } from '@/domain/it-manager/enterprise/entities/mobile'
 
-import { MobileRepository } from '../../repositories/mobile-repository'
+import type { MobileRepository } from '../../repositories/mobile-repository'
 
 type GetDeviceByTagUseCaseProps = {
   tag: string

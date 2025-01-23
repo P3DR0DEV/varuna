@@ -1,4 +1,4 @@
-import { License } from '@/domain/it-manager/enterprise/entities/license'
+import type { License } from '@/domain/it-manager/enterprise/entities/license'
 
 export interface LicenseRepository {
   findById(id: string): Promise<License | null>

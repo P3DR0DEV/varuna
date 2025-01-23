@@ -1,7 +1,7 @@
-import { Device as PrismaDevice, Prisma } from '@prisma/client'
+import type { Prisma, Device as PrismaDevice } from '@prisma/client'
 
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { Device, DeviceProps } from '@/domain/it-manager/enterprise/entities/device'
+import { Device, type DeviceProps } from '@/domain/it-manager/enterprise/entities/device'
 import { Slug } from '@/domain/it-manager/enterprise/entities/value-objects/slug'
 
 export class PrismaDevicesMapper {

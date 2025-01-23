@@ -1,5 +1,5 @@
-import { PrinterRepository } from '@/domain/it-manager/application/repositories/printer-repository'
-import { Printer, PrinterTypes, PrintingOptions } from '@/domain/it-manager/enterprise/entities/printer'
+import type { PrinterRepository } from '@/domain/it-manager/application/repositories/printer-repository'
+import type { Printer, PrinterTypes, PrintingOptions } from '@/domain/it-manager/enterprise/entities/printer'
 
 export class InMemoryPrinterRepository implements PrinterRepository {
   public items: Printer[] = []

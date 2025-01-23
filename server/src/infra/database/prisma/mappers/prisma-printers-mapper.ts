@@ -1,7 +1,7 @@
-import { Printer as PrismaPrinter, PRINTER_OPTIONS, PRINTER_TYPES, Prisma } from '@prisma/client'
+import type { PRINTER_OPTIONS, PRINTER_TYPES, Prisma, Printer as PrismaPrinter } from '@prisma/client'
 
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { Printer, PrinterTypes, PrintingOptions } from '@/domain/it-manager/enterprise/entities/printer'
+import { Printer, type PrinterTypes, type PrintingOptions } from '@/domain/it-manager/enterprise/entities/printer'
 import { Slug } from '@/domain/it-manager/enterprise/entities/value-objects/slug'
 
 export class PrismaPrintersMapper {

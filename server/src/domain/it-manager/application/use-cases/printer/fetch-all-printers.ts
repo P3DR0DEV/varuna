@@ -1,8 +1,8 @@
-import { Either, success } from '@/core/types/either'
-import { UseCase } from '@/core/use-cases/use-case'
-import { Printer, PrinterTypes, PrintingOptions } from '@/domain/it-manager/enterprise/entities/printer'
+import { type Either, success } from '@/core/types/either'
+import type { UseCase } from '@/core/use-cases/use-case'
+import type { Printer, PrinterTypes, PrintingOptions } from '@/domain/it-manager/enterprise/entities/printer'
 
-import { PrinterRepository } from '../../repositories/printer-repository'
+import type { PrinterRepository } from '../../repositories/printer-repository'
 
 type FetchAllPrintersUseCaseProps = {
   type?: PrinterTypes | null

@@ -1,6 +1,6 @@
 import z from 'zod'
 
-import { Device, DeviceProps } from '@/domain/it-manager/enterprise/entities/device'
+import type { Device, DeviceProps } from '@/domain/it-manager/enterprise/entities/device'
 
 export class DevicePresenter {
   static toHttp(device: Device<DeviceProps>) {

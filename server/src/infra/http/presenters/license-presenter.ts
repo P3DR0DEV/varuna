@@ -1,6 +1,6 @@
 import z from 'zod'
 
-import { License } from '@/domain/it-manager/enterprise/entities/license'
+import type { License } from '@/domain/it-manager/enterprise/entities/license'
 
 export class LicensePresenter {
   static toHttp(license: License) {

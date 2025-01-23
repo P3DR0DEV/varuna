@@ -1,5 +1,5 @@
-import { MobileRepository } from '@/domain/it-manager/application/repositories/mobile-repository'
-import { Mobile, MobileTypes } from '@/domain/it-manager/enterprise/entities/mobile'
+import type { MobileRepository } from '@/domain/it-manager/application/repositories/mobile-repository'
+import type { Mobile, MobileTypes } from '@/domain/it-manager/enterprise/entities/mobile'
 
 export class InMemoryMobileRepository implements MobileRepository {
   public items: Mobile[] = []

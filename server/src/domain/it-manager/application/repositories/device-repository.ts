@@ -1,4 +1,4 @@
-import { Device, DeviceProps } from '../../enterprise/entities/device'
+import type { Device, DeviceProps } from '../../enterprise/entities/device'
 
 export interface DeviceRepository {
   findMany({ invoiceNumber, model }: { invoiceNumber?: string; model?: string }): Promise<Device<DeviceProps>[]>

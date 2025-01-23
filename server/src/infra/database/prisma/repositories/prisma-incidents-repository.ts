@@ -1,7 +1,7 @@
-import { PrismaClient } from '@prisma/client'
+import type { PrismaClient } from '@prisma/client'
 
-import { IncidentRepository } from '@/domain/it-manager/application/repositories/incident-repository'
-import { Incident } from '@/domain/it-manager/enterprise/entities/incident'
+import type { IncidentRepository } from '@/domain/it-manager/application/repositories/incident-repository'
+import type { Incident } from '@/domain/it-manager/enterprise/entities/incident'
 
 import { PrismaIncidentsMapper } from '../mappers/prisma-incidents-mapper'
 

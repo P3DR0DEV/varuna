@@ -1,9 +1,9 @@
-import { BadRequest, BadRequestError } from '@/core/errors/bad-request'
-import { NotFound, NotFoundError } from '@/core/errors/not-found'
-import { Either, failure, success } from '@/core/types/either'
-import { Computer } from '@/domain/it-manager/enterprise/entities/computer'
+import { BadRequest, type BadRequestError } from '@/core/errors/bad-request'
+import { NotFound, type NotFoundError } from '@/core/errors/not-found'
+import { type Either, failure, success } from '@/core/types/either'
+import type { Computer } from '@/domain/it-manager/enterprise/entities/computer'
 
-import { ComputerRepository } from '../../repositories/computer-repository'
+import type { ComputerRepository } from '../../repositories/computer-repository'
 
 type GetComputerByTagUseCaseProps = {
   tag: string

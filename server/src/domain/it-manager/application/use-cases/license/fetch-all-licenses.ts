@@ -1,8 +1,8 @@
-import { Either, success } from '@/core/types/either'
-import { UseCase } from '@/core/use-cases/use-case'
-import { License } from '@/domain/it-manager/enterprise/entities/license'
+import { type Either, success } from '@/core/types/either'
+import type { UseCase } from '@/core/use-cases/use-case'
+import type { License } from '@/domain/it-manager/enterprise/entities/license'
 
-import { LicenseRepository } from '../../repositories/license-repository'
+import type { LicenseRepository } from '../../repositories/license-repository'
 
 type FetchAllLicensesUseCaseResponse = Either<unknown, { licenses: License[] }>
 

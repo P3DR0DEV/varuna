@@ -1,4 +1,4 @@
-import { Workstation } from '@/domain/it-manager/enterprise/entities/workstation'
+import type { Workstation } from '@/domain/it-manager/enterprise/entities/workstation'
 
 export interface WorkstationRepository {
   findMany(): Promise<Workstation[]>

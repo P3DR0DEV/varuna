@@ -1,8 +1,8 @@
-import { Either, success } from '@/core/types/either'
-import { UseCase } from '@/core/use-cases/use-case'
-import { Mobile, MobileTypes } from '@/domain/it-manager/enterprise/entities/mobile'
+import { type Either, success } from '@/core/types/either'
+import type { UseCase } from '@/core/use-cases/use-case'
+import type { Mobile, MobileTypes } from '@/domain/it-manager/enterprise/entities/mobile'
 
-import { MobileRepository } from '../../repositories/mobile-repository'
+import type { MobileRepository } from '../../repositories/mobile-repository'
 
 type FetchAllMobilesUseCaseResponse = Either<unknown, { mobiles: Mobile[] }>
 

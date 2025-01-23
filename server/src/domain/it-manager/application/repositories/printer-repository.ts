@@ -1,4 +1,4 @@
-import { Printer, PrinterTypes, PrintingOptions } from '@/domain/it-manager/enterprise/entities/printer'
+import type { Printer, PrinterTypes, PrintingOptions } from '@/domain/it-manager/enterprise/entities/printer'
 
 export interface PrinterRepository {
   findById(id: string): Promise<Printer | null>

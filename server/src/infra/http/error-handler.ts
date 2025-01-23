@@ -1,4 +1,4 @@
-import { FastifyInstance } from 'fastify'
+import type { FastifyInstance } from 'fastify'
 import { ZodError } from 'zod'
 
 import { BadRequestError } from './controllers/_errors/bad-request'

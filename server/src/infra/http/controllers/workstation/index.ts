@@ -1,4 +1,4 @@
-import { FastifyInstance } from 'fastify'
+import type { FastifyInstance } from 'fastify'
 
 import { createWorkstation } from './create-workstation'
 import { deleteWorkstation } from './delete-workstation'

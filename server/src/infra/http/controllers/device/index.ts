@@ -1,4 +1,4 @@
-import { FastifyInstance } from 'fastify'
+import type { FastifyInstance } from 'fastify'
 
 import { createDevice } from './create-device'
 import { deleteDevice } from './delete-device'

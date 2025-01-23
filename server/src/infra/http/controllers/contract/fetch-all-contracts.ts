@@ -1,5 +1,5 @@
-import { FastifyInstance } from 'fastify'
-import { ZodTypeProvider } from 'fastify-type-provider-zod'
+import type { FastifyInstance } from 'fastify'
+import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 
 import { ContractPresenter } from '../../presenters/contract-presenter'
 import { errors } from '../_errors'

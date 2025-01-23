@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker'
-import { PrismaClient } from '@prisma/client'
+import type { PrismaClient } from '@prisma/client'
 
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { Department, DepartmentProps } from '@/domain/it-manager/enterprise/entities/department'
+import type { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Department, type DepartmentProps } from '@/domain/it-manager/enterprise/entities/department'
 import { PrismaDepartmentMapper } from '@/infra/database/prisma/mappers/prisma-departments-mapper'
 
 export function makeDepartment(override: Partial<DepartmentProps> = {}, id?: UniqueEntityID) {

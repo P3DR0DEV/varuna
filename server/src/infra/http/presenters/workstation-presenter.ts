@@ -1,6 +1,6 @@
 import z from 'zod'
 
-import { Workstation } from '@/domain/it-manager/enterprise/entities/workstation'
+import type { Workstation } from '@/domain/it-manager/enterprise/entities/workstation'
 
 export class WorkstationPresenter {
   static toHttp(workstation: Workstation) {

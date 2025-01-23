@@ -1,4 +1,4 @@
-import { FastifyInstance } from 'fastify'
+import type { FastifyInstance } from 'fastify'
 
 import { createPrinter } from './create-printer'
 import { deletePrinter } from './delete-printer'

@@ -1,4 +1,4 @@
-import { FastifyInstance } from 'fastify'
+import type { FastifyInstance } from 'fastify'
 
 import { createRelation } from './create-relation'
 import { deleteRelation } from './delete-relation'

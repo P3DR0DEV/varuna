@@ -1,4 +1,4 @@
-import { Computer } from '../../enterprise/entities/computer'
+import type { Computer } from '../../enterprise/entities/computer'
 
 export interface ComputerRepository {
   findById(id: string): Promise<Computer | null>

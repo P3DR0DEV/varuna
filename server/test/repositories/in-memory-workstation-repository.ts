@@ -1,5 +1,5 @@
-import { WorkstationRepository } from '@/domain/it-manager/application/repositories/workstation-repository'
-import { Workstation } from '@/domain/it-manager/enterprise/entities/workstation'
+import type { WorkstationRepository } from '@/domain/it-manager/application/repositories/workstation-repository'
+import type { Workstation } from '@/domain/it-manager/enterprise/entities/workstation'
 
 export class InMemoryWorkstationRepository implements WorkstationRepository {
   public items: Workstation[] = []

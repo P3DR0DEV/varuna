@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker'
-import { PrismaClient } from '@prisma/client'
+import type { PrismaClient } from '@prisma/client'
 
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { Computer, ComputerProps } from '@/domain/it-manager/enterprise/entities/computer'
+import type { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Computer, type ComputerProps } from '@/domain/it-manager/enterprise/entities/computer'
 import { Slug } from '@/domain/it-manager/enterprise/entities/value-objects/slug'
 import { PrismaComputerMapper } from '@/infra/database/prisma/mappers/prisma-computers-mapper'
 

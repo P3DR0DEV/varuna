@@ -1,4 +1,4 @@
-import { FastifyInstance } from 'fastify'
+import type { FastifyInstance } from 'fastify'
 
 import { createContract } from './create-contract'
 import { editContract } from './edit-contract'

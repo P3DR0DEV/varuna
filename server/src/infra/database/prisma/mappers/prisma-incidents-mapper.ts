@@ -1,4 +1,4 @@
-import { Incident as PrismaIncident, Prisma } from '@prisma/client'
+import type { Prisma, Incident as PrismaIncident } from '@prisma/client'
 
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Incident } from '@/domain/it-manager/enterprise/entities/incident'

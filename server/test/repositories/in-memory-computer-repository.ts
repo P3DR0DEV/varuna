@@ -1,5 +1,5 @@
-import { ComputerRepository } from '@/domain/it-manager/application/repositories/computer-repository'
-import { Computer } from '@/domain/it-manager/enterprise/entities/computer'
+import type { ComputerRepository } from '@/domain/it-manager/application/repositories/computer-repository'
+import type { Computer } from '@/domain/it-manager/enterprise/entities/computer'
 
 export class InMemoryComputerRepository implements ComputerRepository {
   public items: Computer[] = []

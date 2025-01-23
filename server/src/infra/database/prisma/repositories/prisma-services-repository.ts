@@ -1,7 +1,7 @@
-import { PrismaClient } from '@prisma/client'
+import type { PrismaClient } from '@prisma/client'
 
-import { ServiceRepository } from '@/domain/it-manager/application/repositories/service-repository'
-import { Service, ServiceTypes } from '@/domain/it-manager/enterprise/entities/service'
+import type { ServiceRepository } from '@/domain/it-manager/application/repositories/service-repository'
+import type { Service, ServiceTypes } from '@/domain/it-manager/enterprise/entities/service'
 
 import { MapServiceType, PrismaServiceMapper } from '../mappers/prisma-services-mapper'
 

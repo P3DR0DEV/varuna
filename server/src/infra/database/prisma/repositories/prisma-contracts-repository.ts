@@ -1,7 +1,7 @@
-import { PrismaClient } from '@prisma/client'
+import type { PrismaClient } from '@prisma/client'
 
-import { ContractRepository } from '@/domain/it-manager/application/repositories/contract-repository'
-import { Contract, ContractStatus, ContractTypes } from '@/domain/it-manager/enterprise/entities/contract'
+import type { ContractRepository } from '@/domain/it-manager/application/repositories/contract-repository'
+import type { Contract, ContractStatus, ContractTypes } from '@/domain/it-manager/enterprise/entities/contract'
 
 import { MapContractStatus, MapContractType, PrismaContractsMapper } from '../mappers/prisma-contracts-mapper'
 

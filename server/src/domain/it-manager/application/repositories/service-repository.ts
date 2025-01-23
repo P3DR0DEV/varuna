@@ -1,4 +1,4 @@
-import { Service, ServiceTypes } from '@/domain/it-manager/enterprise/entities/service'
+import type { Service, ServiceTypes } from '@/domain/it-manager/enterprise/entities/service'
 
 export interface ServiceRepository {
   findMany(type?: ServiceTypes): Promise<Service[]>

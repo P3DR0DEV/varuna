@@ -1,7 +1,7 @@
-import { PrismaClient } from '@prisma/client'
+import type { PrismaClient } from '@prisma/client'
 
-import { UsersRepository } from '@/domain/it-manager/application/repositories/users-repository'
-import { User } from '@/domain/it-manager/enterprise/entities/user'
+import type { UsersRepository } from '@/domain/it-manager/application/repositories/users-repository'
+import type { User } from '@/domain/it-manager/enterprise/entities/user'
 
 import { PrismaUsersMapper } from '../mappers/prisma-users-mapper'
 

@@ -1,4 +1,4 @@
-import { Prisma, Workstation as PrismaWorkstation } from '@prisma/client'
+import type { Prisma, Workstation as PrismaWorkstation } from '@prisma/client'
 
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Workstation } from '@/domain/it-manager/enterprise/entities/workstation'

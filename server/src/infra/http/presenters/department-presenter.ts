@@ -1,6 +1,6 @@
 import z from 'zod'
 
-import { Department } from '@/domain/it-manager/enterprise/entities/department'
+import type { Department } from '@/domain/it-manager/enterprise/entities/department'
 
 export class DepartmentPresenter {
   static toHttp(department: Department) {

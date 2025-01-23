@@ -1,6 +1,6 @@
 import z from 'zod'
 
-import { Printer } from '@/domain/it-manager/enterprise/entities/printer'
+import type { Printer } from '@/domain/it-manager/enterprise/entities/printer'
 
 export class PrinterPresenter {
   static toHttp(printer: Printer) {

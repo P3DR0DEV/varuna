@@ -1,7 +1,7 @@
-import { Mobile as PrismaMobile, MOBILE_TYPES, Prisma } from '@prisma/client'
+import type { MOBILE_TYPES, Prisma, Mobile as PrismaMobile } from '@prisma/client'
 
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { Mobile, MobileTypes } from '@/domain/it-manager/enterprise/entities/mobile'
+import { Mobile, type MobileTypes } from '@/domain/it-manager/enterprise/entities/mobile'
 import { Phone } from '@/domain/it-manager/enterprise/entities/value-objects/phone'
 import { Slug } from '@/domain/it-manager/enterprise/entities/value-objects/slug'
 export class PrismaMobilesMapper {

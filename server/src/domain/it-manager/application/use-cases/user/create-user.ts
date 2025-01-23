@@ -1,14 +1,14 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { BadRequest, BadRequestError } from '@/core/errors/bad-request'
-import { NotFound, NotFoundError } from '@/core/errors/not-found'
-import { Either, failure, success } from '@/core/types/either'
-import { UseCase } from '@/core/use-cases/use-case'
+import { BadRequest, type BadRequestError } from '@/core/errors/bad-request'
+import { NotFound, type NotFoundError } from '@/core/errors/not-found'
+import { type Either, failure, success } from '@/core/types/either'
+import type { UseCase } from '@/core/use-cases/use-case'
 import { User } from '@/domain/it-manager/enterprise/entities/user'
 import { Phone } from '@/domain/it-manager/enterprise/entities/value-objects/phone'
 
-import { DepartmentRepository } from '../../repositories/department-repository'
-import { UsersRepository } from '../../repositories/users-repository'
-import { WorkstationRepository } from '../../repositories/workstation-repository'
+import type { DepartmentRepository } from '../../repositories/department-repository'
+import type { UsersRepository } from '../../repositories/users-repository'
+import type { WorkstationRepository } from '../../repositories/workstation-repository'
 
 type CreateUserUseCaseResponse = Either<BadRequestError | NotFoundError, { user: User }>
 

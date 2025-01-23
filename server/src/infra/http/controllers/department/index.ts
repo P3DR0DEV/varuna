@@ -1,4 +1,4 @@
-import { FastifyInstance } from 'fastify'
+import type { FastifyInstance } from 'fastify'
 
 import { addChiefToDepartment } from './add-chief-to-department'
 import { createDepartment } from './create-department'

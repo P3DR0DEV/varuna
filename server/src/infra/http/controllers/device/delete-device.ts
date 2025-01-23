@@ -1,5 +1,5 @@
-import { FastifyInstance } from 'fastify'
-import { ZodTypeProvider } from 'fastify-type-provider-zod'
+import type { FastifyInstance } from 'fastify'
+import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 
 import { errors } from '../_errors'
 import { deleteDeviceUseCase } from './factories/make-delete-device'

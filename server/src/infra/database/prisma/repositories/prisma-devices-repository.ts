@@ -1,7 +1,7 @@
-import { PrismaClient } from '@prisma/client'
+import type { PrismaClient } from '@prisma/client'
 
-import { DeviceRepository } from '@/domain/it-manager/application/repositories/device-repository'
-import { Device, DeviceProps } from '@/domain/it-manager/enterprise/entities/device'
+import type { DeviceRepository } from '@/domain/it-manager/application/repositories/device-repository'
+import type { Device, DeviceProps } from '@/domain/it-manager/enterprise/entities/device'
 
 import { PrismaDevicesMapper } from '../mappers/prisma-devices-mapper'
 

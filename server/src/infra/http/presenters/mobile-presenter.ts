@@ -1,6 +1,6 @@
 import z from 'zod'
 
-import { Mobile } from '@/domain/it-manager/enterprise/entities/mobile'
+import type { Mobile } from '@/domain/it-manager/enterprise/entities/mobile'
 
 export class MobilePresenter {
   static toHttp(mobile: Mobile) {

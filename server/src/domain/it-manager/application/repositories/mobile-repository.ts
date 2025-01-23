@@ -1,4 +1,4 @@
-import { Mobile, MobileTypes } from '@/domain/it-manager/enterprise/entities/mobile'
+import type { Mobile, MobileTypes } from '@/domain/it-manager/enterprise/entities/mobile'
 
 export interface MobileRepository {
   findMany(type?: MobileTypes | null): Promise<Mobile[]>

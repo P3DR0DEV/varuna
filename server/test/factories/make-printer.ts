@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker'
-import { PrismaClient } from '@prisma/client'
+import type { PrismaClient } from '@prisma/client'
 
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { Printer, PrinterProps } from '@/domain/it-manager/enterprise/entities/printer'
+import type { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Printer, type PrinterProps } from '@/domain/it-manager/enterprise/entities/printer'
 import { Slug } from '@/domain/it-manager/enterprise/entities/value-objects/slug'
 import { PrismaPrintersMapper } from '@/infra/database/prisma/mappers/prisma-printers-mapper'
 

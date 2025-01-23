@@ -1,11 +1,11 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { BadRequest, BadRequestError } from '@/core/errors/bad-request'
-import { Either, failure, success } from '@/core/types/either'
-import { UseCase } from '@/core/use-cases/use-case'
+import { BadRequest, type BadRequestError } from '@/core/errors/bad-request'
+import { type Either, failure, success } from '@/core/types/either'
+import type { UseCase } from '@/core/use-cases/use-case'
 import { Computer } from '@/domain/it-manager/enterprise/entities/computer'
 import { Slug } from '@/domain/it-manager/enterprise/entities/value-objects/slug'
 
-import { ComputerRepository } from '../../repositories/computer-repository'
+import type { ComputerRepository } from '../../repositories/computer-repository'
 
 type CreateComputerUseCaseProps = {
   hostname: string

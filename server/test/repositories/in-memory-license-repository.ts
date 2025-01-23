@@ -1,5 +1,5 @@
-import { LicenseRepository } from '@/domain/it-manager/application/repositories/license-repository'
-import { License } from '@/domain/it-manager/enterprise/entities/license'
+import type { LicenseRepository } from '@/domain/it-manager/application/repositories/license-repository'
+import type { License } from '@/domain/it-manager/enterprise/entities/license'
 
 export class InMemoryLicenseRepository implements LicenseRepository {
   public items: License[] = []

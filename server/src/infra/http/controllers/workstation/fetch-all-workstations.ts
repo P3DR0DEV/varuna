@@ -1,5 +1,5 @@
-import { FastifyInstance } from 'fastify'
-import { ZodTypeProvider } from 'fastify-type-provider-zod'
+import type { FastifyInstance } from 'fastify'
+import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 
 import { WorkstationPresenter } from '../../presenters/workstation-presenter'
 import { errors } from '../_errors'
@@ -12,7 +12,7 @@ export async function fetchAllWorkstations(app: FastifyInstance) {
     {
       schema: fetchAllWorkstationsSchema,
     },
-    async (request, reply) => {
+    async (_request, reply) => {
       const result = await fetchAllWorkstationsUseCase.execute()
 
       if (result.isFailure()) {
