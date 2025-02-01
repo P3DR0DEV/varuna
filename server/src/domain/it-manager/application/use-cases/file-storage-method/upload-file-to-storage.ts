@@ -5,13 +5,14 @@ import { errors } from '@/infra/http/controllers/_errors'
 import type { FileStorageMethodRepository } from '../../repositories/file-storage-method-repository'
 import type { UsersRepository } from '../../repositories/users-repository'
 import { UploadFileUseCase } from '../uploads/file-storage'
+import type { BadRequestError } from '@/core/errors/bad-request'
 
 interface UploadFileToStorageUseCaseProps {
   userId: string
   file: File
 }
 
-type UploadFileToStorageUseCaseResponse = Either<NotFoundError | unknown, string>
+type UploadFileToStorageUseCaseResponse = Either<NotFoundError | BadRequestError | Error, string>
 
 export class UploadFileToStorageUseCase {
   constructor(

@@ -19,7 +19,16 @@ export async function createContract(app: FastifyInstance) {
       const createUploads = await createUploadsUseCase.execute({ file, userId: userId.value })
 
       if (createUploads.isFailure()) {
-        throw new errors.InternalServerError('Unexpected error')
+        const { name } = createUploads.reason
+
+        switch (name) {
+          case 'BadRequestError':
+            throw new errors.BadRequestError(createUploads.reason.message)
+          case 'NotFoundError':
+            throw new errors.NotFoundError(createUploads.reason.message)
+          default:
+            throw new errors.InternalServerError('Unexpected error')
+        }
       }
 
       const fileName = createUploads.value

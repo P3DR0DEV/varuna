@@ -22,7 +22,8 @@ interface UploadFileToR2UseCaseProps {
 type UploadFileUseCaseResponse = Either<BadRequestError, string>
 
 export class UploadFileUseCase {
-  static async uploadLocalFile(file: File, name: string): Promise<UploadFileUseCaseResponse> {
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  static async uploadLocalFile(file: File | any, name: string): Promise<UploadFileUseCaseResponse> {
     // Create the uploads directory if it doesn't exist
     const uploadsDir = path.join(process.cwd(), 'uploads')
 
@@ -30,14 +31,28 @@ export class UploadFileUseCase {
       mkdirSync(uploadsDir)
     }
 
-    // Generate a unique file name
     const random = Math.floor(Math.random() * 1000000)
+    if (file instanceof File) {
+      // Generate a unique file name
+      const fileName = `contract-${random}_${Slug.createFromText(name).value}.${file.type.split('/')[1]}`
+
+      const filePath = path.join(uploadsDir, fileName)
+
+      // Use toBuffer() to get the file's data as a buffer
+      const fileBuffer = Buffer.from(await file.arrayBuffer())
+
+      // Write the buffer directly to the file system
+      writeFileSync(filePath, fileBuffer)
+
+      return success(fileName)
+    }
+
     const fileName = `contract-${random}_${Slug.createFromText(name).value}.${file.type.split('/')[1]}`
 
     const filePath = path.join(uploadsDir, fileName)
 
     // Use toBuffer() to get the file's data as a buffer
-    const fileBuffer = Buffer.from(await file.arrayBuffer())
+    const fileBuffer = Buffer.from(await file.toBuffer())
 
     // Write the buffer directly to the file system
     writeFileSync(filePath, fileBuffer)
