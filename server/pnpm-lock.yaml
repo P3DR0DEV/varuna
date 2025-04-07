@@ -32,6 +32,9 @@ importers:
       '@prisma/client':
         specifier: 5.20.0
         version: 5.20.0(prisma@5.20.0)
+      '@types/snmp-native':
+        specifier: ^1.2.5
+        version: 1.2.5
       axios:
         specifier: ^1.7.7
         version: 1.7.7
@@ -44,6 +47,9 @@ importers:
       fastify-plugin:
         specifier: ^4.5.1
         version: 4.5.1
+      snmp-native:
+        specifier: ^1.2.0
+        version: 1.2.0
       vitest:
         specifier: ^2.1.1
         version: 2.1.1(@types/node@20.16.6)
@@ -1114,6 +1120,9 @@ packages:
   '@types/node@20.16.6':
     resolution: {integrity: sha512-T7PpxM/6yeDE+AdlVysT62BX6/bECZOmQAgiFg5NoBd5MQheZ3tzal7f1wvzfiEcmrcJNRi2zRr2nY2zF+0uqw==}
 
+  '@types/snmp-native@1.2.5':
+    resolution: {integrity: sha512-vNSeg/ii750wicwGxZgiK4N7XE7jOqJd02O1SYRopFdeL/zjEy5lVLBXouAAbyvwGmAgMBJYZy8cvOr85m31hg==}
+
   '@types/superagent@8.1.9':
     resolution: {integrity: sha512-pTVjI73witn+9ILmoJdajHGW2jkSaOzhiFYF1Rd3EQ94kymLqB9PjD9ISg7WaALC7+dCHT0FGe9T2LktLq/3GQ==}
 
@@ -1961,6 +1970,9 @@ packages:
   signal-exit@4.1.0:
     resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
     engines: {node: '>=14'}
+
+  snmp-native@1.2.0:
+    resolution: {integrity: sha512-JIyuLX3bQmuAI4gHztHSQd3M/M2hqgLhiHBZYEk8YnYRJ2ooxqwON4gUQfgp/WCZVDca4tIX3vFJgv6lz5iY+g==}
 
   sonic-boom@4.1.0:
     resolution: {integrity: sha512-NGipjjRicyJJ03rPiZCJYjwlsuP2d1/5QUviozRXC7S3WdVWNK5e3Ojieb9CCyfhq2UC+3+SRd9nG3I2lPRvUw==}
@@ -3589,6 +3601,10 @@ snapshots:
     dependencies:
       undici-types: 6.19.8
 
+  '@types/snmp-native@1.2.5':
+    dependencies:
+      '@types/node': 20.16.6
+
   '@types/superagent@8.1.9':
     dependencies:
       '@types/cookiejar': 2.1.5
@@ -4463,6 +4479,8 @@ snapshots:
   signal-exit@3.0.7: {}
 
   signal-exit@4.1.0: {}
+
+  snmp-native@1.2.0: {}
 
   sonic-boom@4.1.0:
     dependencies:
