@@ -1,51 +1,108 @@
-# Varuna - IT Manager
+# Varuna 🛠️
 
-A funcionalidade core da aplicação é o armazenamento e manipulação de dados relacionados a TI de uma pequena/média organização.
+**Varuna** é uma API backend para **gerenciamento de ativos de TI** (equipamentos, responsáveis e histórico), voltada para pequenas e médias empresas.
 
-# Sobre o projeto
+O projeto foi desenvolvido com foco em **boas práticas de arquitetura, regras de negócio e escalabilidade**, simulando um sistema real utilizado em ambiente corporativo.
 
-Varuna é um projeto que tem como principal função a gerência de TI de pequenas de médias empresas, onde o tecnico poderá cadastrar as suas necessidades, maquinas, e outros tipos de equipamentos. 
-Este é um projeto ambicioso em que estou tentando aplicar os conceitos que aprendi durante a minha carreira sendo um Help Desk, Analista de Sistemas e Redes, e desenvolvedor. Em um futuro um pouco distante busco aperfeiçoar o projeto para que ele também sirva como um sistema de monitoramento de aplicações e servidores da empresa, no qual o tecnico poderá cadastrar o que ele gostaria de monitorar, utilizando o protocolo snmp, algo próximo ao que o Zabbix faz. 
-Também quero fazer com que este projeto seja instânciado via cmd e com uma CLI intuitiva.
+---
 
-O projeto atualmente conta com o Crud básico dos equipamentos que normalmente compõe o dia-a-dia de um tecnico de TI, rotas documentadas pelo Swagger (/docs), Clean Arch e TDD.
+## 🧠 Visão Geral
 
-# Tecnologias utilizadas
-## Back end
-- TypeScript
-- Fastify
-- Prisma
+A aplicação permite o controle centralizado de equipamentos de TI, facilitando a gestão, rastreabilidade e organização de ativos dentro da empresa.
+
+O backend foi estruturado utilizando princípios de **Clean Architecture**, garantindo separação de responsabilidades, facilidade de manutenção e evolução do sistema.
+
+---
+
+## 🚀 Funcionalidades
+
+- Cadastro, listagem, atualização e remoção de equipamentos
+- Associação de equipamentos a responsáveis
+- Validações de regras de negócio
+- Documentação automática da API com Swagger
+- Estrutura preparada para testes automatizados
+- Arquitetura desacoplada e orientada a domínio
+
+---
+
+## 🏗️ Arquitetura
+
+O projeto segue os princípios da **Clean Architecture**, com separação clara entre:
+
+- **Domain**: regras de negócio e entidades
+- **Use Cases**: lógica da aplicação
+- **Infrastructure**: banco de dados, ORM e serviços externos
+- **Interface (Controllers)**: camada HTTP e rotas
+
+Essa abordagem facilita testes, manutenção e futuras mudanças tecnológicas.
+
+---
+
+## 🛠 Tecnologias Utilizadas
+
+- **Node.js**
+- **TypeScript**
+- **Fastify**
+- **Prisma ORM**
+- **PostgreSQL**
+- **Swagger (OpenAPI)**
+- **Docker** (ambiente de desenvolvimento)
+
+---
+
+## 📑 Documentação da API
+
+Após iniciar o projeto, a documentação estará disponível em:
+GET /docs
+
+Através do Swagger é possível visualizar e testar todos os endpoints da API.
+
+---
+
+## ▶️ Como Executar o Projeto
+
+### Pré-requisitos
+- Node.js
+- Docker e Docker Compose (opcional, recomendado)
 - PostgreSQL
-- Clean Arch
-- TDD
 
-
-# Como executar o projeto
-
-## Back end
-Pré-requisitos: Node LTS e Docker
+### Passos
 
 ```bash
-# clonar repositório
-git clone https://github.com/p3dr0dev/varuna
+# Clonar o repositório
+git clone https://github.com/P3DR0DEV/varuna.git
 
-# entrar na pasta do projeto back end
-cd server
+# Acessar o projeto
+cd varuna
 
-# baixar os pacotes necessários
-yarn i
-npm i
-pnpm i (minha preferência)
+# Instalar dependências
+npm install
 
-# executar a instância do docker e migrations
-docker compose up -d
-pnpm db:migrate
+# Configurar variáveis de ambiente
+cp .env.example .env
 
-# executar o projeto
-pnpm dev
+# Executar as migrations
+npx prisma migrate dev
 
+# Iniciar a aplicação
+npm run dev
 ```
+## 🧪 Testes
 
-# Autor
+O projeto foi estruturado para suportar testes automatizados, seguindo práticas de TDD.
 
-[Pedro Henrique Campos Mendes](https://www.linkedin.com/in/pedro-cmendes)
+```bash
+npm run test
+```
+## 📄 Contexto
+
+Este projeto foi desenvolvido com o objetivo de demonstrar habilidades em backend Node.js, incluindo:
+
+modelagem de domínio
+
+arquitetura limpa
+
+APIs REST
+
+boas práticas de código e organização
+
